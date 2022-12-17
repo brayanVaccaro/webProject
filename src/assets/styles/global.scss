@@ -1,0 +1,22 @@
+$primario: red;
+
+body {
+    background-color: $primario;
+}
+
+#player {
+    display: flex;
+    align-items: center;
+}
+
+video {
+    margin: 0px;
+    background: rgb(0, 0, 0);
+    width: 50%;
+    height: 50%;
+    float: left;
+    // display: block;
+    // position: relative;
+    padding: 0px;
+    outline: none;
+}
