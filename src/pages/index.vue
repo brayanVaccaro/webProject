@@ -1,3 +1,23 @@
+<script lang="ts">
+import { Persona } from '../types'
+export default defineComponent({
+    data() {
+        return {
+            persona: [] as Persona[]
+        }
+    },
+    methods: {
+        getPersona() {
+            $fetch("/api/dbLinking")
+            .then((data) => {this.persona = data as Persona[]})
+        }
+    },
+    mounted() {
+        this.getPersona();
+    }
+})
+</script>
+
 <template>
     <div id="index">
         <!-- breve descrizione dell'hotel -->
@@ -12,16 +32,19 @@
             <div class="flexbox-index">
                 <table>
                     <thead>
-                        <th>idStanza</th>
-                        <th>Numero</th>
-                        <th>Prezzo</th>
-                        <th>img</th>
-                        <th>utente</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>CartaID</th>
+                        <th>Data Nascita</th>
+                        <th>Bracciale</th>
                     </thead>
                     <tbody>
-                        <tr>
-
-                            <td>ciao!</td>
+                        <tr v-for="x in persona"> 
+                            <td> {{x.Nome}}</td>
+                            <td> {{x.Cognome}}</td>
+                            <td> {{x.CartaId}}</td>
+                            <td> {{x.DataNascita}}</td>
+                            <td> {{x.Bracciale}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -57,12 +80,14 @@
     background-color: blue;
     margin: 1% 1% 0;
 }
-table, th, td {
-    border: 1px solid black;
+table {
     border-collapse: collapse;
+    margin: 1% 10%;
 }
 
-td {
+th, td {
+    
+    border: 1px solid black;
     text-align: center;
 }
 </style> 

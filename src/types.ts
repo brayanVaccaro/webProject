@@ -5,3 +5,11 @@ interface Stanza {
     imgStanza:any,
     utenti: any
 }
+
+export interface Persona {
+    Nome: string,
+    Cognome: string,
+    CartaId: string,
+    DataNascita: string,
+    Bracciale: string
+}
