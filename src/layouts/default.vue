@@ -28,3 +28,23 @@
 
 <script>
 </script>
+
+<style lang="scss" scoped>
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(26, 176, 196);
+}
+li {
+    list-style: none;
+    // margin: auto;
+
+}
+
+button {
+    padding: 1%;
+    margin: 2% 5%;
+    // background-color: black;
+}
+</style>

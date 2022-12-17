@@ -3,10 +3,10 @@
         <section id="login">
             <h1>LOGIN</h1>
             <div class="flexbox-login">
-                <th>Username</th>
+                <b>Username</b>
                 <input type="text" placeholder="username">
 
-                <th>Password</th>
+                <b>Password</b>
                 <input type="text" placeholder="password">
                 <button id="invioLogin">
                     <NuxtLink to="/">INIZIA QUI</NuxtLink>
@@ -20,3 +20,35 @@
         </section>
     </div>
 </template>
+
+<style lang="scss" scoped>
+
+h1 {
+    text-align: center;
+    margin: 1%;
+}
+
+
+
+input {
+    margin: 0;
+}
+
+.flexbox-login {
+    padding: 0 25%;
+    margin: 1% 0% 1% 1%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+#invioLogin {
+    display: block;
+    width: 30%;
+    margin: 1% 0;
+}
+
+#notRegistered {
+    padding: 0;
+}
+</style>
