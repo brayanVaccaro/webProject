@@ -1,23 +1,22 @@
 <template>
     <nav id="nav">
         <button>
-                <NuxtLink to="/">Home</NuxtLink>
+            <NuxtLink to="/">Home</NuxtLink>
+        </button>
+
+        <button>
+            <NuxtLink to="/login">Login</NuxtLink>
         </button>
         <button>
-            <li>
-                <NuxtLink to="/login">Login</NuxtLink>
-            </li>
+            <NuxtLink to="/login">Stanze disponibili</NuxtLink>
         </button>
+
         <button>
-            <li>
-                <NuxtLink to="/login">Prova1</NuxtLink>
-            </li>
+
+
+            <NuxtLink to="/login">Recensioni</NuxtLink>
         </button>
-        <button>
-            <li role="button">
-                <NuxtLink to="/login">Prova2</NuxtLink>
-            </li>
-        </button>
+
     </nav>
     <main id="centerPage">
         <slot></slot>
@@ -34,19 +33,25 @@
 
 nav {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     background-color: rgb(26, 176, 196);
-}
-li {
-    list-style: none;
-    // margin: auto;
-
+    // margin: 1%;
+    padding: 1%;
 }
 
 button {
-    padding: 1%;
-    margin: 2% 5%;
-    // cursor: pointer;
-    // background-color: black;
+    cursor: pointer;
+    list-style: none;
+    margin: 1% auto;
+    width: 20%;
+}
+
+a {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-size: medium;
 }
 </style>
