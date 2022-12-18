@@ -30,6 +30,9 @@
 </script>
 
 <style lang="scss" scoped>
+#centerPage {
+    background-color: rgb(133, 207, 203);
+}
 
 nav {
     display: flex;

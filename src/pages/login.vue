@@ -6,7 +6,9 @@
             <div class="signup">
                 <form>
                     <label for="chk" aria-hidden="true">Sign up</label>
-                    <input type="text" name="txt" placeholder="User name" required="true">
+                    <input type="text" name="Name" placeholder="Name" required="true">
+                    <input type="text" name="Surname" placeholder="Surname" required="true">
+                    <input type="text" name="txt" placeholder="username" required="true">
                     <input type="email" name="email" placeholder="Email" required="true">
                     <input type="password" name="pswd" placeholder="Password" required="true">
                     <button>Sign up</button>
@@ -16,8 +18,8 @@
             <div class="login">
                 <form>
                     <label for="chk" aria-hidden="true">Login</label>
-                    <input type="email" name="email" placeholder="Email" required="">
-                    <input type="password" name="pswd" placeholder="Password" required="">
+                    <input type="email" name="email" placeholder="Email" required="true">
+                    <input type="password" name="pswd" placeholder="Password" required="true">
                     <button>Login</button>
                 </form>
             </div>
@@ -26,24 +28,15 @@
 </template>
 
 <style lang="scss" scoped>
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: 'Jost', sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-}
+
 section {
     display: flex;
     justify-content: center;
     margin: 2% auto;
 }
 .enter {
-    width: 350px;
-    height: 500px;
+    width: 450px;
+    height: 600px;
     background: red;
     overflow: hidden;
     // background: 
@@ -67,7 +60,7 @@ label {
     font-size: 2.3em;
     justify-content: center;
     display: flex;
-    margin: 60px;
+    margin: 45px;
     font-weight: bold;
     cursor: pointer;
     transition: .5s ease-in-out;
@@ -109,20 +102,21 @@ button:hover {
 }
 
 .login {
-    height: 460px;
+    height: 550px;
     background: #eee;
     border-radius: 60% / 10%;
-    transform: translateY(-180px);
-    transition: .8s ease-in-out;
+    transform: translateY(-160px);
+    transition: .5s ease-in-out;
 }
 
 .login label {
     color: #573b8a;
     transform: scale(.6);
+    padding-top: 3%;
 }
 
 #chk:checked~.login {
-    transform: translateY(-500px);
+    transform: translateY(-580px);
 }
 
 #chk:checked~.login label {
