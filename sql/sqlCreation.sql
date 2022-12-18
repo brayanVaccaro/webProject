@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS `astra`.`utenti` (
   `username` VARCHAR(100) NOT NULL,
   `password` VARCHAR(512) NOT NULL,
   `nome` VARCHAR(45) NOT NULL,
+  `cognome` VARCHAR(45) NOT NULL,
+  `dataDiNascita` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idUtenti`))
 ENGINE = InnoDB;
 
