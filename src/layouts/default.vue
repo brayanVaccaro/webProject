@@ -1,9 +1,7 @@
 <template>
     <nav id="nav">
         <button>
-            <li>
                 <NuxtLink to="/">Home</NuxtLink>
-            </li>
         </button>
         <button>
             <li>
@@ -48,6 +46,7 @@ li {
 button {
     padding: 1%;
     margin: 2% 5%;
+    // cursor: pointer;
     // background-color: black;
 }
 </style>

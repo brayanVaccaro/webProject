@@ -1,15 +1,15 @@
 <script lang="ts">
-import { Persona } from '../types'
+import { Stanza } from '../types'
 export default defineComponent({
     data() {
         return {
-            persona: [] as Persona[]
+            stanza: [] as Stanza[]
         }
     },
     methods: {
         getPersona() {
             $fetch("/api/dbLinking")
-                .then((data) => { this.persona = data as Persona[] })
+                .then((data) => { this.stanza = data as Stanza[] })
         }
     },
     mounted() {
@@ -35,6 +35,21 @@ export default defineComponent({
             </div>
         </section>
     </div>
+    <table>
+        <thead>
+            <td>numero stanza</td>
+            <td>prezzo a notte</td>
+            <td>immagine</td>
+        </thead>
+        <tbody>
+            <tr v-for="x in stanza">
+                <td>{{x.numeroStanza}}</td>
+                <td>{{x.prezzoStanzaAnotte}}</td>
+                <td> <img :src="'img/' + x.imgStanza"></td>
+            
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <style lang="scss" scoped>
@@ -44,7 +59,12 @@ export default defineComponent({
     padding-bottom: 1%;
     // background-color: red;
 }
-
+img {
+    width: 100px;
+    height: 100px;
+    border: 1px solid red;
+    border-radius: 10px;
+}
 //INDEX PAGE
 .grid-container {
     display: grid;

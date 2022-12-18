@@ -116,7 +116,7 @@ button:hover {
 }
 
 #chk:checked~.login {
-    transform: translateY(-580px);
+    transform: translateY(-570px);
 }
 
 #chk:checked~.login label {
