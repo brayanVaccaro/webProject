@@ -16,8 +16,8 @@ export interface Persona {
 }
 
 export interface Utente {
-    idautore: number
+    idUtente: number
     username: string
     nome: string
-    argomenti: string
+    prenotazione: string
 }

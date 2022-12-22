@@ -34,7 +34,7 @@ export default defineEventHandler(async function(event) {
 
   // Estrae i dati per il nuovo utente
   const [results] = await connection.execute(
-    `SELECT idautore, username, nome, "" AS argomenti FROM utenti WHERE username=?`,
+    `SELECT idUtente, username, nome, "" AS argomenti FROM utenti WHERE username=?`,
     [username]
   )
   const user = (results as any)[0] as any

@@ -13,13 +13,12 @@ export default defineEventHandler(async function(event) {
   // Esegue la query al database per ottenere i dati dell'utente in base allo username
   const connection = await createConnection()
   const [results] = await connection.execute(
-    `SELECT idautore, username, nome, password, GROUP_CONCAT(DISTINCT nomecategoria) as argomenti
-     FROM autore
-     LEFT OUTER JOIN articolo ON autore=idautore
-     LEFT OUTER JOIN articolo_ha_categoria ON idarticolo=articolo
-     LEFT OUTER JOIN categoria ON categoria=idcategoria
+    `SELECT idUtenti, username, nome, password, GROUP_CONCAT(DISTINCT idPrenotazione) as prenotazione
+     FROM utenti
+     LEFT OUTER JOIN articolo ON utenti=idUtenti
+     LEFT OUTER JOIN prenotazione ON prenotazione=idPrenotazione
      WHERE username=?
-     GROUP BY idautore, username, nome, password;`,
+     GROUP BY idUtenti, username, nome, password;`,
     [username]
   )
 
