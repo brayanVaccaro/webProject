@@ -7,15 +7,15 @@
         <button>
             <NuxtLink to="/login">Login</NuxtLink>
         </button>
+
         <button>
-            <NuxtLink to="/login">Stanze disponibili</NuxtLink>
+            <NuxtLink to="/rooms">Stanze disponibili</NuxtLink>
         </button>
 
         <button>
-
-
             <NuxtLink to="/login">Recensioni</NuxtLink>
         </button>
+        
 
     </nav>
     <main id="centerPage">
@@ -29,6 +29,7 @@
 <style lang="scss" scoped>
 #centerPage {
     background-color: rgb(133, 207, 203);
+    // display: flex;
 }
 
 nav {

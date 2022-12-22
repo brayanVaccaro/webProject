@@ -3,7 +3,8 @@ export interface Stanza {
     numeroStanza: string,
     prezzoStanzaAnotte: string,
     imgStanza:any,
-    utenti: any
+    utenti: any,
+    Descrizione: string
 }
 
 export interface Persona {
