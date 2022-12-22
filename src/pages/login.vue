@@ -1,3 +1,48 @@
+<script lang="ts">
+// Applica a questa pagina il middleware creato in ~/middleware/require-logout
+// Vedi:
+// - https://nuxt.com/docs/api/utils/define-page-meta
+definePageMeta({
+  middleware: ["require-logout"]
+})
+
+export default defineComponent({
+  data() {
+    return {
+      loginUsername: "",
+      loginPassword: "",
+      registerUsername: "",
+      registerPassword: "",
+      registerName: ""
+    }
+  },
+  methods: {
+    onLoginSubmit() {
+      $fetch("/api/auth/login", {
+        method: "POST",
+        body: {
+          username: this.loginUsername,
+          password: this.loginPassword,
+        }
+      })
+        .then(() => window.location.href = "/")
+        .catch((e) => alert(e))
+    },
+    onRegisterSubmit() {
+      $fetch("/api/auth/register", {
+        method: "POST",
+        body: {
+          username: this.registerUsername,
+          password: this.registerPassword,
+          nome: this.registerName
+        }
+      })
+        .then(() => window.location.href = "/")
+        .catch((e) => alert(e))
+    }
+  }
+})
+</script>
 <template>
     <section>
         <div class="enter">
@@ -16,10 +61,11 @@
             </div>
 
             <div class="login">
-                <form>
+                <form @submit.prevent="onLoginSubmit">
                     <label for="chk" aria-hidden="true">Login</label>
                     <input type="email" name="email" placeholder="Email" required="true">
-                    <input type="password" name="pswd" placeholder="Password" required="true">
+                    <input type="text" name="username" placeholder="Username" required="true" v-model="loginUsername">
+                    <input type="password" name="pswd" placeholder="Password" required="true" v-model="loginPassword">
                     <button>Login</button>
                 </form>
             </div>

@@ -1,4 +1,4 @@
-import { createConnection } from "~/server/utilis/db";
+import { createConnection } from "~~/src/server/utils/db";
 
 export default defineEventHandler (async function() {
  const connection = await createConnection()
