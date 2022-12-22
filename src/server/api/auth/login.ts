@@ -18,7 +18,7 @@ export default defineEventHandler(async function(event) {
      LEFT OUTER JOIN articolo ON autore=idautore
      LEFT OUTER JOIN articolo_ha_categoria ON idarticolo=articolo
      LEFT OUTER JOIN categoria ON categoria=idcategoria
-     WHERE username=? AND attivo=1
+     WHERE username=?
      GROUP BY idautore, username, nome, password;`,
     [username]
   )

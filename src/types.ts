@@ -2,7 +2,7 @@ export interface Stanza {
     idStanze: number,
     numeroStanza: string,
     prezzoStanzaAnotte: string,
-    imgStanza:any,
+    imgStanza: any,
     utenti: any,
     Descrizione: string
 }
@@ -13,4 +13,11 @@ export interface Persona {
     CartaId: string,
     DataNascita: string,
     Bracciale: string
+}
+
+export interface Utente {
+    idautore: number
+    username: string
+    nome: string
+    argomenti: string
 }

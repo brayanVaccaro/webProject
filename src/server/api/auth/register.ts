@@ -9,11 +9,12 @@ export default defineEventHandler(async function(event) {
 
   // Estrae username e password dal body della richiesta
   const { username, password, nome } = await readBody(event)
+  console.log('dati utente' + username, password, nome)
 
   // Verifica che l'username sia disponibile
   const connection = await createConnection()
   const [users] = await connection.execute(
-    "SELECT username FROM autore WHERE username=?",
+    "SELECT username FROM utenti WHERE username=?",
     [username]
   )
   if ((users as any[]).length > 0) {
@@ -22,17 +23,18 @@ export default defineEventHandler(async function(event) {
 
   // Crea l'hash della password per non salvarla in chiaro
   const passwordHash = await bcrypt.hash(password, 10)
+  console.log('psw hash'+passwordHash)
 
   // Inserisce l'utente nel database
   await connection.execute(
-    `INSERT INTO autore (username, password, nome, attivo)
-     VALUES (?, ?, ?, 1)`,
+    `INSERT INTO utenti (username, password, nome)
+     VALUES (?, ?, ?)`,
     [username, passwordHash, nome]
   )
 
   // Estrae i dati per il nuovo utente
   const [results] = await connection.execute(
-    `SELECT idautore, username, nome, "" AS argomenti FROM autore WHERE username=?`,
+    `SELECT idautore, username, nome, "" AS argomenti FROM utenti WHERE username=?`,
     [username]
   )
   const user = (results as any)[0] as any

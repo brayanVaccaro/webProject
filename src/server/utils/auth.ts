@@ -1,6 +1,6 @@
 import { H3Event } from "h3"
 import jwt from "jsonwebtoken"
-import { Autore } from "~/types"
+import { Utente } from "~/types"
 
 const JWT_SECRET = "foo"
 const COOKIE_NAME = "access-token"
@@ -22,7 +22,7 @@ export function decodificaUtente(event: H3Event) {
   // Restituisce i dati dell'utente contenuti nell'access token, oppure null se il token è mancante o invalido
   if (!accessToken) return null
   try {
-    const user = jwt.verify(accessToken, JWT_SECRET) as Autore
+    const user = jwt.verify(accessToken, JWT_SECRET) as Utente
     return user
   } catch {
     return null
@@ -35,14 +35,14 @@ export function rimuoviUtente(event: H3Event) {
 }
 
 /** Blocca la richiesta se l'utente non ha effettuato il login */
-export function requireLogin(utente: Autore | null) {
+export function requireLogin(utente: Utente | null) {
   if (utente == null) {
     throw createError({ statusCode: 403, statusMessage: "Questa azione richiede il login" })
   }
 }
 
 /** Blocca la richiesta se l'utente ha effettuato il login */
-export function requireLogout(utente: Autore | null) {
+export function requireLogout(utente: Utente | null) {
   if (utente != null) {
     throw createError({ statusCode: 403, statusMessage: "Questa azione richiede il logout" })
   }
