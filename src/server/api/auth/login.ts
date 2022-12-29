@@ -3,28 +3,28 @@ import { codificaUtente, decodificaUtente, requireLogout } from "~/server/utils/
 import { createConnection } from "~/server/utils/db"
 
 export default defineEventHandler(async function(event) {
-  // Blocca la richiesta se l'utente ha già effettuato il login
+  // l'utente non può loggare due volte
   const utente = decodificaUtente(event)
   requireLogout(utente)
 
-  // Estrae username e password dal body della richiesta
+  // estraiamo username e password dal body
   const { username, password } = await readBody(event)
-
-  // Esegue la query al database per ottenere i dati dell'utente in base allo username
+  
+  //i dati dell'utente sono presi dal database in base allo username
   const connection = await createConnection()
   const [results] = await connection.execute(
     `SELECT idUtenti, username, nome, password, GROUP_CONCAT(DISTINCT idPrenotazione) as prenotazione
      FROM utenti
-     LEFT OUTER JOIN articolo ON utenti=idUtenti
+     LEFT OUTER JOIN stanze ON utenti=idUtenti
      LEFT OUTER JOIN prenotazione ON prenotazione=idPrenotazione
      WHERE username=?
-     GROUP BY idUtenti, username, nome, password;`,
+     GROUP BY idUtenti, username, nome, password;`, /*bloccati nel minuto 27 della lezione perche li giustamente dice siamo riusciti a far funzionare il login e noi ci da qualche errore con la query, pero almeno ho scoperto che il problema c'entra con la query prima ero disperso */
     [username]
   )
+    /*perche left outer join? perche altrimenti con i join impliciti se un utente non ha la categoria allora non lo troviamo*/
 
-  // Errore se l'utente non è stato trovato
   if (!Array.isArray(results) || results.length == 0) {
-    throw createError({ statusCode: 400, statusMessage: "Credenziali errate"})
+    throw createError({ statusCode: 400, statusMessage: "Credenziali errate"})/*messaggio di errore sempre uguale perche non vogliamo far sapere a un mal intenzionato che ha azzeccatto solo lo username rispetto a solo la password */
   }
 
   const user = results[0] as any
@@ -32,12 +32,11 @@ export default defineEventHandler(async function(event) {
   // Confronta l'hash della password fornita con quello nel database
   const passwordCorretta = await bcrypt.compare(password, user.password)
 
-  // Errore se la password è errata
   if (!passwordCorretta) {
     throw createError({ statusCode: 400, statusMessage: "Credenziali errate"})
-  }
+  }/*messaggio di errore sempre uguale perche non vogliamo far sapere a un mal intenzionato che ha azzeccatto solo lo username rispetto a solo la password */
 
-  // Rimuove la password dall'oggetto utente
+  // Rimuove la password dall'oggetto utente in modo che rimanga nel server
   delete user.password
 
   // Crea un JWT contenente i dati dell'utente e lo imposta come cookie

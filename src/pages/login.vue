@@ -56,6 +56,7 @@ export default defineComponent({
                     <input type="text" name="txt" placeholder="username" required="true">
                     <input type="email" name="email" placeholder="Email" required="true">
                     <input type="password" name="pswd" placeholder="Password" required="true">
+                    <input type="password" name="confirm-pswd" placeholder="Confirm Password" required="true">
                     <button>Sign up</button>
                 </form>
             </div>
@@ -63,7 +64,7 @@ export default defineComponent({
             <div class="login">
                 <form @submit.prevent="onLoginSubmit">
                     <label for="chk" aria-hidden="true">Login</label>
-                    <input type="email" name="email" placeholder="Email" required="true">
+                    <!-- <input type="email" name="email" placeholder="Email" required="true"> -->
                     <input type="text" name="username" placeholder="Username" required="true" v-model="loginUsername">
                     <input type="password" name="pswd" placeholder="Password" required="true" v-model="loginPassword">
                     <button>Login</button>
@@ -74,7 +75,6 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-
 section {
     display: flex;
     justify-content: center;

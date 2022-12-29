@@ -2,17 +2,16 @@ import { H3Event } from "h3"
 import jwt from "jsonwebtoken"
 import { Utente } from "~/types"
 
-const JWT_SECRET = "foo"
+const JWT_SECRET = "jfiowfwfwffjrf3rf3rfg" /*deve essere una stringa lunga e incomprensibile*/
 const COOKIE_NAME = "access-token"
 
 export function codificaUtente(event: H3Event, user: any) {
-  // Crea l'access token con JWT
-  const accessToken = jwt.sign(user, JWT_SECRET, { expiresIn: "1 day" })
-  // Imposta l'access token come cookie
+  const accessToken = jwt.sign(user, JWT_SECRET, { expiresIn: "1 day" })/*ogni giorno gli utenti devono fare il login */
+  //settiamo il cookie
   setCookie(event, COOKIE_NAME, accessToken, {
     httpOnly: true,
     sameSite: true,
-    // secure: true
+    secure: true
   })
 }
 
