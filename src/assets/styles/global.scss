@@ -3,6 +3,33 @@ $primario: rgb(255, 255, 255);
 body {
     background-color: $primario;
 }
+#centerPage {
+    background-color: rgb(199, 66, 66);
+    // display: flex;
+}
 
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: rgb(26, 176, 196);
+    // margin: 1%;
+    padding: 1%;
+}
+
+button {
+    cursor: pointer;
+    list-style: none;
+    margin: 1% auto;
+    width: 20%;
+}
+
+a {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-size: medium;
+}
 
 //LOGIN PAGE

@@ -115,6 +115,7 @@ li {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    margin-left: 20px;
 }
 
 .grid-item-tr {

@@ -50,13 +50,10 @@ export default defineComponent({
 
             <div class="signup">
                 <form>
-                    <label for="chk" aria-hidden="true">Sign up</label>
+                    <label for="chk" aria-hidden="true">Registrati</label>
                     <input type="text" name="Name" placeholder="Name" required="true">
-                    <input type="text" name="Surname" placeholder="Surname" required="true">
-                    <input type="text" name="txt" placeholder="username" required="true">
                     <input type="email" name="email" placeholder="Email" required="true">
                     <input type="password" name="pswd" placeholder="Password" required="true">
-                    <input type="password" name="confirm-pswd" placeholder="Confirm Password" required="true">
                     <button>Sign up</button>
                 </form>
             </div>
@@ -65,9 +62,10 @@ export default defineComponent({
                 <form @submit.prevent="onLoginSubmit">
                     <label for="chk" aria-hidden="true">Login</label>
                     <!-- <input type="email" name="email" placeholder="Email" required="true"> -->
-                    <input type="text" name="username" placeholder="Username" required="true" v-model="loginUsername">
+                    <input type="text" name="username" placeholder="Email" required="true" v-model="loginUsername">
                     <input type="password" name="pswd" placeholder="Password" required="true" v-model="loginPassword">
                     <button>Login</button>
+                    <p>Non ancora registrato?<a href="">Registrati</a></p>
                 </form>
             </div>
         </div>
@@ -79,10 +77,11 @@ section {
     display: flex;
     justify-content: center;
     margin: 2% auto;
+    background-color: white;
 }
 .enter {
     width: 450px;
-    height: 600px;
+    height: 500px;
     background: red;
     overflow: hidden;
     // background: 
