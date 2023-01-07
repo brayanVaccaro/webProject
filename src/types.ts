@@ -16,8 +16,10 @@ export interface Persona {
 }
 
 export interface Utente {
-    idUtente: number
-    username: string
-    nome: string
+    idUtente: number,
+    username: string,
+    nome: string,
+    cognome: string,
+    dataDiNascita: string,
     prenotazione: string
 }

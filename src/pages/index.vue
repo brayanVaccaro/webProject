@@ -3,48 +3,38 @@
         <!-- breve descrizione dell'hotel -->
         <!-- elenco delle stanze con le relative info -->
         <section id="contenutoStanza">
-            <div class="grid-container">
-                <div class="grid-item grid-item-1">Lorem ipsum dolor sit, amet consectetur adipisicing elit. At quidem excepturi a nobis quae architecto quod officia et vitae labore est ducimus alias dicta ex doloribus optio nihil eius, quia aliquam illum odit, eos culpa. Enim reprehenderit quos necessitatibus totam! Eligendi, repellendus nisi quos corporis, minus ipsam eveniet illum consectetur est iure corrupti deserunt, et nostrum officiis labore sapiente laborum. Minus rem inventore vero quae possimus sit eaque velit voluptas dolore, recusandae hic sunt! Ratione, autem molestiae rem tempora esse accusantium nesciunt debitis accusamus eveniet placeat aspernatur tempore repellat quo vel laudantium consequuntur itaque ipsam at dolorum sit eaque numquam. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus perspiciatis, suscipit dolor eius quam fuga, nostrum molestias temporibus vel odit assumenda aliquid dolore veniam dolorem. Suscipit magni pariatur consequuntur itaque debitis, quasi possimus natus error voluptas quam ut molestias veniam omnis repudiandae quis quos nostrum dicta qui cum nesciunt exercitationem aspernatur? Reprehenderit quos ad ipsa eum praesentium explicabo non, mollitia accusantium, incidunt amet dolore beatae fugiat autem, nemo atque corporis iste aut recusandae. Possimus laudantium sed cumque esse ullam modi earum saepe doloribus maiores officia delectus, nulla temporibus. Ducimus omnis in facere ullam? Architecto, voluptatum rerum. Exercitationem harum quis itaque?
-                    at aut quae suscipit.</div>
-                <div class="grid-item grid-item-2"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim eaque
-                    excepturi, repellat hic totam soluta sunt cum laborum fugiat dolorem autem impedit cumque cupiditate
-                    fugit.</div>
-                <div class="grid-item grid-item-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore
-                    omnis maiores vel blanditiis, voluptate, tenetur fuga veniam delectus quam possimus ratione
-                    perspiciatis voluptas ullam sunt aliquid ea, asperiores repellat iure!</div>
+            <div>
+               
             </div>
+            <div class="grid-container"> <h1>Benvento nel sito dell'hotel Astra</h1>
+                <p>L'unico hotel di Gallipoli che comprende tutte le sue tradizioni e la sua storia</p>
+                <p class="ciao">Per usufruire del nostro sito e prenotare una stanza <a href="\login">registrarsi</a>
+                </p>
+                <div class="map-container"><iframe width="100%" height="500" frameborder="0" scrolling="no"
+                        marginheight="0" marginwidth="0"
+                        src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=gallipolli,%20via%20xx%20settembre%20numero%2015+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+                </div></div>
         </section>
+
     </div>
-    
+
 </template>
 
 <style lang="scss" scoped>
 #contenutoStanza {
-    width: 100%;
-    height: auto;
-    padding-bottom: 1%;
+    display: flex;
+    justify-content: center;
     // background-color: red;
 }
 
 //INDEX PAGE
-.grid-container {
-    display: grid;
-    // height: 100vh;
-    grid-template-columns: repeat(2, auto); //gestisco la larghezza delle colonne
-    grid-auto-rows: minmax(150px, auto); //gestisco l'altezza delle righe
-    // background-color: blue;
-    // gap: 1%;
-    // overflow: hidden;
+
+
+.map-container {
+    width: 600px;
 }
 
-.grid-item {
-    // height: 100px;
-    // width: 100px;
-    margin: 2%;
-    // background-color: red;
-}
-.grid-item-1 {
-    background-color: rgb(254, 100, 0);
-    
+.ciao {
+    display: inline-block;
 }
 </style> 

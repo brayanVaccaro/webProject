@@ -36,7 +36,9 @@ export default defineComponent({
     <div class="grid-container-main">
         <aside class="grid-item-aside">
             <ul>
-                <li>seleziona date:</li>
+                <li>Data inizio soggiorno:</li>
+                <input v-model="dataSoggiorno" @change="dateFormat"  type="date">
+                <li>Data inizio soggiorno:</li>
                 <input v-model="dataSoggiorno" @change="dateFormat"  type="date">
 
                 <li>Quante persone?</li>
@@ -74,89 +76,5 @@ export default defineComponent({
 </template>
 
 <style lang="scss">
-img {
-    // aspect-ratio: auto;
-    width: 70%;
-    height: auto;
-    border: 1px solid black;
-    border-radius: 10px;
-}
-.position-h3 {
-    display: grid;
-}
-h3 {
-    display: block;
-    position: relative;
-    top: 0%;
-}
-li {
-    list-style: none;
-}
 
-//
-.grid-container-main {
-    display: grid;
-    // grid-template-columns: 200px 100% 100%;
-    grid-template-columns: 250px repeat(2,auto);
-    // overflow: auto;
-}
-.grid-container-table {
-    display: grid;
-    grid-template-rows: repeat(2,auto);
-}
-
-.grid-item-thead{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.grid-item-tbody{
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    margin-left: 20px;
-}
-
-.grid-item-tr {
-    display: flex;
-    flex-direction: row;
-    // row-gap: 30%;
-}
-
-.grid-item-tr td:nth-child(1) {
-    // max-width: none;
-    width: 25%;
-    // background-color: black;
-}
-
-.grid-item-tr td:nth-child(2) {
-    // display: grid;
-    width: 25%;
-    // background-color: red;
-    // max-width: min-content;
-    // grid-template-columns: minmax(50px, 250px);
-}
-.grid-item-tr td:nth-child(3) {
-    width: 25%;
-    // background-color: orange;
-    text-align: center;
-}
-.grid-item-tr td:nth-child(4) {
-    width: 25%;
-    // background-color: green;
-    text-align: center;
-}
-.grid-item-aside {
-    border-right: 1px solid red;
-
-}
-.grid-item-aside ul {
-    padding: 0;
-    margin: 0;
-}
-.grid-item-1 {
-    background-color: rgb(254, 100, 0);
-
-}
 </style>

@@ -36,139 +36,254 @@ export default defineComponent({
           password: this.registerPassword,
           nome: this.registerName
         }
+
       })
-        .then(() => window.location.href = "/")
-        .catch((e) => alert(e))
+        .then(() => { console.log(this.registerUsername + ' ' + this.registerName + ' ' + this.registerPassword), window.location.href = "/"; })
+      // .catch((e) => alert(e))
     }
   }
 })
 </script>
 <template>
-    <section>
-        <div class="enter">
-            <input type="checkbox" id="chk" aria-hidden="true">
+  <section>
+    <div class="enter" >
+      <input type="checkbox" id="chk" aria-hidden="true">
 
-            <div class="signup">
-                <form>
+      <div class="signup">
+        <!-- <form >
                     <label for="chk" aria-hidden="true">Registrati</label>
                     <input type="text" name="Name" placeholder="Name" required="true">
                     <input type="email" name="email" placeholder="Email" required="true">
                     <input type="password" name="pswd" placeholder="Password" required="true">
-                    <button>Sign up</button>
-                </form>
-            </div>
+                    <button @click="onRegisterSubmit">Sign up</button>
+                </form> -->
+        <form id="signUp" @submit.prevent="onRegisterSubmit">
+          <label for="chk">Registrati</label>
+          <ul>
+            <li>
+              <label for="register-name">Nome:</label>
+              <input type="text" id="register-name" name="register-name" v-model="registerName" />
+            </li>
+            <li>
+              <label for="register-surname">Cognome:</label>
+              <input type="text" id="register-surname" name="register-surname">
+            </li>
+            <li>
+              <label for="register-dateBirth">Data di Nascita:</label>
+              <input type="date" id="register-dateBirth" name="register-dateBirth">
+            </li>
+            <li>
+              <label for="register-email">Email</label>
+              <input type="text" id="register-email" name="register-email">
+            </li>
+            <li>
+              <label for="register-username">Username:</label>
+              <input type="text" id="register-username" name="register-username" v-model="registerUsername" />
+            </li>
+            <li>
+              <label for="register-password">Password:</label>
+              <input type="password" id="register-password" name="register-password" v-model="registerPassword" />
+            </li>
+            
+          </ul>
+          <li>
+            <button>Registrati</button>
+          </li>
+          <p>Già registrato? 
+          <label for="chk" id="moveMenu">Fai il login</label></p>
+        </form>
 
-            <div class="login">
-                <form @submit.prevent="onLoginSubmit">
-                    <label for="chk" aria-hidden="true">Login</label>
-                    <!-- <input type="email" name="email" placeholder="Email" required="true"> -->
-                    <input type="text" name="username" placeholder="Email" required="true" v-model="loginUsername">
-                    <input type="password" name="pswd" placeholder="Password" required="true" v-model="loginPassword">
-                    <button>Login</button>
-                    <p>Non ancora registrato?<a href="">Registrati</a></p>
-                </form>
-            </div>
-        </div>
-    </section>
+
+      </div>
+
+      <div class="login">
+        <!-- <form @submit.prevent="onLoginSubmit">
+          <label for="chk" aria-hidden="true">Login</label>
+          
+          <input type="text" name="username" placeholder="Email" required="true" v-model="loginUsername">
+          <input type="password" name="pswd" placeholder="Password" required="true" v-model="loginPassword">
+          <button>Login</button>
+          
+        </form> -->
+        <form id="login" @submit.prevent="onLoginSubmit">
+          <label for="chk">Login</label>
+          <ul>
+            <li>
+              <label for="login-username">Username:</label>
+              <input type="text" id="login-username" name="login-username" v-model="loginUsername" />
+            </li>
+            <li>
+              <label for="login-password">Password:</label>
+              <input type="password" id="login-password" name="login-password" v-model="loginPassword" />
+            </li>
+            <li>
+              <button>Registrati</button>
+            </li>
+          </ul>
+          <p>Non ancora registrato? 
+            <label for="chk" id="moveMenu">Registrati</label>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
+// @keyframes backgroundAnimation {
+//   0% {
+//     background-color: red;
+//   }
+//   50% {
+//     background-color: yellow;
+//   }
+//   100% {
+//     background-color: blue;
+//   }
+// }
+
+// .animatedElement {
+//   animation: backgroundAnimation 10s linear infinite;
+// }
+
 section {
-    display: flex;
-    justify-content: center;
-    margin: 2% auto;
-    background-color: white;
+  display: flex;
+  justify-content: center;
+  margin: 2% auto;
+  background-color: white;
 }
+
+
 .enter {
-    width: 450px;
-    height: 500px;
-    background: red;
-    overflow: hidden;
-    // background: 
-    border-radius: 10px;
-    box-shadow: 5px 20px 50px #000;
+  width: 550px;
+  height: 850px;
+  // height: 30%;
+  background: white;
+  overflow: hidden;
+  // background: 
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
 
 }
 
 #chk {
-    display: none;
+  display: none;
 }
 
-.signup {
-    position: relative;
-    width: 100%;
-    height: 100%;
+ul {
+  margin: 5% 0%;
+  height: 100%;
+  padding: 0 15%;
 }
-
+li {
+  // padding-left: 25%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
 label {
-    color: #fff;
-    font-size: 2.3em;
-    justify-content: center;
-    display: flex;
-    margin: 45px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .5s ease-in-out;
+  color: #000;
+  font-size: 1.5em;
+  justify-content: left;
+  display: flex;
+  margin: 1%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+
+#signUp > label:nth-child(1) {
+  color: black;
+  // transform: scale(.7);
+  padding-top: 3%;
+  justify-content: center;
+  font-size: 2em;
+
+}
+#login > label:nth-child(1) {
+  color: black;
+  // transform: scale(.7);
+  padding-top: 3%;
+  justify-content: center;
+  font-size: 1em;
+
 }
 
 input {
-    width: 60%;
-    height: 20px;
-    background: #e0dede;
-    justify-content: center;
-    display: flex;
-    margin: 20px auto;
-    padding: 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
+  width: 40%;
+  height: 0px;
+  background: #e0dede;
+  padding: 10px;
+  // border: none;
+  outline: none;
+  border-radius: 5px;
 }
 
 button {
-    width: 60%;
-    height: 40px;
-    margin: 10px auto;
-    justify-content: center;
-    display: block;
-    color: #fff;
-    background: #573b8a;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 20px;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    transition: .2s ease-in;
-    cursor: pointer;
+  width: 60%;
+  height: 40px;
+  margin: 10px auto;
+  justify-content: center;
+  display: block;
+  color: #fff;
+  background: #573b8a;
+  font-size: 1em;
+  // font-weight: bold;
+  margin-top: 10px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: .2s ease-in;
+  cursor: pointer;
 }
 
 button:hover {
-    background: #6d44b8;
+  background: #6d44b8;
+}
+
+p {
+  text-align: center;
+  font-size: 1em;
+  text-align: right;
+  padding: 0 5%;
+
 }
 
 .login {
-    height: 550px;
-    background: #eee;
-    border-radius: 60% / 10%;
-    transform: translateY(-160px);
-    transition: .5s ease-in-out;
+  height: 850px;
+  background: #eee;
+  border-radius: 60% / 7%;
+  transform: translateY(25%);
+  transition: .6s ease-in-out;
+  // overflow: hidden;
 }
 
-.login label {
-    color: #573b8a;
-    transform: scale(.6);
-    padding-top: 3%;
-}
-
+//regolo l'altezza del login quando da registrati voglio andare su login
 #chk:checked~.login {
-    transform: translateY(-570px);
+  transform: translateY(-60%);
 }
 
-#chk:checked~.login label {
-    transform: scale(1);
+
+#chk:checked~.login form:nth-child(1)>label {
+  transform: scale(2);
 }
 
-#chk:checked~.signup label {
-    transform: scale(.6);
+#chk:checked~.signup form:nth-child(1)>label {
+  transform: scale(.5);
+
 }
+#chk:checked~.login {
+  background-color: red;
+  transition: .6 ease-in-out;
+
+}
+
+#moveMenu {
+  justify-content: right;
+  color: black;
+  // padding: 0 5%;
+}
+
+// #centerPage > section > div > div.signup > form > label:nth-child(4)
 </style>
