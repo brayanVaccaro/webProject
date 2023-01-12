@@ -13,11 +13,9 @@
         </button>
 
         <button>
-            <NuxtLink to="/login">Recensioni</NuxtLink>
+            <NuxtLink to="/reviews">Recensioni</NuxtLink>
         </button>
-        <button>
-            <NuxtLink to="/start">Pagina di Inizio</NuxtLink>
-        </button>
+
     </nav>
     <main id="centerPage">
         <slot></slot>

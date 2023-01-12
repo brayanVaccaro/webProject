@@ -5,17 +5,18 @@ import { createConnection } from "~/server/utils/db"
 export default defineEventHandler(async function(event) {
   // Blocca la richiesta se l'utente ha già effettuato il login
   const utente = decodificaUtente(event)
+  console.log('utente' + utente)
   requireLogout(utente)
 
   // Estrae username e password dal body della richiesta
-  const { username, password, nome } = await readBody(event)
-  console.log('dati utente' + username, password, nome)
+  const { name, surname, email, dateBirth, password } = await readBody(event)
+  console.log('dati utente' + name, surname, email, dateBirth, password )
 
-  // Verifica che l'username sia disponibile
+  // Verifica che l'email sia disponibile
   const connection = await createConnection()
   const [users] = await connection.execute(
-    "SELECT username FROM utenti WHERE username=?",
-    [username]
+    "SELECT email FROM utenti WHERE email=?",
+    [email]
   )
   if ((users as any[]).length > 0) {
     throw createError({ statusCode: 400, statusMessage: "Username già in uso"})
@@ -43,4 +44,4 @@ export default defineEventHandler(async function(event) {
   codificaUtente(event, user)
 
   return { message: "Registrazione effettuata con successo" }
-})
+});
