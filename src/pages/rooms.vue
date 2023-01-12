@@ -31,7 +31,6 @@ export default defineComponent({
     }
 })
 </script>
-
 <template>
     <div class="grid-container-main">
         <aside class="grid-item-aside">
@@ -74,7 +73,6 @@ export default defineComponent({
         </section>
     </div>
 </template>
-
 <style lang="scss" scoped>
 // @import 'breakpoints';
 
@@ -85,9 +83,7 @@ img {
     border: 1px solid black;
     border-radius: 10px;
 }
-.position-h3 {
-    display: grid;
-}
+
 h3 {
     display: block;
     position: relative;
@@ -96,7 +92,12 @@ h3 {
 li {
     list-style: none;
 }
-
+.grid-container-main {
+    display: grid;
+    // grid-template-columns: 200px 100% 100%;
+    grid-template-columns: 25% repeat(2,auto);
+    // overflow: auto;
+}
 .grid-item-table {
     display: grid;
     grid-template-rows: repeat(2,auto);
@@ -113,7 +114,6 @@ li {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    margin-left: 20px;
 }
 
 .grid-item-tr {

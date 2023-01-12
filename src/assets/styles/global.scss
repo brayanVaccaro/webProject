@@ -42,10 +42,11 @@ a {
 
 .grid-container-main {
     
-   @include md {
-    display: grid;
+   @include xl {
+    // display: grid;
     // grid-template-columns: 200px 100% 100%;
-    grid-template-columns: 250px repeat(2,auto);
+    grid-template-columns: repeat(2,auto);
+    grid-template-rows: 2;
     // overflow: auto;
    }
 }
