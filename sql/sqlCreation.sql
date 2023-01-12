@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `astra`
 --
+CREATE SCHEMA IF NOT EXISTS `astra` DEFAULT CHARACTER SET utf8 ;
+USE `astra` ;
 
 -- --------------------------------------------------------
 
@@ -75,8 +77,8 @@ CREATE TABLE `stanza` (
 --
 
 INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `tipologiaStanza`) VALUES
-(1, '45€', '', 'doppia', 'matrimoniale'),
-(2, '56€', '', 'tripla', 'suite');
+(1, '45€', 'Bedroom.png', 'doppia', 'matrimoniale'),
+(2, '56€', 'Bedroom2.png', 'tripla', 'suite');
 
 -- --------------------------------------------------------
 
@@ -87,8 +89,10 @@ INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `
 CREATE TABLE `utenti` (
   `idUtente` int(11) NOT NULL,
   `nome` varchar(45) COLLATE latin1_general_ci NOT NULL,
-  `password` varchar(512) COLLATE latin1_general_ci NOT NULL,
+  `cognome` varchar(45) COLLATE latin1_general_ci NOT NULL,
+  `dataNascita` date NOT NULL,
   `email` varchar(155) COLLATE latin1_general_ci NOT NULL,
+  `password` varchar(512) COLLATE latin1_general_ci NOT NULL,  
   `ruolo` enum('gestore','cliente') COLLATE latin1_general_ci NOT NULL DEFAULT 'cliente'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -96,8 +100,8 @@ CREATE TABLE `utenti` (
 -- Dump dei dati per la tabella `utenti`
 --
 
-INSERT INTO `utenti` (`idUtente`, `nome`, `password`, `email`, `ruolo`) VALUES
-(1, 'Gino Pino', 'password', 'gino@pino', 'cliente');
+INSERT INTO `utenti` (`idUtente`, `nome`, `cognome`, `dataNascita`, `email`, `password`,`ruolo`) VALUES
+(1, 'Gino', 'Pino', '01/01/70', 'gino@pino', 'gino', 'cliente');
 
 --
 -- Indici per le tabelle scaricate

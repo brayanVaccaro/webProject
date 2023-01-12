@@ -31,7 +31,6 @@ export default defineComponent({
     }
 })
 </script>
-
 <template>
     <div class="grid-container-main">
         <aside class="grid-item-aside">
@@ -49,7 +48,7 @@ export default defineComponent({
         </aside>
         <div class="position-h3">
         <h3>Elenco stanze disponibili per il giorno {{dataSoggiornoGiusta}}</h3>
-        <table class="grid-item-table grid-container-table">
+        <table class="grid-item-table">
             <thead class="grid-item-thead">
                 <td>immagine</td>
                 <td>Descrizione</td>
@@ -74,7 +73,91 @@ export default defineComponent({
         </section>
     </div>
 </template>
+<style lang="scss" scoped>
+// @import 'breakpoints';
 
-<style lang="scss">
+img {
+    // aspect-ratio: auto;
+    width: 70%;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+h3 {
+    display: block;
+    position: relative;
+    top: 0%;
+}
+li {
+    list-style: none;
+}
+.grid-container-main {
+    display: grid;
+    // grid-template-columns: 200px 100% 100%;
+    grid-template-columns: 25% repeat(2,auto);
+    // overflow: auto;
+}
+.grid-item-table {
+    display: grid;
+    grid-template-rows: repeat(2,auto);
+    // : center;
+}
+
+.grid-item-thead{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.grid-item-tbody{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.grid-item-tr {
+    display: flex;
+    flex-direction: row;
+    // row-gap: 30%;
+}
+
+.grid-item-tr td:nth-child(1) {
+    // max-width: none;
+    width: 25%;
+    // background-color: black;
+}
+
+.grid-item-tr td:nth-child(2) {
+    // display: grid;
+    width: 25%;
+    // background-color: red;
+    // max-width: min-content;
+    // grid-template-columns: minmax(50px, 250px);
+}
+.grid-item-tr td:nth-child(3) {
+    width: 25%;
+    // background-color: orange;
+    text-align: center;
+}
+.grid-item-tr td:nth-child(4) {
+    width: 25%;
+    // background-color: green;
+    text-align: center;
+}
+.grid-item-aside {
+    border-right: 1px solid red;
+
+}
+.grid-item-aside ul {
+    padding: 0;
+    margin: 0;
+}
+.grid-item-1 {
+    background-color: rgb(254, 100, 0);
+
+}
+//
+
 
 </style>

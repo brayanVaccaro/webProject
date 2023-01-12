@@ -11,9 +11,11 @@ export default defineComponent({
     return {
       loginUsername: "",
       loginPassword: "",
-      registerUsername: "",
+      registerName: "",
+      registerSurname: "",
+      registerEmail: "",
+      registerDateBirth: "",
       registerPassword: "",
-      registerName: ""
     }
   },
   methods: {
@@ -21,7 +23,7 @@ export default defineComponent({
       $fetch("/api/auth/login", {
         method: "POST",
         body: {
-          username: this.loginUsername,
+          name: this.loginUsername,
           password: this.loginPassword,
         }
       })
@@ -32,13 +34,15 @@ export default defineComponent({
       $fetch("/api/auth/register", {
         method: "POST",
         body: {
-          username: this.registerUsername,
+          name: this.registerName,
+          surname: this.registerSurname,
+          email: this.registerEmail,
+          dateBirth: this.registerDateBirth,
           password: this.registerPassword,
-          nome: this.registerName
         }
 
       })
-        .then(() => { console.log(this.registerUsername + ' ' + this.registerName + ' ' + this.registerPassword), window.location.href = "/"; })
+        .then(() => { window.location.href = "/"; })
       // .catch((e) => alert(e))
     }
   }
@@ -57,7 +61,7 @@ export default defineComponent({
                     <input type="password" name="pswd" placeholder="Password" required="true">
                     <button @click="onRegisterSubmit">Sign up</button>
                 </form> -->
-        <form id="signUp" @submit.prevent="onRegisterSubmit">
+        <form class="animatedElement" id="signUp" @submit.prevent="onRegisterSubmit">
           <label for="chk">Registrati</label>
           <ul>
             <li>
@@ -66,7 +70,7 @@ export default defineComponent({
             </li>
             <li>
               <label for="register-surname">Cognome:</label>
-              <input type="text" id="register-surname" name="register-surname">
+              <input type="text" id="register-surname" name="register-surname" v-model="registerSurname"/>
             </li>
             <li>
               <label for="register-dateBirth">Data di Nascita:</label>
@@ -76,10 +80,7 @@ export default defineComponent({
               <label for="register-email">Email</label>
               <input type="text" id="register-email" name="register-email">
             </li>
-            <li>
-              <label for="register-username">Username:</label>
-              <input type="text" id="register-username" name="register-username" v-model="registerUsername" />
-            </li>
+           
             <li>
               <label for="register-password">Password:</label>
               <input type="password" id="register-password" name="register-password" v-model="registerPassword" />
@@ -109,7 +110,7 @@ export default defineComponent({
           <label for="chk">Login</label>
           <ul>
             <li>
-              <label for="login-username">Username:</label>
+              <label for="login-email">Email:</label>
               <input type="text" id="login-username" name="login-username" v-model="loginUsername" />
             </li>
             <li>
@@ -130,21 +131,21 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-// @keyframes backgroundAnimation {
-//   0% {
-//     background-color: red;
-//   }
-//   50% {
-//     background-color: yellow;
-//   }
-//   100% {
-//     background-color: blue;
-//   }
-// }
+@keyframes backgroundAnimation {
+  0% {
+    background-color: red;
+  }
+  50% {
+    // background-color: purple;
+  }
+  100% {
+    background-color: blue;
+  }
+}
 
-// .animatedElement {
-//   animation: backgroundAnimation 10s linear infinite;
-// }
+.animatedElement {
+  animation: backgroundAnimation 10s linear infinite;
+}
 
 section {
   display: flex;
@@ -254,14 +255,14 @@ p {
   height: 850px;
   background: #eee;
   border-radius: 60% / 7%;
-  transform: translateY(25%);
+  transform: translateY(30%);
   transition: .6s ease-in-out;
   // overflow: hidden;
 }
 
 //regolo l'altezza del login quando da registrati voglio andare su login
 #chk:checked~.login {
-  transform: translateY(-60%);
+  transform: translateY(-55%);
 }
 
 
