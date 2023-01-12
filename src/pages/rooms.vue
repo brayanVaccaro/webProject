@@ -52,17 +52,15 @@ export default defineComponent({
             <h3>Elenco stanze disponibili per il giorno {{ dataSoggiornoGiusta }}</h3>
             <table class="grid-item-table">
                 <thead class="grid-item-thead">
-                    <td>immagine</td>
+                    <td>Immagine</td>
                     <td>Descrizione</td>
-                    <td>numero stanza</td>
                     <td>prezzo a notte</td>
                 </thead>
                 <tbody class="grid-item-tbody">
                     <tr v-for="x in stanza" class="grid-item-tr">
                         <td> <img :src="'img/' + x.imgStanza"></td>
-                        <td>{{ x.Descrizione }}</td>
-                        <td>{{ x.numeroStanza }}</td>
-                        <td>{{ x.prezzoStanzaAnotte }}</td>
+                        <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
+                        <td>{{ x.prezzoAnotte }}</td>
 
                     </tr>
                 </tbody>

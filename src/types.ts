@@ -1,25 +1,15 @@
 export interface Stanza {
     idStanze: number,
-    numeroStanza: string,
-    prezzoStanzaAnotte: string,
+    prezzoAnotte: string,
     imgStanza: any,
-    utenti: any,
-    Descrizione: string
-}
-
-export interface Persona {
-    Nome: string,
-    Cognome: string,
-    CartaId: string,
-    DataNascita: string,
-    Bracciale: string
+    tagliaStanza: string,
+    tipologiaStanza: string
 }
 
 export interface Utente {
     idUtente: number,
-    username: string,
     nome: string,
     cognome: string,
-    dataDiNascita: string,
-    prenotazione: string
+    dataNascita: string,
+    email: string
 }
