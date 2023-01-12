@@ -42,11 +42,19 @@ a {
 
 .grid-container-main {
     
-   @include xl {
-    // display: grid;
-    // grid-template-columns: 200px 100% 100%;
-    grid-template-columns: repeat(2,auto);
-    grid-template-rows: 2;
-    // overflow: auto;
-   }
+    display: grid;
+    grid-template-columns: 25% 100%;
+// grid-template-rows: 1fr 100%;
+    // grid-template-rows: 1fr 2fr;
+    // background-color: green;
+
+    @include md {
+    
+    display: grid;
+    background-color: cyan;
+    // grid-template-rows: 1fr 2fr;
+    grid-template-columns: 25% repeat(2,auto);
+    // grid-column: 2;
+    // align-items: end
+    }
 }

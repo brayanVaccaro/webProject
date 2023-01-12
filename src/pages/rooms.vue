@@ -21,9 +21,9 @@ export default defineComponent({
             this.numeroPersone == 0 ? this.numeroPersone = this.numeroPersone : this.numeroPersone--
         },
         dateFormat() {
-            let a = 
-            
-            this.dataSoggiorno == '' ? console.log(this.dataSoggiorno) : this.dataSoggiornoGiusta = this.dataSoggiorno.split('-').reverse().toString().replaceAll(',','/');
+            let a =
+
+                this.dataSoggiorno == '' ? console.log(this.dataSoggiorno) : this.dataSoggiornoGiusta = this.dataSoggiorno.split('-').reverse().toString().replaceAll(',', '/');
         }
     },
     mounted() {
@@ -33,44 +33,59 @@ export default defineComponent({
 </script>
 <template>
     <div class="grid-container-main">
-        <aside class="grid-item-aside">
-            <ul>
-                <li>Data inizio soggiorno:</li>
-                <input v-model="dataSoggiorno" @change="dateFormat"  type="date">
-                <li>Data inizio soggiorno:</li>
-                <input v-model="dataSoggiorno" @change="dateFormat"  type="date">
+        <div class="grid-item-aside">
+            <aside>
+                <ul class="grid-item-aside-ul">
+                    <li>Data inizio soggiorno:
+                    <input v-model="dataSoggiorno" @change="dateFormat" type="date"></li>
+                    <li>Data inizio soggiorno:
+                    <input v-model="dataSoggiorno" @change="dateFormat" type="date"></li>
 
-                <li>Quante persone?</li>
-                <input type="button" value="-" @click="decreasePersone" />
-                <label for="numeroPersone">{{ numeroPersone }}</label>
-                <input type="button" value="+" @click="increasePersone" />
-            </ul>
-        </aside>
-        <div class="position-h3">
-        <h3>Elenco stanze disponibili per il giorno {{dataSoggiornoGiusta}}</h3>
-        <table class="grid-item-table">
-            <thead class="grid-item-thead">
-                <td>immagine</td>
-                <td>Descrizione</td>
-                <td>numero stanza</td>
-                <td>prezzo a notte</td>
-            </thead>
-            <tbody class="grid-item-tbody">
-                <tr v-for="x in stanza" class="grid-item-tr">
-                    <td> <img :src="'img/' + x.imgStanza"></td>
-                    <td>{{ x.Descrizione }}</td>
-                    <td>{{ x.numeroStanza }}</td>
-                    <td>{{ x.prezzoStanzaAnotte }}</td>
-
-                </tr>
-            </tbody>
-        </table>
+                    <li>Quante persone?
+                    <input type="button" value="-" @click="decreasePersone" />
+                    <label for="numeroPersone">{{ numeroPersone }}</label>
+                    <input type="button" value="+" @click="increasePersone" /></li>
+                </ul>
+            </aside>
         </div>
-        <section>
-            <h3>Prenotazione</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero provident commodi odio temporibus reprehenderit officiis maxime, distinctio ipsum repellendus adipisci, laborum vel dicta ipsam quisquam maiores cumque dolorem quam quasi laudantium repudiandae! Laudantium, dolores eius esse sit nam ratione veritatis culpa architecto, nihil commodi, accusamus magnam! Ut, doloribus temporibus iste maiores vel obcaecati consequatur minima laborum fuga quae provident dignissimos optio dolorem? Aliquid adipisci sunt sapiente dolore. Reiciendis harum, unde necessitatibus ea quos consequuntur fuga suscipit atque deserunt enim corporis. Quod debitis est odio impedit a tenetur? Aliquam laborum a rerum illo officiis, voluptate unde consequatur iure impedit quam itaque?</p>
+        <div class="grid-item-table">
+            <h3>Elenco stanze disponibili per il giorno {{ dataSoggiornoGiusta }}</h3>
+            <table class="grid-item-table">
+                <thead class="grid-item-thead">
+                    <td>immagine</td>
+                    <td>Descrizione</td>
+                    <td>numero stanza</td>
+                    <td>prezzo a notte</td>
+                </thead>
+                <tbody class="grid-item-tbody">
+                    <tr v-for="x in stanza" class="grid-item-tr">
+                        <td> <img :src="'img/' + x.imgStanza"></td>
+                        <td>{{ x.Descrizione }}</td>
+                        <td>{{ x.numeroStanza }}</td>
+                        <td>{{ x.prezzoStanzaAnotte }}</td>
 
-        </section>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="grid-item-section">
+            <section>
+                <h3>Prenotazione</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero provident commodi odio temporibus
+                    reprehenderit officiis maxime, distinctio ipsum repellendus adipisci, laborum vel dicta ipsam
+                    quisquam
+                    maiores cumque dolorem quam quasi laudantium repudiandae! Laudantium, dolores eius esse sit nam
+                    ratione
+                    veritatis culpa architecto, nihil commodi, accusamus magnam! Ut, doloribus temporibus iste maiores
+                    vel
+                    obcaecati consequatur minima laborum fuga quae provident dignissimos optio dolorem? Aliquid adipisci
+                    sunt sapiente dolore. Reiciendis harum, unde necessitatibus ea quos consequuntur fuga suscipit atque
+                    deserunt enim corporis. Quod debitis est odio impedit a tenetur? Aliquam laborum a rerum illo
+                    officiis,
+                    voluptate unde consequatur iure impedit quam itaque?</p>
+
+            </section>
+        </div>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -89,28 +104,34 @@ h3 {
     position: relative;
     top: 0%;
 }
+
 li {
     list-style: none;
-}
-.grid-container-main {
-    display: grid;
-    // grid-template-columns: 200px 100% 100%;
-    grid-template-columns: 25% repeat(2,auto);
-    // overflow: auto;
-}
-.grid-item-table {
-    display: grid;
-    grid-template-rows: repeat(2,auto);
-    // : center;
+    margin: 5% 0%;
 }
 
-.grid-item-thead{
+// .grid-container-main {
+
+// }
+.grid-item-section {
+    display: flex;
+    flex-direction: row;
+    // background-color: black;
+    // width: 100%;
+    grid-column: 2 / 2;
+}
+.grid-item-table {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item-thead {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-.grid-item-tbody{
+.grid-item-tbody {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -135,29 +156,36 @@ li {
     // max-width: min-content;
     // grid-template-columns: minmax(50px, 250px);
 }
+
 .grid-item-tr td:nth-child(3) {
     width: 25%;
     // background-color: orange;
     text-align: center;
 }
+
 .grid-item-tr td:nth-child(4) {
     width: 25%;
     // background-color: green;
     text-align: center;
 }
-.grid-item-aside {
-    border-right: 1px solid red;
 
+.grid-item-aside-ul {
+    display: flex;
+    flex-direction: column;
 }
-.grid-item-aside ul {
+
+.grid-item-aside {
+    border-right: 1px solid black;
+    height: 100%;
     padding: 0;
     margin: 0;
 }
+
 .grid-item-1 {
     background-color: rgb(254, 100, 0);
 
 }
+
+
 //
-
-
 </style>
