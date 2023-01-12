@@ -16,7 +16,7 @@
     </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .grid-container-main {
     display: grid;
     grid-template-rows: 2fr 1fr;
