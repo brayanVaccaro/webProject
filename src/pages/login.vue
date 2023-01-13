@@ -97,7 +97,7 @@ export default defineComponent({
           <ul>
             <li>
               <label for="login-email">Email:</label>
-              <input type="text" id="login-username" name="login-username" v-model="loginUsername" />
+              <input type="text" id="login-email" name="login-username" v-model="loginEmail" />
             </li>
             <li>
               <label for="login-password">Password:</label>
