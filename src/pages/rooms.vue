@@ -6,26 +6,46 @@ export default defineComponent({
             stanza: [] as Stanza[],
             numeroPersone: 0 as number,
             dataSoggiorno: '' as string,
-            dataSoggiornoGiusta: '' as string
+            dataSoggiornoGiusta: '' as string,
+            dataInizio: '' as string,
+            dataFine: '' as string,
+            tagliaStanza: '' as string,
+            selectedOption: '',
+            options: [
+                { value: 'Singola'},
+                { value: 'Doppia'},
+                { value: 'Tripla'},
+                { value: 'Quadrupla'}
+            ]
         }
     },
     methods: {
-        getPersona() {
+        getStanze() {
             $fetch("/api/dbLinking")
                 .then((data) => { this.stanza = data as Stanza[] })
         },
-        increasePersone() {
-            this.numeroPersone == 5 ? this.numeroPersone = this.numeroPersone : this.numeroPersone++
-        },
-        decreasePersone() {
-            this.numeroPersone == 0 ? this.numeroPersone = this.numeroPersone : this.numeroPersone--
+
+        async filtra() {
+            console.log('1' + this.tagliaStanza)
+
+            $fetch("/api/reservation/filter", {
+                method: "POST",
+                body: {
+                    tagliaStanza: this.selectedOption
+                }
+            }).then((data) => { this.stanza = data as Stanza[] })
+            // const choise = document.querySelector();
+            // for (let i = 0; i < this.stanza.length; i++) {
+            //     this.stanza[i].tagliaStanza == this.dataSoggiornoGiusta ? console.log() : i++
+            // }
+
         },
         dateFormat() {
             this.dataSoggiorno == '' ? console.log(this.dataSoggiorno) : this.dataSoggiornoGiusta = this.dataSoggiorno.split('-').reverse().toString().replaceAll(',', '/');
         }
     },
     mounted() {
-        this.getPersona();
+        this.getStanze();
     }
 })
 </script>
@@ -37,15 +57,27 @@ export default defineComponent({
                     <li>Data inizio soggiorno:
                         <input v-model="dataSoggiorno" @change="dateFormat" type="date">
                     </li>
-                    <li>Data inizio soggiorno:
+                    <li>Data fine soggiorno:
                         <input v-model="dataSoggiorno" @change="dateFormat" type="date">
                     </li>
+                    <select v-model="selectedOption" >
+                        <option v-for="option in options" :key="option.value" :value="option.value">
+                            {{ option.value }}
+                        </option>
+                    </select>
+                    <!-- 
+                    <li>Tipologia Stanza:
+                        <input type="checkbox" value="ciao" id="choise" v-bind="tagliaStanza">
+                        <label for="choise" >Singola</label>
+                        <input type="checkbox" id="choise">
+                        <label for="choise">Doppia</label>
+                        <input type="checkbox" id="choise">
+                        <label for="choise">Tripla</label>
+                        <input type="checkbox" id="choise">
+                        <label for="choise">Quadrupla</label>
+                    </li> -->
+                    <button @click.prevent="filtra">---></button>
 
-                    <li>Quante persone?
-                        <input type="button" value="-" @click="decreasePersone" />
-                        <label for="numeroPersone">{{ numeroPersone }}</label>
-                        <input type="button" value="+" @click="increasePersone" />
-                    </li>
                 </ul>
             </aside>
         </div>
@@ -58,6 +90,7 @@ export default defineComponent({
                     <td>prezzo a notte</td>
                 </thead>
                 <tbody class="grid-item-tbody">
+                    <!-- qua la condizionie  -->
                     <tr v-for="x in stanza" class="grid-item-tr">
                         <td> <img :src="'img/' + x.imgStanza"></td>
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
