@@ -39,14 +39,14 @@ export default defineComponent({
             <NuxtLink to="/login">Login</NuxtLink>
         </button>
         <button v-else>
-            <NuxtLink to="/login" @click.prevent = "logout">Logout</NuxtLink>
+            <NuxtLink to="/" @click.prevent = "logout">Logout</NuxtLink>
         </button>
 
-        <button>
+        <button v-if="utente">
             <NuxtLink to="/rooms">Stanze disponibili</NuxtLink>
         </button>
 
-        <button>
+        <button v-if="utente">
             <NuxtLink to="/reviews">Recensioni</NuxtLink>
         </button>
 
