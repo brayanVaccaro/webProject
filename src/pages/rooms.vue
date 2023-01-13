@@ -21,9 +21,7 @@ export default defineComponent({
             this.numeroPersone == 0 ? this.numeroPersone = this.numeroPersone : this.numeroPersone--
         },
         dateFormat() {
-            let a =
-
-                this.dataSoggiorno == '' ? console.log(this.dataSoggiorno) : this.dataSoggiornoGiusta = this.dataSoggiorno.split('-').reverse().toString().replaceAll(',', '/');
+            this.dataSoggiorno == '' ? console.log(this.dataSoggiorno) : this.dataSoggiornoGiusta = this.dataSoggiorno.split('-').reverse().toString().replaceAll(',', '/');
         }
     },
     mounted() {
@@ -37,14 +35,17 @@ export default defineComponent({
             <aside>
                 <ul class="grid-item-aside-ul">
                     <li>Data inizio soggiorno:
-                    <input v-model="dataSoggiorno" @change="dateFormat" type="date"></li>
+                        <input v-model="dataSoggiorno" @change="dateFormat" type="date">
+                    </li>
                     <li>Data inizio soggiorno:
-                    <input v-model="dataSoggiorno" @change="dateFormat" type="date"></li>
+                        <input v-model="dataSoggiorno" @change="dateFormat" type="date">
+                    </li>
 
                     <li>Quante persone?
-                    <input type="button" value="-" @click="decreasePersone" />
-                    <label for="numeroPersone">{{ numeroPersone }}</label>
-                    <input type="button" value="+" @click="increasePersone" /></li>
+                        <input type="button" value="-" @click="decreasePersone" />
+                        <label for="numeroPersone">{{ numeroPersone }}</label>
+                        <input type="button" value="+" @click="increasePersone" />
+                    </li>
                 </ul>
             </aside>
         </div>
@@ -87,7 +88,6 @@ export default defineComponent({
     </div>
 </template>
 <style lang="scss" scoped>
-
 img {
     width: 70%;
     height: auto;
@@ -95,9 +95,7 @@ img {
     border-radius: 10px;
 }
 
-h3 {
-    
-}
+h3 {}
 
 li {
     list-style: none;
@@ -105,24 +103,22 @@ li {
 }
 
 .grid-container-main {
-display: grid;
+    display: grid;
 }
 
-.grid-item-aside {
+.grid-item-aside {}
 
-}
 .grid-item-aside-ul {
     display: flex;
     flex-direction: column;
 }
 
-.grid-item-table {
-    
-}
+.grid-item-table {}
+
 .grid-item-thead {
     display: flex;
     flex-direction: row;
-    justify-content: space-around; 
+    justify-content: space-around;
 }
 
 .grid-item-tbody {
@@ -130,10 +126,9 @@ display: grid;
     flex-direction: column;
     gap: 30px;
 }
-.grid-item-section {
-    
 
-}
+.grid-item-section {}
+
 .grid-item-tr {
     display: flex;
     flex-direction: row;

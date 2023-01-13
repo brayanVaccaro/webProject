@@ -30,7 +30,7 @@ export function decodificaUtente(event: H3Event) {
 
 export function rimuoviUtente(event: H3Event) {
   // Cancella il cookie dell'access token
-  deleteCookie(event, COOKIE_NAME)
+  deleteCookie(event, COOKIE_NAME) 
 }
 
 /** Blocca la richiesta se l'utente non ha effettuato il login */

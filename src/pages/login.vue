@@ -9,7 +9,7 @@ definePageMeta({
 export default defineComponent({
   data() {
     return {
-      loginUsername: "",
+      loginEmail: "",
       loginPassword: "",
       registerName: "",
       registerSurname: "",
@@ -23,7 +23,7 @@ export default defineComponent({
       $fetch("/api/auth/login", {
         method: "POST",
         body: {
-          name: this.loginUsername,
+          email: this.loginEmail,
           password: this.loginPassword,
         }
       })
@@ -71,7 +71,7 @@ export default defineComponent({
             </li>
             <li>
               <label for="register-email">Email</label>
-              <input type="text" id="register-email" name="register-email" v-model="registerEmail">
+              <input type="text" id="register-email" name="register-email" required v-model="registerEmail">
             </li>
 
             <li>
@@ -92,14 +92,6 @@ export default defineComponent({
       </div>
 
       <div class="login">
-        <!-- <form @submit.prevent="onLoginSubmit">
-          <label for="chk" aria-hidden="true">Login</label>
-          
-          <input type="text" name="username" placeholder="Email" required="true" v-model="loginUsername">
-          <input type="password" name="pswd" placeholder="Password" required="true" v-model="loginPassword">
-          <button>Login</button>
-          
-        </form> -->
         <form id="login" @submit.prevent="onLoginSubmit">
           <label for="chk">Login</label>
           <ul>
