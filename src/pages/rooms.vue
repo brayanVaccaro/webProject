@@ -32,8 +32,8 @@ export default defineComponent({
 })
 </script>
 <template>
-    <div class="grid-container-main">
-        <div class="grid-item-aside">
+    <div class="grid-container-main main">
+        <div class="grid-item-aside aside">
             <aside>
                 <ul class="grid-item-aside-ul">
                     <li>Data inizio soggiorno:
@@ -48,9 +48,9 @@ export default defineComponent({
                 </ul>
             </aside>
         </div>
-        <div class="grid-item-table">
+        <div class="grid-item-table table">
             <h3>Elenco stanze disponibili per il giorno {{ dataSoggiornoGiusta }}</h3>
-            <table class="grid-item-table">
+            <table class="">
                 <thead class="grid-item-thead">
                     <td>Immagine</td>
                     <td>Descrizione</td>
@@ -66,7 +66,7 @@ export default defineComponent({
                 </tbody>
             </table>
         </div>
-        <div class="grid-item-section">
+        <div class="grid-item-section section">
             <section>
                 <h3>Prenotazione</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero provident commodi odio temporibus
@@ -87,10 +87,8 @@ export default defineComponent({
     </div>
 </template>
 <style lang="scss" scoped>
-// @import 'breakpoints';
 
 img {
-    // aspect-ratio: auto;
     width: 70%;
     height: auto;
     border: 1px solid black;
@@ -98,9 +96,7 @@ img {
 }
 
 h3 {
-    display: block;
-    position: relative;
-    top: 0%;
+    
 }
 
 li {
@@ -108,25 +104,25 @@ li {
     margin: 5% 0%;
 }
 
-// .grid-container-main {
+.grid-container-main {
+display: grid;
+}
 
-// }
-// .grid-item-section {
-//     display: flex;
-//     flex-direction: row;
-//     // background-color: black;
-//     // width: 100%;
-//     grid-column: 2 / 2;
-// }
-.grid-item-table {
+.grid-item-aside {
+
+}
+.grid-item-aside-ul {
     display: flex;
     flex-direction: column;
 }
 
+.grid-item-table {
+    
+}
 .grid-item-thead {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-around; 
 }
 
 .grid-item-tbody {
@@ -134,15 +130,16 @@ li {
     flex-direction: column;
     gap: 30px;
 }
+.grid-item-section {
+    
 
+}
 .grid-item-tr {
     display: flex;
     flex-direction: row;
-    // row-gap: 30%;
 }
 
 .grid-item-tr td:nth-child(1) {
-    // max-width: none;
     width: 25%;
     // background-color: black;
 }
@@ -166,24 +163,4 @@ li {
     // background-color: green;
     text-align: center;
 }
-
-.grid-item-aside-ul {
-    display: flex;
-    flex-direction: column;
-}
-
-.grid-item-aside {
-    border-right: 1px solid black;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-.grid-item-1 {
-    background-color: rgb(254, 100, 0);
-
-}
-
-
-//
 </style>

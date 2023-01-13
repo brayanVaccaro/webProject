@@ -41,58 +41,76 @@ a {
 
 //ROOMS 
 
-.grid-container-main {
-    display: grid;
-    grid-template-columns: auto;
-    // grid-gap: 10px;
-    // background-color: #2196F3;
-    // padding: 10px;
+.main {
+
     @include sm {
-        // grid-template-columns: 100%;
+        grid-template-rows: 1fr 2fr 1fr;
+        grid-template-columns: repeat(1, auto);
         background-color: deeppink;
 
     }
 
-    // grid-template-rows: 1fr 100%;
-    // grid-template-rows: 1fr 2fr;
-    // background-color: green;
-
     @include md {
-
-        // display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 25% auto;
         background-color: cyan;
-        // grid-template-rows: 1fr 2fr;
-        grid-template-columns: 25% 100%;
-        // grid-column: 2;
-        // align-items: end
+       
     }
 
     @include lg {
-        // display: grid;
+        grid-template-rows: 100%;
+        grid-template-columns: 1fr 1fr 1fr;
         background-color: chocolate;
-        grid-template-columns: auto auto auto;
+    }
+}
+
+.aside {
+    @include sm {
+        grid-area: 1 / 1 / span 1 / span 1;
+
+    }
+
+    @include md {
+        grid-area: 1 / 1 / span 2 / span 1;
+
+    }
+
+    @include lg {
+        grid-area: 1 / 1 / span 1 / span 1;
+
+    }
+
+}
+
+.table {
+    @include sm {
+        grid-area: 2 / 1 / span 1 / span 1;
+    }
+
+    @include md {
+        grid-area: 1 / 2 /  1 / span 2;
+        
+    }
+    
+    @include lg {
+        grid-area: 1 / 2 / span 1 / 2;
 
     }
 }
 
-.grid-item-section {
-    display: flex;
-    flex-direction: row;
-    // background-color: black;
-    // width: 100%;
-    // grid-column: 2 / 2;
-    @include md {
-        display: flex;
-        width: 100%;
-        grid-area: 2 / 1 / span 2 / span 2;
-        background-color: rgba(255, 255, 255, 0.8);
-        // text-align: center;
-        // padding: 20px 0;
-        // font-size: 30px;
+.section {
+    @include sm {
+        grid-area: 3 / 1 / span 1 / span 1;
+
     }
+
+    @include md {
+        grid-area: 2 / 2 / span 1 / span 2;
+      
+    }
+
     @include lg {
-        display: flex;
-        flex-direction: column;
+        grid-area: 1 / 3 / span 1 / span 1;
     }
 
 }
