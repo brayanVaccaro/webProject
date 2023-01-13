@@ -104,7 +104,7 @@ export default defineComponent({
               <input type="password" id="login-password" name="login-password" v-model="loginPassword" />
             </li>
             <li>
-              <button>Registrati</button>
+              <button>Entra</button>
             </li>
           </ul>
           <p>Non ancora registrato?

@@ -19,7 +19,7 @@ export default defineEventHandler(async function(event) {
     [email]
   )
   if ((users as any[]).length > 0) {
-    throw createError({ statusCode: 400, statusMessage: "Email già in uso"})
+    throw createError({ statusCode: 400, statusMessage: "Email precedentemente registrata, fai il login"})
   }
 
   // Crea l'hash della password per non salvarla in chiaro
