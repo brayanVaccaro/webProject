@@ -19,7 +19,7 @@ export default defineEventHandler(async function(event) {
     [email]
   )
   if ((users as any[]).length > 0) {
-    throw createError({ statusCode: 400, statusMessage: "Username già in uso"})
+    throw createError({ statusCode: 400, statusMessage: "Email già in uso"})
   }
 
   // Crea l'hash della password per non salvarla in chiaro
@@ -28,15 +28,15 @@ export default defineEventHandler(async function(event) {
 
   // Inserisce l'utente nel database
   await connection.execute(
-    `INSERT INTO utenti (username, password, nome)
-     VALUES (?, ?, ?)`,
-    [username, passwordHash, nome]
+    `INSERT INTO utenti (nome, cognome, dataNascita, email, password)
+     VALUES (?, ?, ?, ?, ?)`,
+    [name, surname, dateBirth, email, passwordHash]
   )
 
   // Estrae i dati per il nuovo utente
   const [results] = await connection.execute(
-    `SELECT idUtente, username, nome, "" AS argomenti FROM utenti WHERE username=?`,
-    [username]
+    `SELECT nome, cognome, email FROM utenti WHERE email=?`,
+    [email]
   )
   const user = (results as any)[0] as any
 

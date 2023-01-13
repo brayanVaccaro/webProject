@@ -6,7 +6,7 @@ const JWT_SECRET = "jfiowfwfwffjrf3rf3rfg" /*deve essere una stringa lunga e inc
 const COOKIE_NAME = "access-token"
 
 export function codificaUtente(event: H3Event, user: any) {
-  const accessToken = jwt.sign(user, JWT_SECRET, { expiresIn: "1 day" })/*ogni giorno gli utenti devono fare il login */
+  const accessToken = jwt.sign(user, JWT_SECRET, { expiresIn: "1 day" })   /*ogni giorno gli utenti devono fare il login */
   //settiamo il cookie
   setCookie(event, COOKIE_NAME, accessToken, {
     httpOnly: true,

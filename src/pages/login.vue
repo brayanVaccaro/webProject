@@ -43,14 +43,14 @@ export default defineComponent({
 
       })
         .then(() => { window.location.href = "/"; })
-      // .catch((e) => alert(e))
+        .catch((e) => alert(e))
     }
   }
 })
 </script>
 <template>
   <section>
-    <div class="enter" >
+    <div class="enter">
       <input type="checkbox" id="chk" aria-hidden="true">
 
       <div class="signup">
@@ -63,28 +63,29 @@ export default defineComponent({
             </li>
             <li>
               <label for="register-surname">Cognome:</label>
-              <input type="text" id="register-surname" name="register-surname" v-model="registerSurname"/>
+              <input type="text" id="register-surname" name="register-surname" v-model="registerSurname" />
             </li>
             <li>
               <label for="register-dateBirth">Data di Nascita:</label>
-              <input type="date" id="register-dateBirth" name="register-dateBirth">
+              <input type="date" id="register-dateBirth" name="register-dateBirth" v-model="registerDateBirth">
             </li>
             <li>
               <label for="register-email">Email</label>
-              <input type="text" id="register-email" name="register-email">
+              <input type="text" id="register-email" name="register-email" v-model="registerEmail">
             </li>
-           
+
             <li>
               <label for="register-password">Password:</label>
               <input type="password" id="register-password" name="register-password" v-model="registerPassword" />
             </li>
-            
+
           </ul>
           <li>
             <button>Registrati</button>
           </li>
-          <p>Già registrato? 
-          <label for="chk" id="moveMenu">Fai il login</label></p>
+          <p>Già registrato?
+            <label for="chk" id="moveMenu">Fai il login</label>
+          </p>
         </form>
 
 
@@ -114,7 +115,7 @@ export default defineComponent({
               <button>Registrati</button>
             </li>
           </ul>
-          <p>Non ancora registrato? 
+          <p>Non ancora registrato?
             <label for="chk" id="moveMenu">Registrati</label>
           </p>
         </form>
@@ -128,9 +129,11 @@ export default defineComponent({
   0% {
     background-color: red;
   }
+
   50% {
     // background-color: purple;
   }
+
   100% {
     background-color: blue;
   }
@@ -169,6 +172,7 @@ ul {
   height: 100%;
   padding: 0 15%;
 }
+
 li {
   // padding-left: 25%;
   display: flex;
@@ -176,6 +180,7 @@ li {
   align-items: center;
   justify-content: space-between;
 }
+
 label {
   color: #000;
   font-size: 1.5em;
@@ -187,7 +192,7 @@ label {
   transition: .5s ease-in-out;
 }
 
-#signUp > label:nth-child(1) {
+#signUp>label:nth-child(1) {
   color: black;
   // transform: scale(.7);
   padding-top: 3%;
@@ -195,7 +200,8 @@ label {
   font-size: 2em;
 
 }
-#login > label:nth-child(1) {
+
+#login>label:nth-child(1) {
   color: black;
   // transform: scale(.7);
   padding-top: 3%;
@@ -267,6 +273,7 @@ p {
   transform: scale(.5);
 
 }
+
 #chk:checked~.login {
   background-color: red;
   transition: .6 ease-in-out;
