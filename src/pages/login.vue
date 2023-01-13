@@ -54,13 +54,6 @@ export default defineComponent({
       <input type="checkbox" id="chk" aria-hidden="true">
 
       <div class="signup">
-        <!-- <form >
-                    <label for="chk" aria-hidden="true">Registrati</label>
-                    <input type="text" name="Name" placeholder="Name" required="true">
-                    <input type="email" name="email" placeholder="Email" required="true">
-                    <input type="password" name="pswd" placeholder="Password" required="true">
-                    <button @click="onRegisterSubmit">Sign up</button>
-                </form> -->
         <form class="animatedElement" id="signUp" @submit.prevent="onRegisterSubmit">
           <label for="chk">Registrati</label>
           <ul>

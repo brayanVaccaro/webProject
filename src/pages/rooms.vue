@@ -111,13 +111,13 @@ li {
 // .grid-container-main {
 
 // }
-.grid-item-section {
-    display: flex;
-    flex-direction: row;
-    // background-color: black;
-    // width: 100%;
-    grid-column: 2 / 2;
-}
+// .grid-item-section {
+//     display: flex;
+//     flex-direction: row;
+//     // background-color: black;
+//     // width: 100%;
+//     grid-column: 2 / 2;
+// }
 .grid-item-table {
     display: flex;
     flex-direction: column;
