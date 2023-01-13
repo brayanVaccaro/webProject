@@ -8,19 +8,18 @@ export default defineEventHandler(async function(event) {
   requireLogout(utente)
 
   // estraiamo username e password dal body
-  const { username, password } = await readBody(event)
+  const { email, password } = await readBody(event)
   
-  //i dati dell'utente sono presi dal database in base allo username
+  //i dati dell'utente sono presi dal database in base allo email
   const connection = await createConnection()
   const [results] = await connection.execute(
-    `SELECT idUtenti, username, nome, password, GROUP_CONCAT(DISTINCT idPrenotazione) as prenotazione
-     FROM utenti
-     LEFT OUTER JOIN stanze ON utenti=idUtenti
-     LEFT OUTER JOIN prenotazione ON prenotazione=idPrenotazione
-     WHERE username=?
-     GROUP BY idUtenti, username, nome, password;`, /*bloccati nel minuto 27 della lezione perche li giustamente dice siamo riusciti a far funzionare il login e noi ci da qualche errore con la query, pero almeno ho scoperto che il problema c'entra con la query prima ero disperso */
-    [username]
+    `SELECT * 
+    FROM utenti 
+    WHERE email = ?`, 
+    [email]
   )
+  console.log(results)
+
     /*perche left outer join? perche altrimenti con i join impliciti se un utente non ha la categoria allora non lo troviamo*/
 
   if (!Array.isArray(results) || results.length == 0) {
@@ -34,7 +33,9 @@ export default defineEventHandler(async function(event) {
 
   if (!passwordCorretta) {
     throw createError({ statusCode: 400, statusMessage: "Credenziali errate"})
-  }/*messaggio di errore sempre uguale perche non vogliamo far sapere a un mal intenzionato che ha azzeccatto solo lo username rispetto a solo la password */
+  }
+  
+  /*messaggio di errore sempre uguale perche non vogliamo far sapere a un mal intenzionato che ha azzeccatto solo lo username rispetto a solo la password */
 
   // Rimuove la password dall'oggetto utente in modo che rimanga nel server
   delete user.password
