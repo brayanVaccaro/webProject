@@ -77,8 +77,16 @@ CREATE TABLE `stanza` (
 --
 
 INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `tipologiaStanza`) VALUES
-(1, '45€', 'Bedroom.png', 'doppia', 'matrimoniale'),
-(2, '56€', 'Bedroom2.png', 'tripla', 'suite');
+(1, '56€', 'Bedroom2.png', 'singola', 'suite'),
+(2, '45€', 'Bedroom.png', 'doppia', 'matrimoniale'),
+(3, '56€', 'Bedroom2.png', 'tripla', 'suite'),
+(4, '56€', 'Bedroom2.png', 'quadrupla', 'suite'),
+(5, '56€', 'Bedroom2.png', 'singola', 'suite'),
+(6, '56€', 'Bedroom2.png', 'doppia', 'suite'),
+(7, '56€', 'Bedroom2.png', 'tripla', 'suite'),
+(8, '56€', 'Bedroom2.png', 'quadrupla', 'suite'),
+(9, '56€', 'Bedroom2.png', 'singola', 'suite'),
+(10, '56€', 'Bedroom2.png', 'doppia', 'suite');
 
 -- --------------------------------------------------------
 

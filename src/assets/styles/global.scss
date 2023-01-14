@@ -51,7 +51,7 @@ a {
     }
 
     @include md {
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto auto;
         grid-template-columns: 25% auto;
         background-color: cyan;
        
@@ -83,6 +83,10 @@ a {
 }
 
 .table {
+
+    h3 {
+        text-align: center;
+    }
     @include sm {
         grid-area: 2 / 1 / span 1 / span 1;
     }

@@ -50,12 +50,12 @@ export default defineComponent({
 </script>
 <template>
   <section>
-    <div class="enter">
-      <input type="checkbox" id="chk" aria-hidden="true">
+    <div class="enter animatedElement">
+      <input type="checkbox" id="chk" aria-hidden="true" checked>
 
       <div class="signup">
-        <form class="animatedElement" id="signUp" @submit.prevent="onRegisterSubmit">
-          <label for="chk">Registrati</label>
+        <form  id="signUp" @submit.prevent="onRegisterSubmit">
+          <label for="chk">Registrazione</label>
           <ul>
             <li>
               <label for="register-name">Nome:</label>
@@ -104,7 +104,7 @@ export default defineComponent({
               <input type="password" id="login-password" name="login-password" v-model="loginPassword" />
             </li>
             <li>
-              <button>Entra</button>
+              <button>Accedi</button>
             </li>
           </ul>
           <p>Non ancora registrato?
