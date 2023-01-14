@@ -44,7 +44,7 @@ export default defineComponent({
       })
         .then(() => { window.location.href = "/"; })
         .catch((e) => alert(e))
-    }
+    },
   }
 })
 </script>
@@ -54,7 +54,7 @@ export default defineComponent({
       <input type="checkbox" id="chk" aria-hidden="true" checked>
 
       <div class="signup">
-        <form  id="signUp" @submit.prevent="onRegisterSubmit">
+        <form id="signUp" @submit.prevent="onRegisterSubmit">
           <label for="chk">Registrazione</label>
           <ul>
             <li>
@@ -73,12 +73,10 @@ export default defineComponent({
               <label for="register-email">Email</label>
               <input type="text" id="register-email" name="register-email" required v-model="registerEmail">
             </li>
-
             <li>
               <label for="register-password">Password:</label>
               <input type="password" id="register-password" name="register-password" v-model="registerPassword" />
             </li>
-
           </ul>
           <li>
             <button>Registrati</button>

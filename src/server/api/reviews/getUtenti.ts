@@ -6,7 +6,9 @@ export default defineEventHandler(async function (event) {
 
    const connection = await createConnection()
    const [results] = await connection.execute(
-      `SELECT * FROM stanza`,
+      `SELECT * FROM utenti`
    )
+
+   
    return results
 })

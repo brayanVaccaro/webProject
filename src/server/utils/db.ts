@@ -9,4 +9,3 @@ export function createConnection(){
     })
 }
 
-//da vedere

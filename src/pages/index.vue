@@ -52,7 +52,7 @@ export default defineComponent({
                 </div>
             </div>
             <div>
-                <img class="logo-img" src="../public/img/logo_transparent.png">
+                <img class="logo-img" src="/img/logo_transparent.png">
             </div>
         </section>
 

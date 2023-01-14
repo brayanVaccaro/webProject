@@ -58,8 +58,6 @@ CREATE TABLE `recensione` (
   `votoRecensione` enum('1stellina','2stellina','3stellina','4stellina','5stellina') COLLATE latin1_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
--- --------------------------------------------------------
-
 --
 -- Struttura della tabella `stanza`
 --
@@ -72,9 +70,7 @@ CREATE TABLE `stanza` (
   `tipologiaStanza` enum('matrimoniale','suite','vistaMare') COLLATE latin1_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
---
--- Dump dei dati per la tabella `stanza`
---
+
 
 INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `tipologiaStanza`) VALUES
 (1, '56€', 'Bedroom2.png', 'singola', 'suite'),

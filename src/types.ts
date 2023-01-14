@@ -13,3 +13,10 @@ export interface Utente {
     dataNascita: string,
     email: string
 }
+
+export interface Recensione{
+    idRecensione: number,
+    dataRecensione: string,
+    testoRecensione: string,
+    votoRecensione: string
+}
