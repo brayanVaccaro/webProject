@@ -30,6 +30,10 @@ export default defineComponent({
 </script>
 
 <template>
+  <Head>
+    <Title>Astra</Title>
+  </Head>
+
     <nav id="nav">
         <button>
             <NuxtLink to="/">Home</NuxtLink>
