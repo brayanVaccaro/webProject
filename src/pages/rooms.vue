@@ -4,28 +4,48 @@ export default defineComponent({
     data() {
         return {
             stanza: [] as Stanza[],
-            numeroPersone: 0 as number,
-            dataSoggiorno: '' as string,
-            dataSoggiornoGiusta: '' as string
+            dataSoggiornoGiusta: ['', ''] as string[],
+            dataInizio: '' as string,
+            dataFine: '' as string,
+            tagliaStanza: '',
+            options: [
+                { value: 'Singola' },
+                { value: 'Doppia' },
+                { value: 'Tripla' },
+                { value: 'Quadrupla' }
+            ]
         }
     },
     methods: {
-        getPersona() {
+        getStanze() {
             $fetch("/api/dbLinking")
                 .then((data) => { this.stanza = data as Stanza[] })
         },
-        increasePersone() {
-            this.numeroPersone == 5 ? this.numeroPersone = this.numeroPersone : this.numeroPersone++
-        },
-        decreasePersone() {
-            this.numeroPersone == 0 ? this.numeroPersone = this.numeroPersone : this.numeroPersone--
-        },
-        dateFormat() {
-            this.dataSoggiorno == '' ? console.log(this.dataSoggiorno) : this.dataSoggiornoGiusta = this.dataSoggiorno.split('-').reverse().toString().replaceAll(',', '/');
+
+        filtra() {
+            console.log('1' + this.tagliaStanza)
+
+            $fetch("/api/reservation/filter", {
+                method: "POST",
+                body: {
+                    tagliaStanza: this.tagliaStanza
+                }
+            })
+                .then((data) => { this.stanza = data as Stanza[] })
+                .catch((e) => alert(e))
+
+
+            this.dataInizio == '' ? this.dataInizio = ' ' : (this.dataSoggiornoGiusta[0] = this.dataInizio.split('-').reverse().toString().replaceAll(',', '/'), this.dataSoggiornoGiusta[1] = this.dataFine.split('-').reverse().toString().replaceAll(',', '/'));
+            console.log(this.dataInizio)
+            console.log(this.dataFine)
+            console.log(this.dataSoggiornoGiusta)
+
+
         }
+
     },
     mounted() {
-        this.getPersona();
+        // this.getStanze();
     }
 })
 </script>
@@ -35,22 +55,24 @@ export default defineComponent({
             <aside>
                 <ul class="grid-item-aside-ul">
                     <li>Data inizio soggiorno:
-                        <input v-model="dataSoggiorno" @change="dateFormat" type="date">
+                        <input v-model="dataInizio" type="date">
                     </li>
-                    <li>Data inizio soggiorno:
-                        <input v-model="dataSoggiorno" @change="dateFormat" type="date">
+                    <li>Data fine soggiorno:
+                        <input v-model="dataFine" type="date">
                     </li>
-
-                    <li>Quante persone?
-                        <input type="button" value="-" @click="decreasePersone" />
-                        <label for="numeroPersone">{{ numeroPersone }}</label>
-                        <input type="button" value="+" @click="increasePersone" />
+                    <li>Tipologia stanza
+                        <select v-model="tagliaStanza" placeholder="tipo di stanza">
+                            <option v-for="option in options" :key="option.value" :value="option.value">
+                                {{ option.value }}
+                            </option>
+                        </select>
+                        <button @click="filtra()">---></button>
                     </li>
                 </ul>
             </aside>
         </div>
         <div class="grid-item-table table">
-            <h3>Elenco stanze disponibili per il giorno {{ dataSoggiornoGiusta }}</h3>
+            <h3>Elenco stanze nel periodo {{ dataSoggiornoGiusta[0]+ ' - ' + dataSoggiornoGiusta[1] }}</h3>
             <table class="">
                 <thead class="grid-item-thead">
                     <td>Immagine</td>
@@ -89,11 +111,13 @@ export default defineComponent({
 </template>
 <style lang="scss" scoped>
 img {
-    width: 70%;
+    max-width: 100%;
     height: auto;
     border: 1px solid black;
     border-radius: 10px;
+    aspect-ratio: auto;
 }
+
 
 h3 {}
 
@@ -113,18 +137,21 @@ li {
     flex-direction: column;
 }
 
-.grid-item-table {}
+.grid-item-table {
+    // align-items: center;
+
+}
 
 .grid-item-thead {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    // flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .grid-item-tbody {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    // gap: 30px;
 }
 
 .grid-item-section {}
@@ -132,30 +159,13 @@ li {
 .grid-item-tr {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    // align-items: flex-end;
 }
 
-.grid-item-tr td:nth-child(1) {
-    width: 25%;
+.grid-item-tr td {
+    width: 33.3%;
+    text-align: center;
     // background-color: black;
-}
-
-.grid-item-tr td:nth-child(2) {
-    // display: grid;
-    width: 25%;
-    // background-color: red;
-    // max-width: min-content;
-    // grid-template-columns: minmax(50px, 250px);
-}
-
-.grid-item-tr td:nth-child(3) {
-    width: 25%;
-    // background-color: orange;
-    text-align: center;
-}
-
-.grid-item-tr td:nth-child(4) {
-    width: 25%;
-    // background-color: green;
-    text-align: center;
 }
 </style>
