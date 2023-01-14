@@ -4,18 +4,15 @@ export default defineComponent({
     data() {
         return {
             stanza: [] as Stanza[],
-            numeroPersone: 0 as number,
-            dataSoggiorno: '' as string,
-            dataSoggiornoGiusta: '' as string,
+            dataSoggiornoGiusta: ['', ''] as string[],
             dataInizio: '' as string,
             dataFine: '' as string,
-            tagliaStanza: '' as string,
-            selectedOption: '',
+            tagliaStanza: '',
             options: [
-                { value: 'Singola'},
-                { value: 'Doppia'},
-                { value: 'Tripla'},
-                { value: 'Quadrupla'}
+                { value: 'Singola' },
+                { value: 'Doppia' },
+                { value: 'Tripla' },
+                { value: 'Quadrupla' }
             ]
         }
     },
@@ -31,18 +28,21 @@ export default defineComponent({
             $fetch("/api/reservation/filter", {
                 method: "POST",
                 body: {
-                    tagliaStanza: this.selectedOption
+                    tagliaStanza: this.tagliaStanza
                 }
-            }).then((data) => { this.stanza = data as Stanza[] })
-            // const choise = document.querySelector();
-            // for (let i = 0; i < this.stanza.length; i++) {
-            //     this.stanza[i].tagliaStanza == this.dataSoggiornoGiusta ? console.log() : i++
-            // }
+            })
+                .then((data) => { this.stanza = data as Stanza[] })
+                .catch((e) => alert(e))
 
-        },
-        dateFormat() {
-            this.dataSoggiorno == '' ? console.log(this.dataSoggiorno) : this.dataSoggiornoGiusta = this.dataSoggiorno.split('-').reverse().toString().replaceAll(',', '/');
+
+            this.dataInizio == '' ? this.dataInizio = ' ' : (this.dataSoggiornoGiusta[0] = this.dataInizio.split('-').reverse().toString().replaceAll(',', '/'), this.dataSoggiornoGiusta[1] = this.dataFine.split('-').reverse().toString().replaceAll(',', '/'));
+            console.log(this.dataInizio)
+            console.log(this.dataFine)
+            console.log(this.dataSoggiornoGiusta)
+
+
         }
+
     },
     mounted() {
         // this.getStanze();
@@ -55,34 +55,24 @@ export default defineComponent({
             <aside>
                 <ul class="grid-item-aside-ul">
                     <li>Data inizio soggiorno:
-                        <input v-model="dataSoggiorno" @change="dateFormat" type="date">
+                        <input v-model="dataInizio" type="date">
                     </li>
                     <li>Data fine soggiorno:
-                        <input v-model="dataSoggiorno" @change="dateFormat" type="date">
+                        <input v-model="dataFine" type="date">
                     </li>
-                    <select v-model="selectedOption" >
-                        <option v-for="option in options" :key="option.value" :value="option.value">
-                            {{ option.value }}
-                        </option>
-                    </select>
-                    <!-- 
-                    <li>Tipologia Stanza:
-                        <input type="checkbox" value="ciao" id="choise" v-bind="tagliaStanza">
-                        <label for="choise" >Singola</label>
-                        <input type="checkbox" id="choise">
-                        <label for="choise">Doppia</label>
-                        <input type="checkbox" id="choise">
-                        <label for="choise">Tripla</label>
-                        <input type="checkbox" id="choise">
-                        <label for="choise">Quadrupla</label>
-                    </li> -->
-                    <button @click.prevent="filtra">---></button>
-
+                    <li>Tipologia stanza
+                        <select v-model="tagliaStanza" placeholder="tipo di stanza">
+                            <option v-for="option in options" :key="option.value" :value="option.value">
+                                {{ option.value }}
+                            </option>
+                        </select>
+                        <button @click="filtra()">---></button>
+                    </li>
                 </ul>
             </aside>
         </div>
         <div class="grid-item-table table">
-            <h3>Elenco stanze disponibili per il giorno {{ dataSoggiornoGiusta }}</h3>
+            <h3>Elenco stanze nel periodo {{ dataSoggiornoGiusta[0]+ ' - ' + dataSoggiornoGiusta[1] }}</h3>
             <table class="">
                 <thead class="grid-item-thead">
                     <td>Immagine</td>
@@ -120,7 +110,6 @@ export default defineComponent({
     </div>
 </template>
 <style lang="scss" scoped>
-
 img {
     max-width: 100%;
     height: auto;
@@ -176,7 +165,7 @@ li {
 
 .grid-item-tr td {
     width: 33.3%;
+    text-align: center;
     // background-color: black;
 }
-
 </style>
