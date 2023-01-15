@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 12, 2023 alle 14:03
+-- Creato il: Gen 14, 2023 alle 21:42
 -- Versione del server: 10.4.24-MariaDB
 -- Versione PHP: 7.4.29
 
@@ -59,6 +59,16 @@ CREATE TABLE `recensione` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
+-- Dump dei dati per la tabella `recensione`
+--
+
+INSERT INTO `recensione` (`idRecensione`, `dataRecensione`, `testoRecensione`, `idUtente`, `votoRecensione`) VALUES
+(1, '2023-01-17', 'Stanza bella grande e pulita. nvwkfwwjwnjwj rhjriugrnrgtògjker gerògrgjgògnenggrgirnogerngioengegne gejgneognreg\r\ngqgirngàrigerg\r\nergrnigrengrg', 3, '3stellina'),
+(2, '2023-01-24', 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe evenie', 3, '4stellina');
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `stanza`
 --
 
@@ -70,7 +80,9 @@ CREATE TABLE `stanza` (
   `tipologiaStanza` enum('matrimoniale','suite','vistaMare') COLLATE latin1_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
-
+--
+-- Dump dei dati per la tabella `stanza`
+--
 
 INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `tipologiaStanza`) VALUES
 (1, '56€', 'Bedroom2.png', 'singola', 'suite'),
@@ -92,11 +104,12 @@ INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `
 
 CREATE TABLE `utenti` (
   `idUtente` int(11) NOT NULL,
+  `imgProfilo` varchar(100) COLLATE latin1_general_ci NOT NULL,
   `nome` varchar(45) COLLATE latin1_general_ci NOT NULL,
   `cognome` varchar(45) COLLATE latin1_general_ci NOT NULL,
   `dataNascita` date NOT NULL,
   `email` varchar(155) COLLATE latin1_general_ci NOT NULL,
-  `password` varchar(512) COLLATE latin1_general_ci NOT NULL,  
+  `password` varchar(512) COLLATE latin1_general_ci NOT NULL,
   `ruolo` enum('gestore','cliente') COLLATE latin1_general_ci NOT NULL DEFAULT 'cliente'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
@@ -104,8 +117,9 @@ CREATE TABLE `utenti` (
 -- Dump dei dati per la tabella `utenti`
 --
 
-INSERT INTO `utenti` (`idUtente`, `nome`, `cognome`, `dataNascita`, `email`, `password`,`ruolo`) VALUES
-(1, 'Gino', 'Pino', '01/01/70', 'gino@pino', 'gino', 'cliente');
+INSERT INTO `utenti` (`idUtente`, `imgProfilo`, `nome`, `cognome`, `dataNascita`, `email`, `password`, `ruolo`) VALUES
+(1, '', 'Gino', 'Pino', '2023-01-10', 'gino@pino', 'gino', 'cliente'),
+(3, '', 'M', 'd', '2023-01-05', 'm@d', '$2b$10$I6ik4Bu5CQy/a6uNhq6HaORkRzOTYv7du3hCpE3eUqtzmBkmOZYSG', 'cliente');
 
 --
 -- Indici per le tabelle scaricate
@@ -154,19 +168,19 @@ ALTER TABLE `prenotazione`
 -- AUTO_INCREMENT per la tabella `recensione`
 --
 ALTER TABLE `recensione`
-  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `stanza`
 --
 ALTER TABLE `stanza`
-  MODIFY `idStanza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idStanza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Limiti per le tabelle scaricate

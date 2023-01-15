@@ -136,6 +136,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 img {
     width: 100%;
+    max-width: 200%;
     height: auto;
     border: 1px solid black;
     border-radius: 10px;
@@ -198,7 +199,7 @@ li {
 
 #imageZoom:checked~.grid-item-tr td:nth-child(1) img:hover {
     background-color: black;
-    width: 80px;
+    // width: 150%;
 
     // width: 800px;
 
