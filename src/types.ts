@@ -8,6 +8,7 @@ export interface Stanza {
 
 export interface Utente {
     idUtente: number,
+    imgProfilo: string,
     nome: string,
     cognome: string,
     dataNascita: string,

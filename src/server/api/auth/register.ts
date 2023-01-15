@@ -9,8 +9,8 @@ export default defineEventHandler(async function(event) {
   requireLogout(utente)
 
   // Estrae username e password dal body della richiesta
-  const { imgProfile, name, surname, email, dateBirth, password,} = await readBody(event)
-  console.log('dati utente' + imgProfile, name, surname, email, dateBirth, password )
+  const { name, surname, email, dateBirth, password,} = await readBody(event)
+  console.log('dati utente' + name, surname, email, dateBirth, password )
 
   // Verifica che l'email sia disponibile
   const connection = await createConnection()
@@ -28,9 +28,9 @@ export default defineEventHandler(async function(event) {
 
   // Inserisce l'utente nel database
   await connection.execute(
-    `INSERT INTO utenti (imgProfilo, nome, cognome, dataNascita, email, password)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-    [imgProfile, name, surname, dateBirth, email, passwordHash]
+    `INSERT INTO utenti (nome, cognome, dataNascita, email, password)
+     VALUES (?, ?, ?, ?, ?)`,
+    [name, surname, dateBirth, email, passwordHash]
   )
 
   // Estrae i dati per il nuovo utente

@@ -5,7 +5,8 @@ export default defineComponent({
         return {
             stanza: [] as Stanza[],
             dataSoggiornoGiusta: ['', ''] as string[],
-            dataInizio: '' as string,
+            selettoreInputData: undefined as any,
+            dataInizio: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
             dataFine: '' as string,
             tagliaStanza: '',
             options: [
@@ -17,17 +18,38 @@ export default defineComponent({
         }
     },
     methods: {
-        getStanze() {
-            $fetch("/api/dbLinking")
+        console() {
+            $fetch("/api/reservation/getRooms")
                 .then((data) => { this.stanza = data as Stanza[] })
+
+        },
+        date() {
+            this.selettoreInputData[0].setAttribute("min", this.dataInizio)
+            this.selettoreInputData[1].setAttribute("min", this.dataInizio)
+
         },
 
         filtra() {
             console.log('1' + this.tagliaStanza)
+            
+            console.log('prima ' + this.dataInizio)
+            if (this.dataInizio == '' || this.dataFine == '') {
+                return
+            }
+
+            if (2 > 3) {
+                return
+            }
+            else (this.dataSoggiornoGiusta[0] = this.dataInizio.split('-').reverse().toString().replaceAll(',', '/'), this.dataSoggiornoGiusta[1] = this.dataFine.split('-').reverse().toString().replaceAll(',', '/'));
+            console.log('dopo ', + this.dataInizio)
+            console.log(this.dataFine)
+            console.log(this.dataSoggiornoGiusta)
 
             $fetch("/api/reservation/filter", {
                 method: "POST",
                 body: {
+                    dataInizio: this.dataInizio,
+                    dataFine: this.dataFine,
                     tagliaStanza: this.tagliaStanza
                 }
             })
@@ -35,17 +57,21 @@ export default defineComponent({
                 .catch((e) => alert(e))
 
 
-            this.dataInizio == '' ? this.dataInizio = ' ' : (this.dataSoggiornoGiusta[0] = this.dataInizio.split('-').reverse().toString().replaceAll(',', '/'), this.dataSoggiornoGiusta[1] = this.dataFine.split('-').reverse().toString().replaceAll(',', '/'));
-            console.log(this.dataInizio)
-            console.log(this.dataFine)
-            console.log(this.dataSoggiornoGiusta)
 
 
         }
 
     },
+    beforeMount() {
+        // this.date()
+    },
     mounted() {
-        // this.getStanze();
+        this.selettoreInputData = document.querySelectorAll("#data")
+        this.console();
+        this.date();
+
+
+
     }
 })
 </script>
@@ -55,10 +81,10 @@ export default defineComponent({
             <aside>
                 <ul class="grid-item-aside-ul">
                     <li>Data inizio soggiorno:
-                        <input v-model="dataInizio" type="date">
+                        <input v-model="dataInizio" type="date" id="data" @change="date()">
                     </li>
                     <li>Data fine soggiorno:
-                        <input v-model="dataFine" type="date">
+                        <input v-model="dataFine" type="date" id="data" @change="date()">
                     </li>
                     <li>Tipologia stanza
                         <select v-model="tagliaStanza" placeholder="tipo di stanza">
@@ -72,6 +98,7 @@ export default defineComponent({
             </aside>
         </div>
         <div class="grid-item-table table">
+
             <h3>Elenco stanze nel periodo {{ dataSoggiornoGiusta[0]+ ' - ' + dataSoggiornoGiusta[1] }}</h3>
             <table class="">
                 <thead class="grid-item-thead">
@@ -80,8 +107,13 @@ export default defineComponent({
                     <td>prezzo a notte</td>
                 </thead>
                 <tbody class="grid-item-tbody">
+                    <input type="checkbox" id="imageZoom" checked>
+
                     <tr v-for="x in stanza" class="grid-item-tr">
-                        <td> <img :src="'img/' + x.imgStanza"></td>
+                        <td> <label for="imageZoom">
+                                <img :src="'img/' + x.imgStanza" @click="">
+                            </label>
+                        </td>
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
                         <td>{{ x.prezzoAnotte }}</td>
 
@@ -95,15 +127,7 @@ export default defineComponent({
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero provident commodi odio temporibus
                     reprehenderit officiis maxime, distinctio ipsum repellendus adipisci, laborum vel dicta ipsam
                     quisquam
-                    maiores cumque dolorem quam quasi laudantium repudiandae! Laudantium, dolores eius esse sit nam
-                    ratione
-                    veritatis culpa architecto, nihil commodi, accusamus magnam! Ut, doloribus temporibus iste maiores
-                    vel
-                    obcaecati consequatur minima laborum fuga quae provident dignissimos optio dolorem? Aliquid adipisci
-                    sunt sapiente dolore. Reiciendis harum, unde necessitatibus ea quos consequuntur fuga suscipit atque
-                    deserunt enim corporis. Quod debitis est odio impedit a tenetur? Aliquam laborum a rerum illo
-                    officiis,
-                    voluptate unde consequatur iure impedit quam itaque?</p>
+                </p>
 
             </section>
         </div>
@@ -111,7 +135,7 @@ export default defineComponent({
 </template>
 <style lang="scss" scoped>
 img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border: 1px solid black;
     border-radius: 10px;
@@ -142,6 +166,14 @@ li {
 
 }
 
+.grid-item-table tr:hover {
+    background-color: grey;
+}
+
+#centerPage>div>div.grid-item-table.table>table>tbody>tr:nth-child(1)>td:nth-child(1) .grid-item-table tr:nth-child(1) td:nth-child(1):hover {
+    border: red 2px solid;
+}
+
 .grid-item-thead {
     display: flex;
     // flex-direction: row;
@@ -154,6 +186,26 @@ li {
     // gap: 30px;
 }
 
+#imageZoom {
+    // display: none;
+}
+
+#imageZoom:checked+label>img {
+    // background-color: black;
+
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+#imageZoom:checked~.grid-item-tr td:nth-child(1) img:hover {
+    background-color: black;
+    width: 80px;
+
+    // width: 800px;
+
+
+// box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
 .grid-item-section {}
 
 .grid-item-tr {
@@ -163,9 +215,20 @@ li {
     // align-items: flex-end;
 }
 
+.grid-item-tr td:nth-child(1):hover {
+    // background-color: black;
+    border: 1px solid red;
+
+    img {
+        // aspect-ratio: 16/9;
+
+
+    }
+}
+
 .grid-item-tr td {
     width: 33.3%;
-    text-align: center;
+    // text-align: center;
     // background-color: black;
 }
 </style>

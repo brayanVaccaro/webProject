@@ -44,7 +44,7 @@ export default defineComponent({
       })
         .then(() => { window.location.href = "/"; })
         .catch((e) => alert(e))
-    },
+    }
   }
 })
 </script>
