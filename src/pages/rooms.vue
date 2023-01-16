@@ -134,6 +134,7 @@ export default defineComponent({
     </div>
 </template>
 <style lang="scss" scoped>
+
 img {
     width: 100%;
     max-width: 200%;
@@ -201,7 +202,7 @@ li {
     background-color: black;
     // width: 150%;
 
-    // width: 800px;
+    width: 800px;
 
 
 // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);

@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     srcDir: "src",
     ssr: false,
-    css:[
-        "assets/styles/global.scss"
-    ]
+    // css:[
+    //     "assets/styles/global.scss"
+    // ]
 })

@@ -1,12 +1,11 @@
 import { createConnection } from "~~/src/server/utils/db";
 
-export default defineEventHandler(async function (event) {
+export default defineEventHandler(async function () {
 
-   // const { tagliaStanza } = await readBody(event)
 
    const connection = await createConnection()
    const [results] = await connection.execute(
-      `SELECT * FROM utenti`
+      `SELECT nome, cognome, imgProfilo FROM utenti INNER JOIN recensione ON recensione.idUtente=utenti.idUtente`
    )
 
    

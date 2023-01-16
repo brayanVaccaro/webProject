@@ -20,7 +20,7 @@ export default defineComponent({
     },
     async logout() {
       await $fetch("/api/auth/logout")
-      this.getUtente()
+      // this.getUtente()
     }
   },
   mounted() {
@@ -44,7 +44,7 @@ export default defineComponent({
         </button>
         <button v-else>
             <NuxtLink to="/" @click.prevent = "logout">Logout</NuxtLink>
-        </button>
+        </button> 
 
         <button v-if="utente">
             <NuxtLink to="/rooms">Stanze disponibili</NuxtLink>
@@ -60,3 +60,8 @@ export default defineComponent({
     </main>
 </template>
 
+
+<style lang="scss">
+@import '../assets/styles/global.scss';
+
+</style>
