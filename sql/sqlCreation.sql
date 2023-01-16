@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 14, 2023 alle 21:42
+-- Creato il: Gen 16, 2023 alle 21:24
 -- Versione del server: 10.4.24-MariaDB
 -- Versione PHP: 7.4.29
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `astra`
 --
-CREATE SCHEMA IF NOT EXISTS `astra` DEFAULT CHARACTER SET utf8 ;
-USE `astra` ;
 
 -- --------------------------------------------------------
 
@@ -55,7 +53,7 @@ CREATE TABLE `recensione` (
   `dataRecensione` date NOT NULL,
   `testoRecensione` varchar(625) COLLATE latin1_general_ci NOT NULL,
   `idUtente` int(11) NOT NULL,
-  `votoRecensione` enum('1stellina','2stellina','3stellina','4stellina','5stellina') COLLATE latin1_general_ci NOT NULL
+  `votoRecensione` enum('stars-5.png','stars-4.png','stars-3.png','stars-2.png','stars-1.png') COLLATE latin1_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
@@ -63,8 +61,7 @@ CREATE TABLE `recensione` (
 --
 
 INSERT INTO `recensione` (`idRecensione`, `dataRecensione`, `testoRecensione`, `idUtente`, `votoRecensione`) VALUES
-(1, '2023-01-17', 'Stanza bella grande e pulita. nvwkfwwjwnjwj rhjriugrnrgtògjker gerògrgjgògnenggrgirnogerngioengegne gejgneognreg\r\ngqgirngàrigerg\r\nergrnigrengrg', 3, '3stellina'),
-(2, '2023-01-24', 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe evenie', 3, '4stellina');
+(1, '2023-01-17', 'Stanza bella grande e pulita. nvwkfwwjwnjwj rhjriugrnrgtògjker gerògrgjgògnenggrgirnogerngioengegne gejgneognreg\r\ngqgirngàrigerg\r\nergrnigrengrg', 3, 'stars-5.png');
 
 -- --------------------------------------------------------
 
@@ -118,8 +115,8 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`idUtente`, `imgProfilo`, `nome`, `cognome`, `dataNascita`, `email`, `password`, `ruolo`) VALUES
-(1, '', 'Gino', 'Pino', '2023-01-10', 'gino@pino', 'gino', 'cliente'),
-(3, '', 'M', 'd', '2023-01-05', 'm@d', '$2b$10$I6ik4Bu5CQy/a6uNhq6HaORkRzOTYv7du3hCpE3eUqtzmBkmOZYSG', 'cliente');
+(1, 'profile-1.jpg', 'Gino', 'Pino', '2023-01-10', 'gino@pino', 'gino', 'cliente'),
+(3, 'profile-2.jpg', 'M', 'd', '2023-01-05', 'm@d', '$2b$10$I6ik4Bu5CQy/a6uNhq6HaORkRzOTYv7du3hCpE3eUqtzmBkmOZYSG', 'cliente');
 
 --
 -- Indici per le tabelle scaricate
