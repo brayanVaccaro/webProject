@@ -1,5 +1,5 @@
 export interface Stanza {
-    idStanze: number,
+    idStanza: number,
     prezzoAnotte: string,
     imgStanza: any,
     tagliaStanza: string,

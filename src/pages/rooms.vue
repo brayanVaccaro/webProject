@@ -62,12 +62,14 @@ export default defineComponent({
 
         },
         imgZoomContainer() {
-            let imgZoomContainer = document.querySelector("div.imgZoomContainer") as any
+            let imgZoomContainer = document.querySelector("div.imgZoomContainer")
 
             this.imgStanza = document.querySelector("b")?.innerHTML as string
             console.log(imgZoomContainer)
             imgZoomContainer?.setAttribute("style", "display: block")
             console.log(this.imgStanza)
+            // document.querySelector(`#centerPage > div > div.grid-item-table.table > table > tbody > tr:nth-child(${id}) > div`)
+            document.querySelector("#centerPage > div > div.grid-item-table.table > table > tbody > tr:nth-child(3) > div")
 
         },
         imgCloseContainer() {
@@ -91,10 +93,11 @@ export default defineComponent({
 <template>
     <div class="grid-container-main main">
         <div class="imgZoomContainer" style="display: none;">
-            <input type="checkbox" id="closeZoomContainer">
-            <label for="closeZoomContainer" @click="imgCloseContainer()">x</label>
-            <img :src="'img/' + imgStanza" @click="">
-        </div>
+                            <input type="checkbox" id="closeZoomContainer">
+                            <label for="closeZoomContainer" @click="imgCloseContainer()">x</label>
+                            <img :src="'img/' + imgStanza" @click="">
+                        </div>
+
         <div class="grid-item-aside aside">
             <aside>
                 <ul class="grid-item-aside-ul">
@@ -136,6 +139,7 @@ export default defineComponent({
                         </td>
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
                         <td>{{ x.prezzoAnotte }}</td>
+                        
 
                     </tr>
                 </tbody>
@@ -314,10 +318,12 @@ li {
     // background-color: black;
 }
 
-.grid-item-tr label {
+// .grid-item-tr label {
+//     display: none;
+// }
+.grid-item-tr td label {
     display: none;
 }
-
 .grid-item-tr td:nth-child(1):hover {
     // background-color: black;
     border: 2px solid red;

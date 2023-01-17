@@ -19,8 +19,8 @@ export default defineComponent({
       this.utente = utente
     },
     async logout() {
-      await $fetch("/api/auth/logout").then((response) => alert(response)).then(() => window.location.href = "/") 
-      // this.getUtente()
+      await $fetch("/api/auth/logout").then((response) => alert(response.message)).then(() => window.location.href = "/") 
+      this.getUtente()
     }
   },
   mounted() {
