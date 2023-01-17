@@ -3,18 +3,22 @@
 
 
 body {
-    background-color: $primario;
+    background-image: url("img/background-image.png");
+    background-size: 900px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
+
+
 #centerPage {
-    background-color:red;
-    // display: flex;
+    background-color: white;
 }
 
 nav {
     display: flex;
     justify-content: space-around;
-    background-color: rgb(26, 176, 196);
+    background-color: gray;
     // margin: 1%;
     padding: 1%;
 }
@@ -35,6 +39,11 @@ a {
     font-size: medium;
 }
 
+.footer{
+    background-color: gray;
+    text-align: center;
+    font-size: 18px;
+}
 //LOGIN PAGE
 
 

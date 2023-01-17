@@ -33,7 +33,6 @@ export default defineComponent({
   <Head>
     <Title>Astra</Title>
   </Head>
-
     <nav id="nav">
         <button>
             <NuxtLink to="/">Home</NuxtLink>
@@ -53,15 +52,20 @@ export default defineComponent({
         <button v-if="utente">
             <NuxtLink to="/reviews">Recensioni</NuxtLink>
         </button>
-
     </nav>
+    <div class="background-image">
+    </div>
     <main id="centerPage">
         <slot></slot>
     </main>
+    <footer class="footer">Contatti: astraHotel@gmail.com	+393888958648</footer>
 </template>
 
 
 <style lang="scss">
 @import '../assets/styles/global.scss';
 
+.background-image{
+
+}
 </style>
