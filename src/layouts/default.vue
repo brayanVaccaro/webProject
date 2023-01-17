@@ -34,23 +34,23 @@ export default defineComponent({
     <Title>Astra</Title>
   </Head>
     <nav id="nav">
-        <button>
-            <NuxtLink to="/">Home</NuxtLink>
+        <button class="nav-buttons">
+            <NuxtLink class="nuxt-link" to="/">Home</NuxtLink>
         </button>
 
-        <button v-if="!utente">
-            <NuxtLink to="/login">Login</NuxtLink>
+        <button class="nav-buttons" v-if="!utente">
+            <NuxtLink class="nuxt-link" to="/login">Login</NuxtLink>
         </button>
-        <button v-else>
-            <NuxtLink to="/" @click.prevent = "logout">Logout</NuxtLink>
+        <button class="nav-buttons" v-else>
+            <NuxtLink class="nuxt-link" to="/" @click.prevent = "logout">Logout</NuxtLink>
         </button> 
 
-        <button v-if="utente">
-            <NuxtLink to="/rooms">Stanze disponibili</NuxtLink>
+        <button class="nav-buttons" v-if="utente">
+            <NuxtLink class="nuxt-link" to="/rooms">Stanze disponibili</NuxtLink>
         </button>
 
-        <button v-if="utente">
-            <NuxtLink to="/reviews">Recensioni</NuxtLink>
+        <button class="nav-buttons" >
+            <NuxtLink class="nuxt-link" to="/reviews">Cosa pensano di noi</NuxtLink>
         </button>
     </nav>
     <div class="background-image">
@@ -64,8 +64,13 @@ export default defineComponent({
 
 <style lang="scss">
 @import '../assets/styles/global.scss';
-
-.background-image{
-
+.nav-buttons{
+  max-width: 180px ;
+  font-weight: bold;
+  border: solid gray;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 11px;
 }
+
 </style>

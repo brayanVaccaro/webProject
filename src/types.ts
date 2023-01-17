@@ -18,6 +18,7 @@ export interface Utente {
 export interface Recensione{
     idRecensione: number,
     dataRecensione: string,
-    testoRecensione: string,
-    votoRecensione: string
+    votoPulizia: string,
+    votoRistorazione: string,
+    votoAccoglienza: string
 }

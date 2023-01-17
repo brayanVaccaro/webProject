@@ -33,7 +33,7 @@ export default defineComponent({
     <div id="index">
         <div class="head-container">
             <h1 class="head" v-if="!utente">Benvento nel sito dell'hotel Astra</h1>
-            <h1 class="head" v-else>Bentornato .... nel sito dell'hotel Astra</h1>
+            <h1 class="head" v-else>Bentornato {{utente.nome + " " +utente.cognome}} nel sito dell'hotel Astra</h1>
             <p class="head" v-if="!utente">
                 Prenota con noi e passa il miglior tempo della tua estate qui a Gallipoli, la città del divertimento
             </p>
@@ -88,7 +88,6 @@ export default defineComponent({
 //INDEX PAGE
 
 
-
 .history-container{
     display: inline-block;
     margin-left: 50px;
@@ -109,6 +108,7 @@ export default defineComponent({
     text-align: center;
     margin: 0;
     margin-top: 5px;
+    // display: inline-block;
 }
 
 .logo-img {
