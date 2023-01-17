@@ -8,7 +8,8 @@ export default defineComponent({
             selettoreInputData: undefined as any,
             dataInizio: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
             dataFine: '' as string,
-            tagliaStanza: '',
+            tagliaStanza: '' as string,
+            imgStanza: '' as string,
             options: [
                 { value: 'Singola' },
                 { value: 'Doppia' },
@@ -31,7 +32,7 @@ export default defineComponent({
 
         filtra() {
             console.log('1' + this.tagliaStanza)
-            
+
             console.log('prima ' + this.dataInizio)
             if (this.dataInizio == '' || this.dataFine == '') {
                 return
@@ -59,14 +60,26 @@ export default defineComponent({
 
 
 
+        },
+        imgZoomContainer() {
+            let imgZoomContainer = document.querySelector("div.imgZoomContainer") as any
+
+            this.imgStanza = document.querySelector("b")?.innerHTML as string
+            console.log(imgZoomContainer)
+            imgZoomContainer?.setAttribute("style", "display: block")
+            console.log(this.imgStanza)
+
+        },
+        imgCloseContainer() {
+            let imgZoomContainer = document.querySelector("div.imgZoomContainer") as any
+            imgZoomContainer?.setAttribute("style", "display: none")
         }
 
     },
-    beforeMount() {
-        // this.date()
-    },
+
     mounted() {
         this.selettoreInputData = document.querySelectorAll("#data")
+        // this.imgZoomContainer = document.querySelector("div.imgZoomContainer")
         this.console();
         this.date();
 
@@ -77,6 +90,11 @@ export default defineComponent({
 </script>
 <template>
     <div class="grid-container-main main">
+        <div class="imgZoomContainer" style="display: none;">
+            <input type="checkbox" id="closeZoomContainer">
+            <label for="closeZoomContainer" @click="imgCloseContainer()">x</label>
+            <img :src="'img/' + imgStanza" @click="">
+        </div>
         <div class="grid-item-aside aside">
             <aside>
                 <ul class="grid-item-aside-ul">
@@ -105,14 +123,16 @@ export default defineComponent({
                     <td>Immagine</td>
                     <td>Descrizione</td>
                     <td>prezzo a notte</td>
+
                 </thead>
                 <tbody class="grid-item-tbody">
-                    <input type="checkbox" id="imageZoom" checked>
+                    <input type="checkbox" id="imageZoom">
 
                     <tr v-for="x in stanza" class="grid-item-tr">
-                        <td> <label for="imageZoom">
-                                <img :src="'img/' + x.imgStanza" @click="">
-                            </label>
+                        <td>
+                            <img :src="'img/' + x.imgStanza" @click="">
+                            <b>{{ x.imgStanza }}</b>
+                            <label for="imageZoom" @click="imgZoomContainer()">Ingrandisci</label>
                         </td>
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
                         <td>{{ x.prezzoAnotte }}</td>
@@ -133,15 +153,15 @@ export default defineComponent({
         </div>
     </div>
 </template>
-<style lang="scss" scoped>
-
+<!-- <style lang="scss" scoped>
 img {
-    width: 100%;
-    max-width: 200%;
+    // width: 200px;
+    // object-fit: cover;
+    max-width: 100%;
     height: auto;
     border: 1px solid black;
     border-radius: 10px;
-    aspect-ratio: auto;
+    // aspect-ratio: auto;
 }
 
 
@@ -172,13 +192,104 @@ li {
     background-color: grey;
 }
 
-#centerPage>div>div.grid-item-table.table>table>tbody>tr:nth-child(1)>td:nth-child(1) .grid-item-table tr:nth-child(1) td:nth-child(1):hover {
-    border: red 2px solid;
+
+
+.grid-item-thead tr {
+    display: flex;
+    // flex-direction: row;
+    justify-content: space-evenly;
+}
+
+
+
+.grid-item-section {}
+
+.grid-item-tr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // align-items: flex-end;
+}
+table td {
+    max-width: 100%;
+    text-align: center;
+
+}
+.grid-item-tr td:first-child {
+    max-width: 33%;
+
+}
+
+.grid-item-tr td:nth-child(1):hover {
+    // background-color: black;
+    border: 1px solid red;
+
+}
+
+
+</style> -->
+
+
+<style lang="scss" scoped>
+b {
+    display: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    aspect-ratio: auto;
+}
+
+.imgZoomContainer {
+    position: fixed;
+    z-index: 4;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+
+    label {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+}
+
+h3 {}
+
+li {
+    list-style: none;
+    margin: 5% 0%;
+}
+
+.grid-container-main {
+    display: grid;
+}
+
+.grid-item-aside {}
+
+.grid-item-aside-ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item-table {
+    // align-items: center;
 }
 
 .grid-item-thead {
     display: flex;
-    // flex-direction: row;
+    flex-direction: row;
     justify-content: space-evenly;
 }
 
@@ -186,26 +297,6 @@ li {
     display: flex;
     flex-direction: column;
     // gap: 30px;
-}
-
-#imageZoom {
-    // display: none;
-}
-
-#imageZoom:checked+label>img {
-    // background-color: black;
-
-    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
-}
-
-#imageZoom:checked~.grid-item-tr td:nth-child(1) img:hover {
-    background-color: black;
-    // width: 150%;
-
-    width: 800px;
-
-
-// box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
 .grid-item-section {}
@@ -217,20 +308,23 @@ li {
     // align-items: flex-end;
 }
 
-.grid-item-tr td:nth-child(1):hover {
-    // background-color: black;
-    border: 1px solid red;
-
-    img {
-        // aspect-ratio: 16/9;
-
-
-    }
-}
-
 .grid-item-tr td {
     width: 33.3%;
-    // text-align: center;
+    text-align: center;
     // background-color: black;
+}
+
+.grid-item-tr label {
+    display: none;
+}
+
+.grid-item-tr td:nth-child(1):hover {
+    // background-color: black;
+    border: 2px solid red;
+
+    label {
+        display: block;
+    }
+
 }
 </style>
