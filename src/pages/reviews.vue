@@ -90,8 +90,8 @@ export default defineComponent({
       </div>
     </div>
 
-    <div v-if="user" v-for="x in utente">
-        <div>
+    <div v-if="user">
+        <div class="review-insertion">
             <p class="review-question">Come valuti la nostra pulizia?</p>
             <select>
                 <option v-for="option in scelte" :key="option.value" :value="option.value">
@@ -99,15 +99,17 @@ export default defineComponent({
                 </option>
             </select>
         </div>
-        <img class="profile-picture" :src="'img/' + x.imgProfilo">
-        <p class="profile-name">{{ x.nome + '' + x.cognome }}</p>
-        <input type="text" placeholder="Inserisci la tua recensione">
+        <img class="profile-img" :src="user.imgProfilo"> 
+        <p class="profile-name">{{ user.nome + ' ' + user.cognome }}</p>
     </div>
 </template>
 
 <style lang="scss" scoped>
 
-
+.review-preview{
+    display: grid;
+    grid-template-columns: 300px 400px;
+}
 .stars{
     width: 200px;
 }
@@ -121,14 +123,10 @@ p {
     padding: 0;
 }
 
-.profile-picture {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 50px;
-    margin-bottom: 50px;
-}
 
+.review-insertion{
+    margin-top: 50px;
+}
 
 .thumbnail-row{
   margin-bottom: 12px;
@@ -140,13 +138,19 @@ p {
   line-height: 20px;
   margin-bottom: 12px;
 }
+
+.video-info{
+    margin-left: 20px;
+}
 .video-info-grid{
   display: grid;
   grid-template-columns: 50px 1fr;
 }
 .profile-img{
-  width: 40px;
   border-radius: 50px;
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
 }
 
 .video-author, .video-stats{
