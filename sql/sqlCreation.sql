@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 -- Database: `astra`
 --
 
-CREATE SCHEMA IF NOT EXISTS 'astra' DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `astra` DEFAULT CHARACTER SET utf8 ;
 USE astra ; 
 
 -- --------------------------------------------------------
