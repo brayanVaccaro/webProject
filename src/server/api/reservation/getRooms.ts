@@ -10,7 +10,7 @@ export default defineEventHandler(async function () {
         `SELECT * FROM stanza`,
 
     )
-    console.log('3' + results)
+    console.log('3' + results.constructor)
 
 // e ulteriormente filtrate. Se il loro id si trova nella tabella prenotazione allora si esclude
 

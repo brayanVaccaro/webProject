@@ -42,7 +42,7 @@ export default defineEventHandler(async function(event) {
   delete user.password
   
   // Crea un JWT contenente i dati dell'utente e lo imposta come cookie
-  codificaUtente(event, user)
+  codificaUtente(event, user) 
   
   return { message: "Login effettuato con successo" }
 })
