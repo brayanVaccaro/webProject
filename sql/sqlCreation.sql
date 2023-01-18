@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 16, 2023 alle 21:24
--- Versione del server: 10.4.24-MariaDB
--- Versione PHP: 7.4.29
+-- Generation Time: Jan 18, 2023 at 12:45 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,12 +20,14 @@ SET time_zone = "+00:00";
 --
 -- Database: `astra`
 --
-CREATE SCHEMA IF NOT EXISTS `astra` DEFAULT CHARACTER SET utf8 ;
-USE `astra` ;
+
+CREATE SCHEMA IF NOT EXISTS 'astra' DEFAULT CHARACTER SET utf8 ;
+USE astra ; 
+
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `prenotazione`
+-- Table structure for table `prenotazione`
 --
 
 CREATE TABLE `prenotazione` (
@@ -37,7 +39,7 @@ CREATE TABLE `prenotazione` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dump dei dati per la tabella `prenotazione`
+-- Dumping data for table `prenotazione`
 --
 
 INSERT INTO `prenotazione` (`idPrenotazione`, `dataInizioPrenotazione`, `dataFinePrenotazione`, `idUtente`, `idStanza`) VALUES
@@ -46,28 +48,29 @@ INSERT INTO `prenotazione` (`idPrenotazione`, `dataInizioPrenotazione`, `dataFin
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `recensione`
+-- Table structure for table `recensione`
 --
 
 CREATE TABLE `recensione` (
   `idRecensione` int(11) NOT NULL,
   `dataRecensione` date NOT NULL,
-  `testoRecensione` varchar(625) COLLATE latin1_general_ci NOT NULL,
   `idUtente` int(11) NOT NULL,
-  `votoRecensione` enum('stars-5.png','stars-4.png','stars-3.png','stars-2.png','stars-1.png') COLLATE latin1_general_ci NOT NULL
+  `votoPulizia` enum('stars-5.png','stars-4.png','stars-3.png','stars-2.png','stars-1.png') COLLATE latin1_general_ci NOT NULL,
+  `votoRistorazione` enum('stars-5.png','stars-4.png','stars-3.png','stars-2.png','stars-1.png') COLLATE latin1_general_ci NOT NULL,
+  `votoAccoglienza` enum('stars-5.png','stars-4.png','stars-3.png','stars-2.png','stars-1.png') COLLATE latin1_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dump dei dati per la tabella `recensione`
+-- Dumping data for table `recensione`
 --
 
-INSERT INTO `recensione` (`idRecensione`, `dataRecensione`, `testoRecensione`, `idUtente`, `votoRecensione`) VALUES
-(1, '2023-01-17', 'Stanza bella grande e pulita. nvwkfwwjwnjwj rhjriugrnrgtògjker gerògrgjgògnenggrgirnogerngioengegne gejgneognreg\r\ngqgirngàrigerg\r\nergrnigrengrg', 3, 'stars-5.png');
+INSERT INTO `recensione` (`idRecensione`, `dataRecensione`, `idUtente`, `votoPulizia`, `votoRistorazione`, `votoAccoglienza`) VALUES
+(1, '2023-01-17', 3, 'stars-2.png', 'stars-4.png', 'stars-5.png');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `stanza`
+-- Table structure for table `stanza`
 --
 
 CREATE TABLE `stanza` (
@@ -79,7 +82,7 @@ CREATE TABLE `stanza` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dump dei dati per la tabella `stanza`
+-- Dumping data for table `stanza`
 --
 
 INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `tipologiaStanza`) VALUES
@@ -97,7 +100,7 @@ INSERT INTO `stanza` (`idStanza`, `prezzoAnotte`, `imgStanza`, `tagliaStanza`, `
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `utenti`
+-- Table structure for table `utenti`
 --
 
 CREATE TABLE `utenti` (
@@ -112,19 +115,20 @@ CREATE TABLE `utenti` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dump dei dati per la tabella `utenti`
+-- Dumping data for table `utenti`
 --
 
 INSERT INTO `utenti` (`idUtente`, `imgProfilo`, `nome`, `cognome`, `dataNascita`, `email`, `password`, `ruolo`) VALUES
 (1, 'profile-1.jpg', 'Gino', 'Pino', '2023-01-10', 'gino@pino', 'gino', 'cliente'),
-(3, 'profile-2.jpg', 'M', 'd', '2023-01-05', 'm@d', '$2b$10$I6ik4Bu5CQy/a6uNhq6HaORkRzOTYv7du3hCpE3eUqtzmBkmOZYSG', 'cliente');
+(3, 'profile-2.jpg', 'M', 'd', '2023-01-05', 'm@d', '$2b$10$I6ik4Bu5CQy/a6uNhq6HaORkRzOTYv7du3hCpE3eUqtzmBkmOZYSG', 'cliente'),
+(4, 'img/Bedroom.png', 'Marawan', 'Emad', '2002-04-09', 'marawan@emad', '$2b$10$aY/P/DdW84F9dyEfvmiSMebAWJpBhtZY/qxrf2CJRwpu21wJxMhIW', 'cliente');
 
 --
--- Indici per le tabelle scaricate
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `prenotazione`
+-- Indexes for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
   ADD PRIMARY KEY (`idPrenotazione`),
@@ -133,7 +137,7 @@ ALTER TABLE `prenotazione`
   ADD KEY `idUtente` (`idUtente`);
 
 --
--- Indici per le tabelle `recensione`
+-- Indexes for table `recensione`
 --
 ALTER TABLE `recensione`
   ADD PRIMARY KEY (`idRecensione`),
@@ -141,58 +145,58 @@ ALTER TABLE `recensione`
   ADD KEY `nUtente` (`idUtente`);
 
 --
--- Indici per le tabelle `stanza`
+-- Indexes for table `stanza`
 --
 ALTER TABLE `stanza`
   ADD PRIMARY KEY (`idStanza`);
 
 --
--- Indici per le tabelle `utenti`
+-- Indexes for table `utenti`
 --
 ALTER TABLE `utenti`
   ADD PRIMARY KEY (`idUtente`);
 
 --
--- AUTO_INCREMENT per le tabelle scaricate
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT per la tabella `prenotazione`
+-- AUTO_INCREMENT for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
   MODIFY `idPrenotazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT per la tabella `recensione`
+-- AUTO_INCREMENT for table `recensione`
 --
 ALTER TABLE `recensione`
-  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT per la tabella `stanza`
+-- AUTO_INCREMENT for table `stanza`
 --
 ALTER TABLE `stanza`
   MODIFY `idStanza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT per la tabella `utenti`
+-- AUTO_INCREMENT for table `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Limiti per le tabelle scaricate
+-- Constraints for dumped tables
 --
 
 --
--- Limiti per la tabella `prenotazione`
+-- Constraints for table `prenotazione`
 --
 ALTER TABLE `prenotazione`
   ADD CONSTRAINT `idStanza` FOREIGN KEY (`idStanza`) REFERENCES `stanza` (`idStanza`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `idUtente` FOREIGN KEY (`idUtente`) REFERENCES `utenti` (`idUtente`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `recensione`
+-- Constraints for table `recensione`
 --
 ALTER TABLE `recensione`
   ADD CONSTRAINT `nUtente` FOREIGN KEY (`idUtente`) REFERENCES `utenti` (`idUtente`) ON DELETE CASCADE ON UPDATE CASCADE;

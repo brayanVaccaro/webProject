@@ -1,39 +1,22 @@
 <script lang="ts">
 import { Recensione } from '../types'
 import { Utente } from '../types'
-definePageMeta({
-  middleware: ["require-login"]
-})
+
 export default defineComponent({
-    provide() {
-        return {
-            user: computed(() => this.user)
-        }
+    setup() {
+    return {
+      user: inject("user") as Utente | null
+    }
     },
     data() {
         return {
-            user: null as Utente | null,
             utente: [] as Utente[],
             recensione: [] as Recensione[],
             dataRecensione: '' as string,
             votoPulizia: '',
-            scelte: [
-                { value: '5 stellina' },
-                { value: '4 stellina' },
-                { value: '3 stellina' },
-                { value: '2 stellina' },
-                { value: '1 stellina' },
-            ],
             votoRistorazione: '',
-            options: [
-                { value: '5 stellina' },
-                { value: '4 stellina' },
-                { value: '3 stellina' },
-                { value: '2 stellina' },
-                { value: '1 stellina' },
-            ],
             votoAccoglienza: '',
-            opzioni: [
+            scelte: [
                 { value: '5 stellina' },
                 { value: '4 stellina' },
                 { value: '3 stellina' },
@@ -49,19 +32,11 @@ export default defineComponent({
         getUtente() {
             $fetch("/api/reviews/getUtenti").then((data) => { this.utente = data as Utente[] })
         },
-        async getUser() {
-            const user = await $fetch("/api/auth/profilo")
-            this.user = user
-        },
-        async logout() {
-            await $fetch("/api/auth/logout").then((response) => alert(response.message)).then(() => window.location.href = "/")
-            this.getUser()
-        }
+
     },
     mounted() {
         this.getRecensione();
         this.getUtente();
-        this.getUser()
     }
 })
 
@@ -95,14 +70,26 @@ export default defineComponent({
     <div v-if="user">
         <div class="review-insertion">
             <p class="review-question">Come valuti la nostra pulizia?</p>
-            <select>
+            <select v-model="votoPulizia">
+                <option v-for="option in scelte" :key="option.value" :value="option.value">
+                    {{ option.value }}
+                </option>
+            </select>
+            <p class="review-question">Come valuti la nostra Ristorazione?</p>
+            <select v-model="votoRistorazione">
+                <option v-for="option in scelte" :key="option.value" :value="option.value">
+                    {{ option.value }}
+                </option>
+            </select>
+            <p class="review-question">Come valuti la nostra Accoglienza?</p>
+            <select v-model="votoAccoglienza">
                 <option v-for="option in scelte" :key="option.value" :value="option.value">
                     {{ option.value }}
                 </option>
             </select>
         </div>
-        <img class="profile-img" :src="user.imgProfilo"> 
-        <p class="profile-name">{{ user.nome + ' ' + user.cognome }}</p>
+        <img class="profile-img" :src="user?.imgProfilo"> 
+        <p class="profile-name">{{ user?.nome + ' ' + user?.cognome }}</p>
     </div>
 </template>
 

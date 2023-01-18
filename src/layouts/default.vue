@@ -5,7 +5,7 @@ export default defineComponent({
   // Fornisce l'oggetto utente a tutti i componenti dell'applicativo
   provide() {
     return {
-      utente: computed(() => this.utente)
+      user: computed(() => this.utente)
     }
   },
   data() {
@@ -15,8 +15,8 @@ export default defineComponent({
   },
   methods: {
     async getUtente() {
-      const utente = await $fetch("/api/auth/profilo")
-      this.utente = utente
+      const user = await $fetch("/api/auth/profilo")
+      this.utente = user
     },
     async logout() {
       await $fetch("/api/auth/logout").then((response) => alert(response.message)).then(() => window.location.href = "/") 
