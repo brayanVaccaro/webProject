@@ -1,7 +1,9 @@
 <script lang="ts">
 import { Recensione } from '../types'
 import { Utente } from '../types'
-
+definePageMeta({
+  middleware: ["require-login"]
+})
 export default defineComponent({
     provide() {
         return {
