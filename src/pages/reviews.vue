@@ -77,7 +77,7 @@ export default defineComponent({
         </div>
     </div>
 
-    <div v-if="review">
+    <div v-if="user">
         <div class="info-user">
             <img class="profile-img" :src="'img/' + user?.imgProfilo">
             <p class="profile-name">{{ user?.nome + ' ' + user?.cognome }}</p>
