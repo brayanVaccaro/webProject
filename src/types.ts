@@ -15,6 +15,23 @@ export interface Utente {
     email: string
 }
 
+export interface Reservation {
+    idPrenotazione: number,
+    dataInizioPrenotazione: string,
+    dataFinePrenotazione: string,
+    idUtente: number,
+    imgProfilo: string,
+    nome: string,
+    cognome: string,
+    dataNascita: string,
+    email: string,
+    idStanza: number,
+    prezzoAnotte: string,
+    imgStanza: any,
+    tagliaStanza: string,
+    tipologiaStanza: string
+}
+
 export interface Prenotazione {
     idStanza: number,
     prezzoAnotte: string,

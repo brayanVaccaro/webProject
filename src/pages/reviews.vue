@@ -1,5 +1,5 @@
 <script lang="ts">
-import { userInfo } from 'os'
+// import { userInfo } from 'os'
 import { Recensione, Utente, Review } from '../types'
 
 export default defineComponent({

@@ -52,7 +52,10 @@ export default defineComponent({
         <button class="nav-buttons" >
             <NuxtLink class="nuxt-link" to="/reviews">Cosa pensano di noi</NuxtLink>
         </button>
-    </nav>
+        <button class="nav-buttons" v-if="utente">
+            <NuxtLink class="nuxt-link" to="/profilo">Profilo</NuxtLink>
+        </button>
+      </nav>
     <div class="background-image">
     </div>
     <main id="centerPage">
