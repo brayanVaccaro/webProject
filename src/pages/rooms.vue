@@ -4,7 +4,7 @@ definePageMeta({
     middleware: ["require-login"]
 })
 export default defineComponent({
-// inject
+    // inject
     data() {
         return {
             stanza: [] as Stanza[],
@@ -15,6 +15,7 @@ export default defineComponent({
             tagliaStanza: '' as string,
             imgStanza: '' as string,
             stanzaScelta: [] as Stanza[],
+            target: document.querySelector('.imgZoomContainer') as Element,
             options: [
                 { value: 'Singola' },
                 { value: 'Doppia' },
@@ -77,42 +78,63 @@ export default defineComponent({
                 .catch((e) => alert(e))
         },
         imgZoomContainer() {
+            //rendo visibile il container della foto ingrandita
             let imgZoomContainer = document.querySelector("div.imgZoomContainer")
             imgZoomContainer?.setAttribute("style", "display: block")
             console.log(imgZoomContainer)
 
-            this.imgStanza = document.querySelector("p")?.innerText as string
-            console.log(this.imgStanza)
-            // document.querySelector(`#centerPage > div > div.grid-item-table.table > table > tbody > tr:nth-child(${id}) > div`)
-            document.querySelector("#centerPage > div > div.grid-item-table.table > table > tbody > tr:nth-child(3) > div")
+            const nomeImg = document.querySelector("p")?.innerText as string
+            imgZoomContainer?.setAttribute("src","ciao")
+            console.log(nomeImg)
+            // console.log(this.imgStanza)
 
+            const imgTag = document.querySelector("div.imgZoomContainer img")
+            console.log(imgTag?.getAttribute("src"))
+            imgTag?.setAttribute("src",`img/`)
         },
         imgCloseContainer() {
             let imgZoomContainer = document.querySelector("div.imgZoomContainer") as HTMLElement
-            
+
             imgZoomContainer?.setAttribute("style", "display: none")
         },
         stanzaSeleziona() {
-            for (let i= 0; i<this.stanza.length; i++) {
+            for (let i = 0; i < this.stanza.length; i++) {
                 this.stanzaScelta[i] = this.stanza[i]
-                
-                
+
+
             }
-            for (let x in this.stanza) {
-                console.log()
-            }
-            console.log(this.imgStanza + ' ' + this.stanza.length)
-            // this.imgStanza = 
+            console.log(this.stanzaScelta)
+        },
+        prova() {
+        //     const log = e => {
+        //         console.clear();
+        //         console.log(`${e.target.parentNode.previousElementSibling.dataset.about}`);
+        //     };
+            const rigaSelezionata = document.querySelectorAll('.grid-item-tr')
+           for(let i = 0; i<rigaSelezionata.length;i++) {
+            rigaSelezionata.addEventListener('click', e => {
+                if (e.target.classList.contains('childElement')) {
+                    e.target.classList.toggle('example');
+                    log(e);
+                }
+            })
         }
+        // }
+
+
+        },
 
     },
-
+    
+    
+    
     mounted() {
         this.selettoreInputData = document.querySelectorAll("#data")
-    
+
         // this.imgZoomContainer = document.querySelector("div.imgZoomContainer")
         // this.console();
         this.date();
+        this.prova();
 
 
 
@@ -164,9 +186,9 @@ export default defineComponent({
                         <td>
                             <img :src="'img/' + x.imgStanza" @click="">
 
-                            <p>{{ x.imgStanza }}</p>
-                            
-                            
+                            <p @change="">{{ x.imgStanza }}</p>
+
+
                             <label for="imageZoom" @click="imgZoomContainer()">Ingrandisci</label>
                         </td>
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
@@ -188,26 +210,26 @@ export default defineComponent({
                     quisquam
                 </p>
                 <table>
-                <tbody class="grid-item-tbody">
-                    <input type="checkbox" id="imageZoom">
+                    <tbody class="grid-item-tbody">
+                        <input type="checkbox" id="imageZoom">
 
-                    <tr v-for="x in stanza" class="grid-item-tr" @click="stanzaSeleziona()">
-                        <td>
-                            <img :src="'img/' + x.imgStanza" @click="">
+                        <tr v-for="x in stanzaScelta" class="grid-item-tr" @click="stanzaSeleziona()">
+                            <td>
+                                <img :src="'img/' + x.imgStanza" @click="">
 
-                            <p>{{ x.imgStanza }}</p>
-                            
-                            
-                            <label for="imageZoom" @click="imgZoomContainer()">Ingrandisci</label>
-                        </td>
-                        <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
-                        <td>{{ x.prezzoAnotte }}</td>
+                                <p>{{ x.imgStanza }}</p>
 
 
+                                <label for="imageZoom" @click="imgZoomContainer()">Ingrandisci</label>
+                            </td>
+                            <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
+                            <td>{{ x.prezzoAnotte }}</td>
 
-                    </tr>
-                </tbody>
-            </table>
+
+
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
     </div>
@@ -273,7 +295,8 @@ li {
 }
 
 //ELENCO STANZE
-.grid-item-table, .grid-item-section  {
+.grid-item-table,
+.grid-item-section {
 
     // align-items: center;
     .grid-item-thead {
