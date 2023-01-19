@@ -27,8 +27,8 @@ export default defineComponent({
         }
     },
     methods: {
-        getReviews() {
-            $fetch("/api/reviews/getReviews").then((data) => { this.review = data as Review[] })
+        async getReviews() {
+            await $fetch("/api/reviews/getReviews").then((data) => { this.review = data as Review[] })
         },
         insertReviews(){
             $fetch("/api/reviews/insertReviews",{

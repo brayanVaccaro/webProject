@@ -7,11 +7,11 @@ export default defineEventHandler(async function (event) {
     // le stanze sono prese dal database in base alla tipologia
     const connection = await createConnection()
     const [results] = await connection.execute(
-        `SELECT prezzoAnotte, imgStanza, tagliaStanza, tipologiaStanza, dataInizioPrenotazione, dataFinePrenotazione FROM stanza INNER JOIN prenotazione ON prenotazione.idStanza != stanza.idStanza WHERE tagliaStanza=?`,
+        `SELECT prezzoAnotte, imgStanza, tagliaStanza, tipologiaStanza, stanza.idStanza FROM stanza INNER JOIN prenotazione ON prenotazione.idStanza != stanza.idStanza WHERE tagliaStanza=?`,
         [tagliaStanza]
 
     )
-    console.log('3' + results)
+    console.log('3 filter' + results)
 
 // e ulteriormente filtrate. Se il loro id si trova nella tabella prenotazione allora si esclude
 

@@ -3,11 +3,7 @@ import { Utente } from "~/types"
 
 export default defineComponent({
     // Fornisce l'oggetto utente a tutti i componenti dell'applicativo
-    provide() {
-        return {
-            utente: computed(() => this.utente)
-        }
-    },
+
     data() {
         return {
             utente: null as Utente | null

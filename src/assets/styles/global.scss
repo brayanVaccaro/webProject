@@ -127,3 +127,17 @@ a {
     }
 
 }
+
+//PROFILO
+.info-user {
+    
+    @include sm {
+        display: grid;
+        grid-template-columns: 30% auto;
+
+    }
+
+    @include md {
+        grid-template-columns: 50% auto;
+    }
+}

@@ -12,10 +12,12 @@ export default defineComponent({
             selettoreInputData: undefined as any,
             dataInizio: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
             dataFine: '' as string,
-            tagliaStanza: '' as string,
-            imgStanza: '' as string,
+            idStanza: 0 as number,
+            tagliaStanza: 'singola' as string,
+            tipologiaStanza: '' as string,
+            prezzoAnotte: '' as string,
+            nomeImgStanza: '' as any,
             stanzaScelta: [] as Stanza[],
-            target: document.querySelector('.imgZoomContainer') as Element,
             options: [
                 { value: 'Singola' },
                 { value: 'Doppia' },
@@ -25,11 +27,7 @@ export default defineComponent({
         }
     },
     methods: {
-        delete() {
-            $fetch("/api/reservation/getRooms")
-                .then((data) => { this.stanza = data as Stanza[] })
 
-        },
         date() {
             this.selettoreInputData[0].setAttribute("min", this.dataInizio)
             this.selettoreInputData[1].setAttribute("min", this.dataInizio)
@@ -37,30 +35,25 @@ export default defineComponent({
         },
 
         filtra() {
-            console.log('1' + this.tagliaStanza)
 
-            console.log('prima ' + this.dataInizio)
             if (this.dataInizio == '' || this.dataFine == '') {
                 return
             }
+            else {
+                this.dataSoggiornoGiusta[0] = this.dataInizio.split('-').reverse().toString().replaceAll(',', '/')
+                this.dataSoggiornoGiusta[1] = this.dataFine.split('-').reverse().toString().replaceAll(',', '/')
+            };
 
-            if (2 > 3) {
-                return
-            }
-            else (this.dataSoggiornoGiusta[0] = this.dataInizio.split('-').reverse().toString().replaceAll(',', '/'), this.dataSoggiornoGiusta[1] = this.dataFine.split('-').reverse().toString().replaceAll(',', '/'));
-            console.log('dopo ', + this.dataInizio)
-            console.log(this.dataFine)
-            console.log(this.dataSoggiornoGiusta)
 
             $fetch("/api/reservation/filter", {
                 method: "POST",
                 body: {
-                    dataInizio: this.dataInizio,
-                    dataFine: this.dataFine,
                     tagliaStanza: this.tagliaStanza
                 }
             })
-                .then((data) => { this.stanza = data as Stanza[] })
+                .then((data) => {
+                    this.stanza = data as Stanza[]
+                })
                 .catch((e) => alert(e))
 
 
@@ -77,64 +70,79 @@ export default defineComponent({
             })
                 .catch((e) => alert(e))
         },
-        imgZoomContainer() {
+        imgZoomContainer(idStanza: number) {
+            this.idStanza = idStanza
+            console.log('id VALE ' + this.idStanza )
+            // query per prendere il nome del file
+            $fetch("/api/reservation/getImgName", {
+                method: "POST",
+                body: {
+                    id: this.idStanza
+                }
+            }).then(() => {
+                console.log('porcapaletta' + this.nomeImgStanza)
+            })
+
+
+            
             //rendo visibile il container della foto ingrandita
             let imgZoomContainer = document.querySelector("div.imgZoomContainer")
             imgZoomContainer?.setAttribute("style", "display: block")
             console.log(imgZoomContainer)
 
+
             const nomeImg = document.querySelector("p")?.innerText as string
-            imgZoomContainer?.setAttribute("src","ciao")
+            imgZoomContainer?.setAttribute("src", "ciao")
             console.log(nomeImg)
             // console.log(this.imgStanza)
 
             const imgTag = document.querySelector("div.imgZoomContainer img")
-            console.log(imgTag?.getAttribute("src"))
-            imgTag?.setAttribute("src",`img/`)
+            console.log('abc' + imgTag?.getAttribute("src"))
+            imgTag?.setAttribute("src", "img/" + this.nomeImgStanza)
         },
         imgCloseContainer() {
             let imgZoomContainer = document.querySelector("div.imgZoomContainer") as HTMLElement
 
             imgZoomContainer?.setAttribute("style", "display: none")
         },
-        stanzaSeleziona() {
-            for (let i = 0; i < this.stanza.length; i++) {
-                this.stanzaScelta[i] = this.stanza[i]
+        stanzaSeleziona(idStanza: number) {
+            this.idStanza = idStanza
+            console.log('id taglia tipo e prezzo = ' + this.idStanza + ' ' + this.tagliaStanza + ' ' + this.tipologiaStanza + ' ' + this.prezzoAnotte)
 
+            $fetch("/api/reservation/getRooms", {
+                method: "POST",
+                body: {
+                    id: this.idStanza
+                }
 
-            }
+            })
+                .then((data) => {
+                    this.stanzaScelta = data as Stanza[]
+
+                })
+
+            // this.stanzaScelta[0].
+            this.idStanza = 0
             console.log(this.stanzaScelta)
         },
-        prova() {
-        //     const log = e => {
-        //         console.clear();
-        //         console.log(`${e.target.parentNode.previousElementSibling.dataset.about}`);
-        //     };
-            const rigaSelezionata = document.querySelectorAll('.grid-item-tr')
-           for(let i = 0; i<rigaSelezionata.length;i++) {
-            rigaSelezionata.addEventListener('click', e => {
-                if (e.target.classList.contains('childElement')) {
-                    e.target.classList.toggle('example');
-                    log(e);
-                }
-            })
+        durataSoggiorno() {
+            const durataSoggiorno = this.dataInizio.charCodeAt(0) - this.dataInizio.charCodeAt(2)
+            console.log('dataInizio: ' + this.dataInizio)
+            console.log('dataInizio: ' + durataSoggiorno)
+            return durataSoggiorno
+
         }
-        // }
-
-
-        },
 
     },
-    
-    
-    
+
+
+
     mounted() {
         this.selettoreInputData = document.querySelectorAll("#data")
 
         // this.imgZoomContainer = document.querySelector("div.imgZoomContainer")
         // this.console();
         this.date();
-        this.prova();
 
 
 
@@ -146,7 +154,7 @@ export default defineComponent({
         <div class="imgZoomContainer" style="display: none;">
             <input type="checkbox" id="closeZoomContainer">
             <label for="closeZoomContainer" @click="imgCloseContainer()">x</label>
-            <img :src="'img/' + imgStanza" @click="">
+            <img :src="'img/' + nomeImgStanza" @click="">
         </div>
 
         <div class="grid-item-aside aside">
@@ -159,10 +167,14 @@ export default defineComponent({
                         <input v-model="dataFine" type="date" id="data" @change="date()">
                     </li>
                     <li>Tipologia stanza
-                        <select v-model="tagliaStanza" placeholder="tipo di stanza">
-                            <option v-for="option in options" :key="option.value" :value="option.value">
-                                {{ option.value }}
-                            </option>
+                        <select v-model="tagliaStanza">
+                            <option v-for="option in options" :key="option.value" :value="option.value">{{
+                                option.value
+                            }}</option>
+
+                            <!-- <option selected disabled hidden :value="options[2].value" >{{ options[2].value }}</option> -->
+
+
                         </select>
                         <button @click="filtra()">---></button>
                     </li>
@@ -182,17 +194,14 @@ export default defineComponent({
                 <tbody class="grid-item-tbody">
                     <input type="checkbox" id="imageZoom">
 
-                    <tr v-for="x in stanza" class="grid-item-tr" @click="stanzaSeleziona()">
+                    <tr v-for="x in stanza" class="grid-item-tr" @click="stanzaSeleziona(x.idStanza)">
                         <td>
                             <img :src="'img/' + x.imgStanza" @click="">
 
-                            <p @change="">{{ x.imgStanza }}</p>
-
-
-                            <label for="imageZoom" @click="imgZoomContainer()">Ingrandisci</label>
+                            <label for="imageZoom" @click="imgZoomContainer(x.idStanza)">Ingrandisci</label>
                         </td>
-                        <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
-                        <td>{{ x.prezzoAnotte }}</td>
+                        <td>{{ (tipologiaStanza = x.tipologiaStanza) + ' ' + (x.tagliaStanza) }}</td>
+                        <td>{{ prezzoAnotte= x.prezzoAnotte }}</td>
 
 
 
@@ -203,26 +212,23 @@ export default defineComponent({
         <div class="grid-item-section section">
             <section>
                 <h3>Riepilogo Prenotazione</h3>
-                <p>data scelta:</p>
-                <b>{{ dataInizio + ' ' + dataFine }}</b>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero provident commodi odio temporibus
-                    reprehenderit officiis maxime, distinctio ipsum repellendus adipisci, laborum vel dicta ipsam
-                    quisquam
-                </p>
+
                 <table>
+                    <thead class="grid-item-thead">
+                        <tr>
+                            <td>Stanza scelta</td>
+                            <td>Durata Pernottamento</td>
+                            <td>Prezzo Totale</td>
+                        </tr>
+                    </thead>
                     <tbody class="grid-item-tbody">
-                        <input type="checkbox" id="imageZoom">
 
-                        <tr v-for="x in stanzaScelta" class="grid-item-tr" @click="stanzaSeleziona()">
-                            <td>
-                                <img :src="'img/' + x.imgStanza" @click="">
-
-                                <p>{{ x.imgStanza }}</p>
-
-
-                                <label for="imageZoom" @click="imgZoomContainer()">Ingrandisci</label>
-                            </td>
+                        <tr v-for="x in stanzaScelta" class="grid-item-tr" @click="">
                             <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
+                            <td>
+                                {{ durataSoggiorno() }}
+                            </td>
+
                             <td>{{ x.prezzoAnotte }}</td>
 
 
@@ -292,6 +298,7 @@ li {
 .grid-item-aside-ul {
     display: flex;
     flex-direction: column;
+    padding: 5% 10% 0%;
 }
 
 //ELENCO STANZE
