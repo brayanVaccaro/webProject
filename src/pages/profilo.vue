@@ -77,8 +77,8 @@ export default defineComponent({
     </table>
   </div>
 
-
-  <div v-else class="review-history">
+<div v-else>
+  <div  class="review-history">
     <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
     <table>
       <tr>
@@ -95,7 +95,7 @@ export default defineComponent({
       </tr>
     </table>
   </div>
-  <div v-else class="reservation-history">
+  <div class="reservation-history">
     <p>Storico delle sue prenotazioni</p>
     <table>
       <tr>
@@ -111,6 +111,7 @@ export default defineComponent({
         <td>{{ x.tagliaStanza }}</td>
       </tr>
     </table>
+  </div>
   </div>
 </template>
 
