@@ -29,7 +29,8 @@ export default defineComponent({
     <div id="index">
         <div class="head-container">
             <h1 class="head" v-if="!utente">Benvento nel sito dell'hotel Astra</h1>
-            <h1 class="head" v-else>Bentornato {{utente.nome + " " +utente.cognome}} nel sito dell'hotel Astra</h1>
+            <h1 class="head" v-if="utente?.ruolo=='gestore'">Bentornato gestore {{ utente?.nome + " " + utente?.cognome }} nel tuo sito dell'hotel Astra</h1>
+            <h1 class="head" v-if="utente?.ruolo=='cliente'">Bentornato {{utente.ruolo + " " + utente?.nome + " " + utente?.cognome}} nel sito dell'hotel Astra</h1>            
             <p class="head" v-if="!utente">
                 Prenota con noi e passa il miglior tempo della tua estate qui a Gallipoli, la città del divertimento
             </p>

@@ -12,7 +12,8 @@ export interface Utente {
     nome: string,
     cognome: string,
     dataNascita: string,
-    email: string
+    email: string,
+    ruolo: string
 }
 
 export interface Reservation {
@@ -66,4 +67,8 @@ export interface Review{
     votoPulizia: string,
     votoRistorazione: string,
     votoAccoglienza: string
+}
+
+export  interface NomeStanza{
+    imgStanza: string
 }

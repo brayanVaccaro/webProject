@@ -5,16 +5,16 @@ definePageMeta({
   middleware: ["require-login"]
 })
 export default defineComponent({
-  // setup() {
-  //   return {
-  //     user: inject("user") as Utente | null
-  //   }
-  // },
+  setup() {
+    return {
+      user: inject("user") as Utente | null
+    }
+  },
   data() {
     return {
       review: [] as Review[],
       reservation: [] as Reservation[],
-      user: inject("user") as Utente,
+      // user: inject("user") as Utente,
       
       dataRecensione: '' as string,
       votoPulizia: '',
@@ -28,7 +28,7 @@ export default defineComponent({
       $fetch("/api/reviews/getReviewsByID", {
         method: "POST",
         body: {
-          email: this.email
+          email: this.user?.email
         }
       }).then((data) => { this.review = data as Review[]
       console.log(this.review) })
@@ -36,8 +36,8 @@ export default defineComponent({
   },
   mounted() {
     
-    this.email = this.user.email
-    console.log('email vale'+this.email)
+    // this.email = this.user?.email
+    // console.log('email vale'+this.email)
     this.getReviewsByID();
   }
 })
@@ -46,20 +46,39 @@ export default defineComponent({
 
 <template >
   <div class="info-user">
-    <img class="profile-img" :src="'img/' + user.imgProfilo">
+    <img class="profile-img" :src="'img/' + user?.imgProfilo">
     <div class="row">
-      <p class="profile-data">Nome: {{ user.nome }}</p>
-      <p class="profile-data">Cognome: {{ user.cognome }}</p>
+      <p class="profile-data">Nome: {{ user?.nome }}</p>
+      <p class="profile-data">Cognome: {{ user?.cognome }}</p>
       <p class="profile-data">Data di Nascita: {{
         " " +
-          user.dataNascita.split("T")[0].split("-").reverse().toString().replaceAll(',', '/')
+          user?.dataNascita.split("T")[0].split("-").reverse().toString().replaceAll(',', '/')
       }}</p>
-      <p class="profile-data">Indirizzo email: {{  user.email }}</p>
-
+      <p class="profile-data">Indirizzo email: {{  user?.email }}</p>
+      <p class="profile-data">Ruolo: {{  user?.ruolo }}</p>      
     </div>
   </div>
 
-  <div class="review-history">
+  <div v-if="user?.ruolo=='gestore'" class="review-history">
+    <p>Ecco a te gestore la lista delle prenotazioni</p>
+    <table>
+      <tr>
+      <th>Data inizio prenotazione</th>
+      <th>Data fine prenotazione</th>
+      <th>Immagine stanza</th>
+      <th>Taglia stanza</th>
+    </tr>
+    <tr v-for="x in reservation">
+      <td>{{ x.dataInizioPrenotazione }}</td>
+      <td>{{ x.dataFinePrenotazione }}</td>
+      <td>{{ x.imgStanza }}</td>
+      <td>{{ x.tagliaStanza }}</td>
+    </tr>
+    </table>
+  </div>
+
+<div v-else>
+  <div  class="review-history">
     <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
     <table>
       <tr>
@@ -76,23 +95,24 @@ export default defineComponent({
       </tr>
     </table>
   </div>
-<div class="reservation-history">
-  <p>Storico delle sue prenotazioni</p>
-  <table>
-    <tr>
-      <th>Data inizio prenotazione</th>
-      <th>Data fine prenotazione</th>
-      <th>Immagine stanza</th>
-      <th>Taglia stanza</th>
-    </tr>
-    <tr v-for="x in reservation">
-      <td>{{ x.dataInizioPrenotazione }}</td>
-      <td>{{ x.dataFinePrenotazione }}</td>
-      <td>{{ x.imgStanza }}</td>
-      <td>{{ x.tagliaStanza }}</td>
-    </tr>
-  </table>
-</div>
+  <div class="reservation-history">
+    <p>Storico delle sue prenotazioni</p>
+    <table>
+      <tr>
+        <th>Data inizio prenotazione</th>
+        <th>Data fine prenotazione</th>
+        <th>Immagine stanza</th>
+        <th>Taglia stanza</th>
+      </tr>
+      <tr v-for="x in reservation">
+        <td>{{ x.dataInizioPrenotazione }}</td>
+        <td>{{ x.dataFinePrenotazione }}</td>
+        <td>{{ x.imgStanza }}</td>
+        <td>{{ x.tagliaStanza }}</td>
+      </tr>
+    </table>
+  </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
