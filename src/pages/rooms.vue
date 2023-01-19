@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Stanza } from '../types'
+import { NomeStanza } from '../types'
 definePageMeta({
     middleware: ["require-login"]
 })
@@ -16,7 +17,8 @@ export default defineComponent({
             tagliaStanza: 'singola' as string,
             tipologiaStanza: '' as string,
             prezzoAnotte: '' as string,
-            nomeImgStanza: '' as any,
+            nomeImgStanza: '' as string,
+            container: [] as Stanza[],
             stanzaScelta: [] as Stanza[],
             options: [
                 { value: 'Singola' },
@@ -72,33 +74,29 @@ export default defineComponent({
         },
         imgZoomContainer(idStanza: number) {
             this.idStanza = idStanza
-            console.log('id VALE ' + this.idStanza )
+            console.log('id VALE ' + this.idStanza)
             // query per prendere il nome del file
             $fetch("/api/reservation/getImgName", {
                 method: "POST",
                 body: {
-                    id: this.idStanza
+                    idStanza: this.idStanza
                 }
-            }).then(() => {
-                console.log('porcapaletta' + this.nomeImgStanza)
+            }).then((data) => {
+                this.container = data as Stanza[],
+                this.nomeImgStanza = this.container[0].imgStanza
             })
 
 
-            
+
             //rendo visibile il container della foto ingrandita
             let imgZoomContainer = document.querySelector("div.imgZoomContainer")
             imgZoomContainer?.setAttribute("style", "display: block")
             console.log(imgZoomContainer)
 
 
-            const nomeImg = document.querySelector("p")?.innerText as string
-            imgZoomContainer?.setAttribute("src", "ciao")
-            console.log(nomeImg)
-            // console.log(this.imgStanza)
-
             const imgTag = document.querySelector("div.imgZoomContainer img")
-            console.log('abc' + imgTag?.getAttribute("src"))
-            imgTag?.setAttribute("src", "img/" + this.nomeImgStanza)
+            imgTag?.setAttribute("src", "img/" + this.container[0].imgStanza)
+            console.log('abc ' + imgTag?.getAttribute("src"))
         },
         imgCloseContainer() {
             let imgZoomContainer = document.querySelector("div.imgZoomContainer") as HTMLElement
@@ -123,7 +121,6 @@ export default defineComponent({
 
             // this.stanzaScelta[0].
             this.idStanza = 0
-            console.log(this.stanzaScelta)
         },
         durataSoggiorno() {
             const durataSoggiorno = this.dataInizio.charCodeAt(0) - this.dataInizio.charCodeAt(2)
@@ -194,14 +191,16 @@ export default defineComponent({
                 <tbody class="grid-item-tbody">
                     <input type="checkbox" id="imageZoom">
 
-                    <tr v-for="x in stanza" class="grid-item-tr" @click="stanzaSeleziona(x.idStanza)">
+                    <tr v-for="x in stanza" class="grid-item-tr">
                         <td>
+                            <p>{{ x.idStanza }}</p>
                             <img :src="'img/' + x.imgStanza" @click="">
 
-                            <label for="imageZoom" @click="imgZoomContainer(x.idStanza)">Ingrandisci</label>
+                            <label for="imageZoom" @click.self="imgZoomContainer(x.idStanza)">Ingrandisci</label>
                         </td>
                         <td>{{ (tipologiaStanza = x.tipologiaStanza) + ' ' + (x.tagliaStanza) }}</td>
                         <td>{{ prezzoAnotte= x.prezzoAnotte }}</td>
+                        <td @click.self="stanzaSeleziona(x.idStanza)">SELEZIONA</td>
 
 
 

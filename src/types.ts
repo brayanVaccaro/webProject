@@ -68,3 +68,7 @@ export interface Review{
     votoRistorazione: string,
     votoAccoglienza: string
 }
+
+export  interface NomeStanza{
+    imgStanza: string
+}
