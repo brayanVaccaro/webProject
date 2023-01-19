@@ -12,7 +12,8 @@ export interface Utente {
     nome: string,
     cognome: string,
     dataNascita: string,
-    email: string
+    email: string,
+    ruolo: string
 }
 
 export interface Reservation {

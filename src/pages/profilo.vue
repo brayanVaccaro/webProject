@@ -55,11 +55,29 @@ export default defineComponent({
           user.dataNascita.split("T")[0].split("-").reverse().toString().replaceAll(',', '/')
       }}</p>
       <p class="profile-data">Indirizzo email: {{  user.email }}</p>
-
+      <p class="profile-data">Ruolo: {{  user.ruolo }}</p>      
     </div>
   </div>
+  <div v-if="user.ruolo=='gestore'" class="review-history">
+    <p>Ecco a te gestore la lista delle prenotazioni</p>
+    <table>
+      <tr>
+      <th>Data inizio prenotazione</th>
+      <th>Data fine prenotazione</th>
+      <th>Immagine stanza</th>
+      <th>Taglia stanza</th>
+    </tr>
+    <tr v-for="x in reservation">
+      <td>{{ x.dataInizioPrenotazione }}</td>
+      <td>{{ x.dataFinePrenotazione }}</td>
+      <td>{{ x.imgStanza }}</td>
+      <td>{{ x.tagliaStanza }}</td>
+    </tr>
+    </table>
+  </div>
 
-  <div class="review-history">
+
+  <div v-else class="review-history">
     <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
     <table>
       <tr>
@@ -76,7 +94,7 @@ export default defineComponent({
       </tr>
     </table>
   </div>
-<div class="reservation-history">
+<div v-if="user.ruolo=='cliente'" class="reservation-history">
   <p>Storico delle sue prenotazioni</p>
   <table>
     <tr>

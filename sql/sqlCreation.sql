@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 18, 2023 alle 16:21
+-- Creato il: Gen 19, 2023 alle 15:23
 -- Versione del server: 10.4.24-MariaDB
 -- Versione PHP: 7.4.29
 
@@ -23,7 +23,6 @@ SET time_zone = "+00:00";
 
 CREATE SCHEMA IF NOT EXISTS `astra` DEFAULT CHARACTER SET utf8 ;
 USE astra ; 
-
 -- --------------------------------------------------------
 
 --
@@ -37,13 +36,6 @@ CREATE TABLE `prenotazione` (
   `idUtente` int(11) NOT NULL,
   `idStanza` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-
---
--- Dump dei dati per la tabella `prenotazione`
---
-
-INSERT INTO `prenotazione` (`idPrenotazione`, `dataInizioPrenotazione`, `dataFinePrenotazione`, `idUtente`, `idStanza`) VALUES
-(1, '2023-01-02', '2023-01-19', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -66,8 +58,7 @@ CREATE TABLE `recensione` (
 
 INSERT INTO `recensione` (`idRecensione`, `dataRecensione`, `idUtente`, `votoPulizia`, `votoRistorazione`, `votoAccoglienza`) VALUES
 (1, '2023-01-17', 3, '3stellina.png', '4stellina.png', '5stellina.png'),
-(9, '2023-01-27', 4, '1stellina.png', '2stellina.png', '3stellina.png'),
-(15, '2023-01-18', 4, '2stellina.png', '2stellina.png', '2stellina.png');
+(16, '2023-01-18', 3, '3stellina.png', '4stellina.png', '1stellina.png');
 
 -- --------------------------------------------------------
 
@@ -121,9 +112,9 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`idUtente`, `imgProfilo`, `nome`, `cognome`, `dataNascita`, `email`, `password`, `ruolo`) VALUES
-(1, 'profile-1.jpg', 'Gino', 'Pino', '2023-01-10', 'gino@pino', 'gino', 'cliente'),
 (3, 'profile-2.jpg', 'M', 'd', '2023-01-05', 'm@d', '$2b$10$I6ik4Bu5CQy/a6uNhq6HaORkRzOTYv7du3hCpE3eUqtzmBkmOZYSG', 'cliente'),
-(4, 'Bedroom.png', 'Marawan', 'Emad', '2002-04-09', 'marawan@emad', '$2b$10$aY/P/DdW84F9dyEfvmiSMebAWJpBhtZY/qxrf2CJRwpu21wJxMhIW', 'cliente');
+(5, 'profile-1.jpg', 'Marawan', 'Emad', '2002-04-09', 'marawan@emad', '$2b$10$ap2rHUSFHyCXfLCMHeWL2egF/CAI8mcHKvQNb4bHioOOZEhspbUda', 'gestore'),
+(6, 'profile-3.jpg', 'Brayan', 'Vaccaro', '2000-05-28', 'brayan@vaccaro', '$2b$10$j0b6QDj5tm/owQCSoqzlCuMMooNjwse9/yWboxlFn0.iHjvP6pRp.', 'gestore');
 
 --
 -- Indici per le tabelle scaricate
@@ -172,7 +163,7 @@ ALTER TABLE `prenotazione`
 -- AUTO_INCREMENT per la tabella `recensione`
 --
 ALTER TABLE `recensione`
-  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT per la tabella `stanza`
@@ -184,7 +175,7 @@ ALTER TABLE `stanza`
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idUtente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Limiti per le tabelle scaricate
