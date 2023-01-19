@@ -1,11 +1,14 @@
 <script lang="ts">
-import { Stanza } from '../types'
-import { NomeStanza } from '../types'
+import { Stanza, Utente } from '../types'
 definePageMeta({
     middleware: ["require-login"]
 })
 export default defineComponent({
-    // inject
+    setup() {
+        return {
+            user: inject("user") as Utente | null
+        }
+    },
     data() {
         return {
             stanza: [] as Stanza[],
@@ -14,7 +17,7 @@ export default defineComponent({
             dataInizio: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
             dataFine: '' as string,
             idStanza: 0 as number,
-            tagliaStanza: 'singola' as string,
+            tagliaStanza: '' as string,
             tipologiaStanza: '' as string,
             prezzoAnotte: '' as string,
             nomeImgStanza: '' as string,
@@ -25,7 +28,8 @@ export default defineComponent({
                 { value: 'Doppia' },
                 { value: 'Tripla' },
                 { value: 'Quadrupla' }
-            ]
+            ],
+            controllo: false as boolean,
         }
     },
     methods: {
@@ -37,7 +41,7 @@ export default defineComponent({
         },
 
         filtra() {
-
+console.log('idStanza vale(1)'+this.idStanza)
             if (this.dataInizio == '' || this.dataFine == '') {
                 return
             }
@@ -62,17 +66,25 @@ export default defineComponent({
 
 
         },
-        insertReservation() {
+        insertReservation(idStanza: number) {
+            this.idStanza = idStanza
             $fetch("/api/reservation/reserve", {
                 method: "POST",
                 body: {
-                    dataInizio: this.dataInizio,
                     dataFine: this.dataFine,
+                    dataInizio: this.dataInizio,
+                    idStanza: this.idStanza,
+                    idUtente: this.user?.idUtente
                 }
             })
+                .then((response) => (alert(response)))
+                .then(() => window.location.href = "/profilo")
                 .catch((e) => alert(e))
+
+                this.idStanza = 0
         },
         imgZoomContainer(idStanza: number) {
+
             this.idStanza = idStanza
             console.log('id VALE ' + this.idStanza)
             // query per prendere il nome del file
@@ -83,7 +95,8 @@ export default defineComponent({
                 }
             }).then((data) => {
                 this.container = data as Stanza[],
-                this.nomeImgStanza = this.container[0].imgStanza
+                    this.nomeImgStanza = this.container[0].imgStanza
+                    console.log('imgnome vale'+this.nomeImgStanza)
             })
 
 
@@ -97,6 +110,10 @@ export default defineComponent({
             const imgTag = document.querySelector("div.imgZoomContainer img")
             imgTag?.setAttribute("src", "img/" + this.container[0].imgStanza)
             console.log('abc ' + imgTag?.getAttribute("src"))
+            this.idStanza = 0
+            console.log('idStanza vale' + this.idStanza)
+
+
         },
         imgCloseContainer() {
             let imgZoomContainer = document.querySelector("div.imgZoomContainer") as HTMLElement
@@ -120,7 +137,9 @@ export default defineComponent({
                 })
 
             // this.stanzaScelta[0].
+            this.controllo = true
             this.idStanza = 0
+            console.log('idStanza vale' + this.idStanza)
         },
         durataSoggiorno() {
             const durataSoggiorno = this.dataInizio.charCodeAt(0) - this.dataInizio.charCodeAt(2)
@@ -186,6 +205,7 @@ export default defineComponent({
                     <td>Immagine</td>
                     <td>Descrizione</td>
                     <td>prezzo a notte</td>
+                    <td></td>
 
                 </thead>
                 <tbody class="grid-item-tbody">
@@ -227,9 +247,12 @@ export default defineComponent({
                             <td>
                                 {{ durataSoggiorno() }}
                             </td>
-
+                            
                             <td>{{ x.prezzoAnotte }}</td>
-
+                            
+                            <button v-if="controllo" @click="insertReservation(x.idStanza)">Prenota</button>
+                            
+                            <p>{{ x.idStanza }}</p>
 
 
                         </tr>
@@ -241,6 +264,11 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
+#closeZoomContainer,
+#imageZoom {
+    display: none;
+}
+
 b {
     // display: none;
 }
@@ -303,8 +331,6 @@ li {
 //ELENCO STANZE
 .grid-item-table,
 .grid-item-section {
-
-    // align-items: center;
     .grid-item-thead {
         display: flex;
         flex-direction: row;
@@ -321,15 +347,29 @@ li {
             flex-direction: row;
             justify-content: space-evenly;
 
+
             // align-items: flex-end;
             td {
                 width: 33.3%;
                 text-align: center;
 
+
                 // background-color: black;
                 label {
                     display: none;
                 }
+            }
+
+            td:nth-child(4) {
+                display: none;
+            }
+        }
+
+        .grid-item-tr:hover {
+
+            td:nth-child(4) {
+                display: block;
+                color: red;
             }
         }
 
@@ -344,6 +384,8 @@ li {
         }
     }
 }
+
+
 
 // SEZIONE RIEPILOGO PRENOTAZIONE
 
