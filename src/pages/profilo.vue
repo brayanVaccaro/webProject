@@ -77,41 +77,41 @@ export default defineComponent({
     </table>
   </div>
 
-<div v-else>
-  <div  class="review-history">
-    <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
-    <table>
-      <tr>
-        <th>Data recensione</th>
-        <th>Voto pulizia</th>
-        <th>Voto ristorazione</th>
-        <th>Voto acooglienza</th>
-      </tr>
-      <tr v-for="x in review">
-        <td>{{ x.dataRecensione }}</td>
-        <td>{{ x.votoPulizia }}</td>
-        <td>{{ x.votoRistorazione }}</td>
-        <td>{{ x.votoAccoglienza }}</td>
-      </tr>
-    </table>
-  </div>
-  <div class="reservation-history">
-    <p>Storico delle sue prenotazioni</p>
-    <table>
-      <tr>
-        <th>Data inizio prenotazione</th>
-        <th>Data fine prenotazione</th>
-        <th>Immagine stanza</th>
-        <th>Taglia stanza</th>
-      </tr>
-      <tr v-for="x in reservation">
-        <td>{{ x.dataInizioPrenotazione }}</td>
-        <td>{{ x.dataFinePrenotazione }}</td>
-        <td>{{ x.imgStanza }}</td>
-        <td>{{ x.tagliaStanza }}</td>
-      </tr>
-    </table>
-  </div>
+  <div v-else>
+    <div  class="review-history">
+      <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
+      <table>
+        <tr>
+          <th>Data recensione</th>
+          <th>Voto pulizia</th>
+          <th>Voto ristorazione</th>
+          <th>Voto acooglienza</th>
+        </tr>
+        <tr v-for="x in review">
+          <td>{{ x.dataRecensione }}</td>
+          <td>{{ x.votoPulizia }}</td>
+          <td>{{ x.votoRistorazione }}</td>
+          <td>{{ x.votoAccoglienza }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="reservation-history">
+      <p>Storico delle sue prenotazioni</p>
+      <table>
+        <tr>
+          <th>Data inizio prenotazione</th>
+          <th>Data fine prenotazione</th>
+          <th>Immagine stanza</th>
+          <th>Taglia stanza</th>
+        </tr>
+        <tr v-for="x in reservation">
+          <td>{{ x.dataInizioPrenotazione }}</td>
+          <td>{{ x.dataFinePrenotazione }}</td>
+          <td>{{ x.imgStanza }}</td>
+          <td>{{ x.tagliaStanza }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 

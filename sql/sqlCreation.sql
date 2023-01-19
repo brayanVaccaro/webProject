@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 19, 2023 alle 15:23
+-- Creato il: Gen 19, 2023 alle 17:48
 -- Versione del server: 10.4.24-MariaDB
 -- Versione PHP: 7.4.29
 
@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `astra`
 --
-
 CREATE SCHEMA IF NOT EXISTS `astra` DEFAULT CHARACTER SET utf8 ;
 USE astra ; 
 -- --------------------------------------------------------
@@ -36,6 +35,13 @@ CREATE TABLE `prenotazione` (
   `idUtente` int(11) NOT NULL,
   `idStanza` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Dump dei dati per la tabella `prenotazione`
+--
+
+INSERT INTO `prenotazione` (`idPrenotazione`, `dataInizioPrenotazione`, `dataFinePrenotazione`, `idUtente`, `idStanza`) VALUES
+(3, '2023-01-25', '2023-01-31', 3, 5);
 
 -- --------------------------------------------------------
 
@@ -58,7 +64,8 @@ CREATE TABLE `recensione` (
 
 INSERT INTO `recensione` (`idRecensione`, `dataRecensione`, `idUtente`, `votoPulizia`, `votoRistorazione`, `votoAccoglienza`) VALUES
 (1, '2023-01-17', 3, '3stellina.png', '4stellina.png', '5stellina.png'),
-(16, '2023-01-18', 3, '3stellina.png', '4stellina.png', '1stellina.png');
+(16, '2023-01-18', 3, '3stellina.png', '4stellina.png', '1stellina.png'),
+(17, '2023-01-19', 3, '3stellina.png', '5stellina.png', '1stellina.png');
 
 -- --------------------------------------------------------
 
@@ -157,13 +164,13 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `prenotazione`
 --
 ALTER TABLE `prenotazione`
-  MODIFY `idPrenotazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idPrenotazione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `recensione`
 --
 ALTER TABLE `recensione`
-  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idRecensione` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT per la tabella `stanza`
