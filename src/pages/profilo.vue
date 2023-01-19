@@ -5,16 +5,16 @@ definePageMeta({
   middleware: ["require-login"]
 })
 export default defineComponent({
-  // setup() {
-  //   return {
-  //     user: inject("user") as Utente | null
-  //   }
-  // },
+  setup() {
+    return {
+      user: inject("user") as Utente | null
+    }
+  },
   data() {
     return {
       review: [] as Review[],
       reservation: [] as Reservation[],
-      user: inject("user") as Utente,
+      // user: inject("user") as Utente,
       
       dataRecensione: '' as string,
       votoPulizia: '',
@@ -28,7 +28,7 @@ export default defineComponent({
       $fetch("/api/reviews/getReviewsByID", {
         method: "POST",
         body: {
-          email: this.email
+          email: this.user?.email
         }
       }).then((data) => { this.review = data as Review[]
       console.log(this.review) })
@@ -36,8 +36,8 @@ export default defineComponent({
   },
   mounted() {
     
-    this.email = this.user.email
-    console.log('email vale'+this.email)
+    // this.email = this.user?.email
+    // console.log('email vale'+this.email)
     this.getReviewsByID();
   }
 })
@@ -46,15 +46,15 @@ export default defineComponent({
 
 <template >
   <div class="info-user">
-    <img class="profile-img" :src="'img/' + user.imgProfilo">
+    <img class="profile-img" :src="'img/' + user?.imgProfilo">
     <div class="row">
-      <p class="profile-data">Nome: {{ user.nome }}</p>
-      <p class="profile-data">Cognome: {{ user.cognome }}</p>
+      <p class="profile-data">Nome: {{ user?.nome }}</p>
+      <p class="profile-data">Cognome: {{ user?.cognome }}</p>
       <p class="profile-data">Data di Nascita: {{
         " " +
-          user.dataNascita.split("T")[0].split("-").reverse().toString().replaceAll(',', '/')
+          user?.dataNascita.split("T")[0].split("-").reverse().toString().replaceAll(',', '/')
       }}</p>
-      <p class="profile-data">Indirizzo email: {{  user.email }}</p>
+      <p class="profile-data">Indirizzo email: {{  user?.email }}</p>
 
     </div>
   </div>
