@@ -66,7 +66,8 @@ console.log('idStanza vale(1)'+this.idStanza)
 
 
         },
-        insertReservation() {
+        insertReservation(idStanza: number) {
+            this.idStanza = idStanza
             $fetch("/api/reservation/reserve", {
                 method: "POST",
                 body: {
@@ -79,6 +80,8 @@ console.log('idStanza vale(1)'+this.idStanza)
                 .then((response) => (alert(response)))
                 .then(() => window.location.href = "/profilo")
                 .catch((e) => alert(e))
+
+                this.idStanza = 0
         },
         imgZoomContainer(idStanza: number) {
 
@@ -244,11 +247,12 @@ console.log('idStanza vale(1)'+this.idStanza)
                             <td>
                                 {{ durataSoggiorno() }}
                             </td>
-
+                            
                             <td>{{ x.prezzoAnotte }}</td>
-
-                            <button v-if="controllo" @click="insertReservation()">Prenota</button>
-
+                            
+                            <button v-if="controllo" @click="insertReservation(x.idStanza)">Prenota</button>
+                            
+                            <p>{{ x.idStanza }}</p>
 
 
                         </tr>

@@ -3,8 +3,8 @@ import { decodificaUtente } from "../../utils/auth";
 
 export default defineEventHandler(async function(event) {
   const user = decodificaUtente(event)
-  const { dataFine, dataInizio, idStanza, idUtente } = await readBody(event)
-  console.log('dati prenotazione ' + dataFine +' ' + dataInizio +' '+ idStanza + ' ' + idUtente )
+  const { dataInizio, dataFine, idUtente, idStanza } = await readBody(event)
+  console.log('dati prenotazione ' + dataInizio +' '+dataFine+ ' ' + idUtente + ' ' + idStanza )
 
   // Verifica che l'email sia disponibile
   const connection = await createConnection()
