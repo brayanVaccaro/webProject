@@ -46,14 +46,14 @@ export default defineComponent({
         </button> 
 
         <button class="nav-buttons" v-if="utente">
-            <NuxtLink class="nuxt-link" to="/rooms">Stanze disponibili</NuxtLink>
+            <NuxtLink class="nuxt-link" to="/reservation">Effettua una Prenotazione</NuxtLink>
         </button>
 
         <button class="nav-buttons" >
             <NuxtLink class="nuxt-link" to="/reviews">Cosa pensano di noi</NuxtLink>
         </button>
         <button class="nav-buttons" v-if="utente">
-            <NuxtLink class="nuxt-link" to="/profilo">Profilo</NuxtLink>
+            <NuxtLink class="nuxt-link" to="/account">Profilo</NuxtLink>
         </button>
       </nav>
     <div class="background-image">

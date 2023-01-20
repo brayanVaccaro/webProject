@@ -25,7 +25,7 @@ export default defineComponent({
   },
   methods: {
     getUserReviews() {
-      $fetch("/api/reviews/getUserReviews", {
+      $fetch("/api/account/getUserReviews", {
         method: "POST",
         body: {
           email: this.user?.email
@@ -34,7 +34,7 @@ export default defineComponent({
       console.log(this.review) })
     },
     getUserReservations() {
-      $fetch("/api/reviews/getReservation", {
+      $fetch("/api/account/getUserReservations", {
         method: "POST",
         body: {
           email: this.user?.email
