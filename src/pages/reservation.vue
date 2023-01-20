@@ -40,8 +40,7 @@ export default defineComponent({
 
         },
 
-        filtra() {
-console.log('idStanza vale(1)'+this.idStanza)
+        searchRoom() {
             if (this.dataInizio == '' || this.dataFine == '') {
                 return
             }
@@ -51,7 +50,7 @@ console.log('idStanza vale(1)'+this.idStanza)
             };
 
 
-            $fetch("/api/reservation/filter", {
+            $fetch("/api/reservation/searchRoom", {
                 method: "POST",
                 body: {
                     tagliaStanza: this.tagliaStanza,
@@ -71,7 +70,7 @@ console.log('idStanza vale(1)'+this.idStanza)
         },
         insertReservation(idStanza: number) {
             this.idStanza = idStanza
-            $fetch("/api/reservation/reserve", {
+            $fetch("/api/reservation/insertReservation", {
                 method: "POST",
                 body: {
                     dataFine: this.dataFine,
@@ -81,10 +80,10 @@ console.log('idStanza vale(1)'+this.idStanza)
                 }
             })
                 .then((response) => (alert(response)))
-                .then(() => window.location.href = "/profilo")
+                .then(() => window.location.href = "/")
                 .catch((e) => alert(e))
 
-                this.idStanza = 0
+            this.idStanza = 0
         },
         imgZoomContainer(idStanza: number) {
 
@@ -98,8 +97,7 @@ console.log('idStanza vale(1)'+this.idStanza)
                 }
             }).then((data) => {
                 this.container = data as Stanza[],
-                    this.nomeImgStanza = this.container[0].imgStanza
-                    console.log('imgnome vale'+this.nomeImgStanza)
+                this.nomeImgStanza = this.container[0].imgStanza
             })
 
 
@@ -123,11 +121,11 @@ console.log('idStanza vale(1)'+this.idStanza)
 
             imgZoomContainer?.setAttribute("style", "display: none")
         },
-        stanzaSeleziona(idStanza: number) {
+        getUserRoom(idStanza: number) {
             this.idStanza = idStanza
             console.log('id taglia tipo e prezzo = ' + this.idStanza + ' ' + this.tagliaStanza + ' ' + this.tipologiaStanza + ' ' + this.prezzoAnotte)
 
-            $fetch("/api/reservation/getRooms", {
+            $fetch("/api/reservation/getUserRoom", {
                 method: "POST",
                 body: {
                     id: this.idStanza
@@ -195,7 +193,7 @@ console.log('idStanza vale(1)'+this.idStanza)
 
 
                         </select>
-                        <button @click="filtra()">---></button>
+                        <button @click="searchRoom()">---></button>
                     </li>
                 </ul>
             </aside>
@@ -223,7 +221,7 @@ console.log('idStanza vale(1)'+this.idStanza)
                         </td>
                         <td>{{ (tipologiaStanza = x.tipologiaStanza) + ' ' + (x.tagliaStanza) }}</td>
                         <td>{{ prezzoAnotte= x.prezzoAnotte }}</td>
-                        <td @click.self="stanzaSeleziona(x.idStanza)">SELEZIONA</td>
+                        <td @click.self="getUserRoom(x.idStanza)">SELEZIONA</td>
 
 
 
@@ -250,11 +248,11 @@ console.log('idStanza vale(1)'+this.idStanza)
                             <td>
                                 {{ durataSoggiorno() }}
                             </td>
-                            
+
                             <td>{{ x.prezzoAnotte }}</td>
-                            
+
                             <button v-if="controllo" @click="insertReservation(x.idStanza)">Prenota</button>
-                            
+
                             <p>{{ x.idStanza }}</p>
 
 

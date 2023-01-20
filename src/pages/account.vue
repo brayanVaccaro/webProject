@@ -24,8 +24,17 @@ export default defineComponent({
     }
   },
   methods: {
-    getReviewsByID() {
-      $fetch("/api/reviews/getReviewsByID", {
+    getUserReviews() {
+      $fetch("/api/reviews/getUserReviews", {
+        method: "POST",
+        body: {
+          email: this.user?.email
+        }
+      }).then((data) => { this.review = data as Review[]
+      console.log(this.review) })
+    },
+    getUserReservations() {
+      $fetch("/api/reviews/getReservation", {
         method: "POST",
         body: {
           email: this.user?.email
@@ -38,7 +47,8 @@ export default defineComponent({
     
     // this.email = this.user?.email
     // console.log('email vale'+this.email)
-    this.getReviewsByID();
+    this.getUserReviews();
+    this.getUserReservations();
   }
 })
 

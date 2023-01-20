@@ -27,9 +27,10 @@ export default defineComponent({
         }
     },
     methods: {
-        async getReviews() {
-            await $fetch("/api/reviews/getReviews").then((data) => { this.review = data as Review[] })
+         getReviews() {
+             $fetch("/api/reviews/getReviews").then((data) => { this.review = data as Review[] })
         },
+        
         insertReviews(){
             $fetch("/api/reviews/insertReviews",{
                 method: "POST",
@@ -46,8 +47,11 @@ export default defineComponent({
         }
         
     },
-    mounted() {
+    beforeMount() {
         this.getReviews();
+
+    },
+    mounted() {
     }
 })
 
