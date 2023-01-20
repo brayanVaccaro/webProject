@@ -94,7 +94,7 @@ Dopo aver Eseguito il login è possibile notare dei piccoli cambiamenti nella pa
 
 Nella pagine Stanze disponibili è possibile selezionare la data di inizio del soggiorno, la data di fine del soggiorno e infine la "taglia" della stanza in base alla quantità di persone che alloggeranno. 
 ARRIVATO QUIIIII
-
+  
 
 <div align="center">
   <a href="https://github.com/gerardocipriano/prenotiamo">

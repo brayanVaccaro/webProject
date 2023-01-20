@@ -54,11 +54,14 @@ console.log('idStanza vale(1)'+this.idStanza)
             $fetch("/api/reservation/filter", {
                 method: "POST",
                 body: {
-                    tagliaStanza: this.tagliaStanza
+                    tagliaStanza: this.tagliaStanza,
+                    dataInizio: this.dataInizio,
+                    dataFine: this.dataFine,
                 }
             })
                 .then((data) => {
                     this.stanza = data as Stanza[]
+                    console.log(this.stanza)
                 })
                 .catch((e) => alert(e))
 
