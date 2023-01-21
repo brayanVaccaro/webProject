@@ -1,7 +1,7 @@
 export interface Stanza {
     idStanza: number,
     prezzoAnotte: string,
-    imgStanza: any,
+    imgStanza: string,
     tagliaStanza: string,
     tipologiaStanza: string
 }
@@ -28,7 +28,7 @@ export interface Reservation {
     email: string,
     idStanza: number,
     prezzoAnotte: string,
-    imgStanza: any,
+    imgStanza: string,
     tagliaStanza: string,
     tipologiaStanza: string
 }
@@ -36,7 +36,7 @@ export interface Reservation {
 export interface Prenotazione {
     idStanza: number,
     prezzoAnotte: string,
-    imgStanza: any,
+    imgStanza: string,
     tagliaStanza: string,
     tipologiaStanza: string,
     idUtente: number,

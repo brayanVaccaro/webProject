@@ -6,7 +6,12 @@ definePageMeta({
 export default defineComponent({
     setup() {
         return {
-            user: inject("user") as Utente | null
+            user: inject("user") as Utente | null,
+        }
+    },
+    provide() {
+        return {
+            container: computed(() => this.container)
         }
     },
     data() {
@@ -16,12 +21,10 @@ export default defineComponent({
             selettoreInputData: undefined as any,
             dataInizio: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
             dataFine: '' as string,
-            idStanza: 0 as number,
             tagliaStanza: '' as string,
-            tipologiaStanza: '' as string,
-            prezzoAnotte: '' as string,
             nomeImgStanza: '' as string,
-            container: [] as Stanza[],
+            container: null as Stanza | null,
+            buffer: [] as Stanza[],
             stanzaScelta: [] as Stanza[],
             options: [
                 { value: 'Singola' },
@@ -29,7 +32,8 @@ export default defineComponent({
                 { value: 'Tripla' },
                 { value: 'Quadrupla' }
             ],
-            controllo: false as boolean,
+            controlloPrenotazione: false as boolean,
+            // controlloContainer: false as boolean
         }
     },
     methods: {
@@ -69,84 +73,79 @@ export default defineComponent({
 
         },
         insertReservation(idStanza: number) {
-            this.idStanza = idStanza
             $fetch("/api/reservation/insertReservation", {
                 method: "POST",
                 body: {
                     dataFine: this.dataFine,
                     dataInizio: this.dataInizio,
-                    idStanza: this.idStanza,
+                    idStanza: idStanza,
                     idUtente: this.user?.idUtente
                 }
             })
-                .then((response) => (alert(response)))
+                .then((response) => (alert(response.message)))
                 .then(() => window.location.href = "/")
-                .catch((e) => alert(e))
+                .catch((e) => (alert(e)))
 
-            this.idStanza = 0
         },
-        imgZoomContainer(idStanza: number) {
+        zoomContainer(idStanza: number, controlloContainer: boolean) {
 
-            this.idStanza = idStanza
-            console.log('id VALE ' + this.idStanza)
+            // this.idStanza = idStanza
+            console.log(' 1 id VALE ' + idStanza)
             // query per prendere il nome del file
-            $fetch("/api/reservation/getImgName", {
-                method: "POST",
-                body: {
-                    idStanza: this.idStanza
-                }
-            }).then((data) => {
-                this.container = data as Stanza[],
-                this.nomeImgStanza = this.container[0].imgStanza
-            })
 
-
-
-            //rendo visibile il container della foto ingrandita
-            let imgZoomContainer = document.querySelector("div.imgZoomContainer")
-            imgZoomContainer?.setAttribute("style", "display: block")
-            console.log(imgZoomContainer)
-
-
+            const imgZoomContainer = document.querySelector("div.imgZoomContainer")
             const imgTag = document.querySelector("div.imgZoomContainer img")
-            imgTag?.setAttribute("src", "img/" + this.container[0].imgStanza)
-            console.log('abc ' + imgTag?.getAttribute("src"))
-            this.idStanza = 0
-            console.log('idStanza vale' + this.idStanza)
 
+            if (controlloContainer) {
+                $fetch("/api/reservation/getImgName", {
+                    method: "POST",
+                    body: {
+                        idStanza: idStanza
+                    }
+                }).then((data) => {
+                    this.buffer = data as Stanza[]
+                    console.log('2 lunghezza buffer e buffer  ' + this.buffer.length + this.buffer[0])
+                    this.container = this.buffer[0]
+                    this.nomeImgStanza = this.container.imgStanza
+                    console.log('3 user vale ' + this.user + 'container vale ' + this.container)
+                })
+
+                //rendo visibile il container della foto ingrandita
+                imgZoomContainer?.setAttribute("style", "display: block")
+                //imposto la giusta src al tag img
+                imgTag?.setAttribute("src", "img/" + this.container?.imgStanza)
+            } else {
+                imgZoomContainer?.setAttribute("style", "display: none")
+
+            }
 
         },
-        imgCloseContainer() {
-            let imgZoomContainer = document.querySelector("div.imgZoomContainer") as HTMLElement
 
-            imgZoomContainer?.setAttribute("style", "display: none")
-        },
         getUserRoom(idStanza: number) {
-            this.idStanza = idStanza
-            console.log('id taglia tipo e prezzo = ' + this.idStanza + ' ' + this.tagliaStanza + ' ' + this.tipologiaStanza + ' ' + this.prezzoAnotte)
-
+            // this.idStanza = idStanza
+            console.log(' prima idstanza vale' + idStanza)
             $fetch("/api/reservation/getUserRoom", {
                 method: "POST",
                 body: {
-                    id: this.idStanza
+                    id: idStanza
                 }
 
             })
                 .then((data) => {
                     this.stanzaScelta = data as Stanza[]
+                    console.log('dentro la fetch'+ this.stanzaScelta)
 
                 })
 
             // this.stanzaScelta[0].
-            this.controllo = true
-            this.idStanza = 0
-            console.log('idStanza vale' + this.idStanza)
+            this.controlloPrenotazione = true
+            console.log('dopo idStanza vale' + idStanza)
         },
         durataSoggiorno() {
             const durataSoggiorno = this.dataInizio.charCodeAt(0) - this.dataInizio.charCodeAt(2)
-            console.log('dataInizio: ' + this.dataInizio)
-            console.log('dataInizio: ' + durataSoggiorno)
-            return durataSoggiorno
+            // console.log('dataInizio: ' + this.dataInizio)
+            // console.log('dataInizio: ' + durataSoggiorno)
+            // return durataSoggiorno
 
         }
 
@@ -170,7 +169,7 @@ export default defineComponent({
     <div class="grid-container-main main">
         <div class="imgZoomContainer" style="display: none;">
             <input type="checkbox" id="closeZoomContainer">
-            <label for="closeZoomContainer" @click="imgCloseContainer()">x</label>
+            <label for="closeZoomContainer" @click="zoomContainer(0,false)">x</label>
             <img :src="'img/' + nomeImgStanza" @click="">
         </div>
 
@@ -217,10 +216,10 @@ export default defineComponent({
                             <p>{{ x.idStanza }}</p>
                             <img :src="'img/' + x.imgStanza" @click="">
 
-                            <label for="imageZoom" @click.self="imgZoomContainer(x.idStanza)">Ingrandisci</label>
+                            <label for="imageZoom" @click.self="zoomContainer(x.idStanza, true)">Ingrandisci</label>
                         </td>
-                        <td>{{ (tipologiaStanza = x.tipologiaStanza) + ' ' + (x.tagliaStanza) }}</td>
-                        <td>{{ prezzoAnotte= x.prezzoAnotte }}</td>
+                        <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
+                        <td>{{ x.prezzoAnotte }}</td>
                         <td @click.self="getUserRoom(x.idStanza)">SELEZIONA</td>
 
 
@@ -251,7 +250,7 @@ export default defineComponent({
 
                             <td>{{ x.prezzoAnotte }}</td>
 
-                            <button v-if="controllo" @click="insertReservation(x.idStanza)">Prenota</button>
+                            <button v-if="controlloPrenotazione" @click="insertReservation(x.idStanza)">Prenota</button>
 
                             <p>{{ x.idStanza }}</p>
 

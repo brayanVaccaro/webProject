@@ -19,7 +19,7 @@ export default defineEventHandler(async function (event) {
     )
 
 
-    console.log('3 getRooms results vale ' + results.constructor.toLocaleString())
+    console.log('3 getUserRoom results vale ' + results)
 
     // e ulteriormente filtrate. Se il loro id si trova nella tabella prenotazione allora si esclude
 

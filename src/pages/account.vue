@@ -1,22 +1,22 @@
 <script lang="ts">
 // import { userInfo } from 'os'
-import { Utente, Review, Reservation } from '../types'
+import { Utente, Review, Reservation, Stanza } from '../types'
 definePageMeta({
   middleware: ["require-login"]
 })
 export default defineComponent({
   setup() {
     return {
-      user: inject("user") as Utente | null
+      container: inject("container") as Stanza | null,
+      user: inject("user") as Utente | null,
     }
   },
   data() {
     return {
       review: [] as Review[],
       reservation: [] as Reservation[],
-      // user: inject("user") as Utente,
-      
-      dataRecensione: '' as string,
+
+      imgStanza: '' as string,
       votoPulizia: '',
       votoRistorazione: '',
       votoAccoglienza: '',
@@ -25,30 +25,38 @@ export default defineComponent({
   },
   methods: {
     getUserReviews() {
+      console.log('email user = ' + this.user?.email)
+
       $fetch("/api/account/getUserReviews", {
         method: "POST",
         body: {
           email: this.user?.email
         }
-      }).then((data) => { this.review = data as Review[]
-      console.log(this.review) })
+      }).then((data) => {
+        this.review = data as Review[]
+        console.log(this.review)
+      })
     },
     getUserReservations() {
+      console.log('email user = ' + this.user?.email)
       $fetch("/api/account/getUserReservations", {
         method: "POST",
         body: {
           email: this.user?.email
         }
-      }).then((data) => { this.review = data as Review[]
-      console.log(this.review) })
+      }).then((data) => {
+        this.reservation = data as Reservation[]
+        console.log(this.reservation)
+      })
     }
   },
   mounted() {
-    
+
     // this.email = this.user?.email
     // console.log('email vale'+this.email)
     this.getUserReviews();
     this.getUserReservations();
+    console.log('')
   }
 })
 
@@ -64,31 +72,31 @@ export default defineComponent({
         " " +
           user?.dataNascita.split("T")[0].split("-").reverse().toString().replaceAll(',', '/')
       }}</p>
-      <p class="profile-data">Indirizzo email: {{  user?.email }}</p>
-      <p class="profile-data">Ruolo: {{  user?.ruolo }}</p>      
+      <p class="profile-data">Indirizzo email: {{ user?.email }}</p>
+      <p class="profile-data">Ruolo: {{ user?.ruolo }}</p>
     </div>
   </div>
 
-  <div v-if="user?.ruolo=='gestore'" class="review-history">
+  <div v-if="user?.ruolo == 'gestore'" class="review-history">
     <p>Ecco a te gestore la lista delle prenotazioni</p>
     <table>
       <tr>
-      <th>Data inizio prenotazione</th>
-      <th>Data fine prenotazione</th>
-      <th>Immagine stanza</th>
-      <th>Taglia stanza</th>
-    </tr>
-    <tr v-for="x in reservation">
-      <td>{{ x.dataInizioPrenotazione }}</td>
-      <td>{{ x.dataFinePrenotazione }}</td>
-      <td>{{ x.imgStanza }}</td>
-      <td>{{ x.tagliaStanza }}</td>
-    </tr>
+        <th>Data inizio prenotazione</th>
+        <th>Data fine prenotazione</th>
+        <th>Immagine stanza</th>
+        <th>Taglia stanza</th>
+      </tr>
+      <tr v-for="x in reservation">
+        <td>{{ x.dataInizioPrenotazione }}</td>
+        <td>{{ x.dataFinePrenotazione }}</td>
+        <td>{{ x.imgStanza }}</td>
+        <td>{{ x.tagliaStanza }}</td>
+      </tr>
     </table>
   </div>
 
   <div v-else>
-    <div  class="review-history">
+    <div class="review-history">
       <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
       <table>
         <tr>
@@ -98,7 +106,7 @@ export default defineComponent({
           <th>Voto acooglienza</th>
         </tr>
         <tr v-for="x in review">
-          <td>{{ x.dataRecensione }}</td>
+          <td>{{ new Date(x.dataRecensione) }}</td>
           <td>{{ x.votoPulizia }}</td>
           <td>{{ x.votoRistorazione }}</td>
           <td>{{ x.votoAccoglienza }}</td>
@@ -112,13 +120,24 @@ export default defineComponent({
           <th>Data inizio prenotazione</th>
           <th>Data fine prenotazione</th>
           <th>Immagine stanza</th>
-          <th>Taglia stanza</th>
+          <th>Descrizione</th>
+          <th>{{container?.prezzoAnotte}}</th>
+          <!-- <th>{{ container[0].tagliaStanza }}</th> -->
+          <!-- <th>{{ user?.cognome}}</th> -->
         </tr>
+        <tr>
         <tr v-for="x in reservation">
-          <td>{{ x.dataInizioPrenotazione }}</td>
-          <td>{{ x.dataFinePrenotazione }}</td>
-          <td>{{ x.imgStanza }}</td>
-          <td>{{ x.tagliaStanza }}</td>
+          <td>{{ new Date(x.dataInizioPrenotazione) }}</td>
+          <td>{{ new Date(x.dataFinePrenotazione) }}</td>
+        </tr>
+        <tr>
+          <td>{{ container?.prezzoAnotte }}</td>
+          <!-- <td>{{ x.tagliaStanza + x.tipologiaStanza }}</td> -->
+        </tr>
+        <!-- <tr v-for="y in container">
+          <td>{{ y. }}</td>
+          <td>{{ x.tagliaStanza + x.tipologiaStanza }}</td>
+        </tr> -->
         </tr>
       </table>
     </div>
@@ -126,21 +145,23 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-
 img {
   max-width: 100%;
   // padding: 5%;
   margin: auto;
 }
+
 .info-user {
   border: solid 1px rgb(200, 200, 200);
   border-radius: 7px;
 
 }
+
 .row {
   display: flex;
   flex-direction: column;
 }
+
 .profile-data {
   display: flex;
   flex-direction: row;
