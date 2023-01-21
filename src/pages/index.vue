@@ -1,8 +1,6 @@
 <script lang="ts">
 import { Utente } from "~/types"
-definePageMeta({
-  middleware: ["require-login"]
-})
+
 export default defineComponent({
     // Fornisce l'oggetto utente a tutti i componenti dell'applicativo
 

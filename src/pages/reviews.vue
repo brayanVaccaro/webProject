@@ -1,9 +1,7 @@
 <script lang="ts">
 // import { userInfo } from 'os'
 import { Recensione, Utente, Review } from '../types'
-definePageMeta({
-  middleware: ["require-login"]
-})
+
 export default defineComponent({
     setup() {
         return {
