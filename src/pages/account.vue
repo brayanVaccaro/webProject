@@ -70,7 +70,7 @@ export default defineComponent({
       <p class="profile-data">Cognome: {{ user?.cognome }}</p>
       <p class="profile-data">Data di Nascita: {{
         " " +
-          user?.dataNascita.split("T")[0].split("-").reverse().toString().replaceAll(',', '/')
+          new Date(user?.dataNascita)
       }}</p>
       <p class="profile-data">Indirizzo email: {{ user?.email }}</p>
       <p class="profile-data">Ruolo: {{ user?.ruolo }}</p>
@@ -87,9 +87,9 @@ export default defineComponent({
         <th>Taglia stanza</th>
       </tr>
       <tr v-for="x in reservation">
-        <td>{{ x.dataInizioPrenotazione }}</td>
-        <td>{{ x.dataFinePrenotazione }}</td>
-        <td>{{ x.imgStanza }}</td>
+        <td>{{ new Date(x.dataInizioPrenotazione) }}</td>
+          <td>{{ new Date(x.dataFinePrenotazione) }}</td>
+        <td><img :src="'img/' + x.imgStanza" ></td>
         <td>{{ x.tagliaStanza }}</td>
       </tr>
     </table>
@@ -107,9 +107,9 @@ export default defineComponent({
         </tr>
         <tr v-for="x in review">
           <td>{{ new Date(x.dataRecensione) }}</td>
-          <td>{{ x.votoPulizia }}</td>
-          <td>{{ x.votoRistorazione }}</td>
-          <td>{{ x.votoAccoglienza }}</td>
+          <td><img :src="'img/stars/' + x.votoPulizia" ></td>
+          <td><img :src="'img/stars/' + x.votoRistorazione" ></td>
+          <td><img :src="'img/stars/' + x.votoAccoglienza" ></td>
         </tr>
       </table>
     </div>
@@ -121,24 +121,30 @@ export default defineComponent({
           <th>Data fine prenotazione</th>
           <th>Immagine stanza</th>
           <th>Descrizione</th>
-          <th>{{container?.prezzoAnotte}}</th>
+          <!-- <th>{{container?.prezzoAnotte}}</th> -->
           <!-- <th>{{ container[0].tagliaStanza }}</th> -->
           <!-- <th>{{ user?.cognome}}</th> -->
         </tr>
-        <tr>
         <tr v-for="x in reservation">
+          <td>{{ new Date(x.dataInizioPrenotazione) }}</td>
+          <td>{{ new Date(x.dataFinePrenotazione) }}</td>
+          <td><img :src="'img/' + x.imgStanza" ></td>
+          <td>{{ x.tagliaStanza }}</td>
+        </tr>
+        <!-- <tr>
+         <tr v-for="x in reservation">
           <td>{{ new Date(x.dataInizioPrenotazione) }}</td>
           <td>{{ new Date(x.dataFinePrenotazione) }}</td>
         </tr>
         <tr>
           <td>{{ container?.prezzoAnotte }}</td>
-          <!-- <td>{{ x.tagliaStanza + x.tipologiaStanza }}</td> -->
+           <td>{{ x.tagliaStanza + x.tipologiaStanza }}</td> 
         </tr>
-        <!-- <tr v-for="y in container">
+         <tr v-for="y in container">
           <td>{{ y. }}</td>
           <td>{{ x.tagliaStanza + x.tipologiaStanza }}</td>
+        </tr> 
         </tr> -->
-        </tr>
       </table>
     </div>
   </div>
