@@ -44,8 +44,8 @@ export default defineComponent({
                 <p class="head-element" v-else>Per vedere le nostre stanze disponibili e passare il miglior tempo delle
                     tue
                     vacanze
-                    premi qui<a href="\rooms" style="display:contents;"> Prenotazioni</a> <br>
-                    Se invece hai già eseguito una prenotazione e vuoi controllare i dati premi qua<a href="\profilo "
+                    premi qui<a href="\reservation" style="display:contents;"> Prenotazioni</a> <br>
+                    Se invece hai già eseguito una prenotazione e vuoi controllare i dati premi qua<a href="\account "
                         style="display:contents;"> Profilo</a></p>
             </div>
 
@@ -84,8 +84,9 @@ export default defineComponent({
     justify-content: center;
 }
 
-//INDEX PAGE
-
+.logo-img{
+    width: 10%;
+}
 #index {
     display: grid;
     // grid-template-rows: 1fr auto;

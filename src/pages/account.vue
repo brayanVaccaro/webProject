@@ -8,14 +8,13 @@ export default defineComponent({
   setup() {
     return {
       container: inject("container") as Stanza | null,
-      user: inject("user") as Utente | null,
+      user: inject("user") as Utente ,
     }
   },
   data() {
     return {
       review: [] as Review[],
       reservation: [] as Reservation[],
-
       imgStanza: '' as string,
       votoPulizia: '',
       votoRistorazione: '',
@@ -25,12 +24,12 @@ export default defineComponent({
   },
   methods: {
     getUserReviews() {
-      console.log('email user = ' + this.user?.email)
+      console.log('email user = ' + this.user.email)
 
       $fetch("/api/account/getUserReviews", {
         method: "POST",
         body: {
-          email: this.user?.email
+          email: this.user.email
         }
       }).then((data) => {
         this.review = data as Review[]
@@ -38,59 +37,72 @@ export default defineComponent({
       })
     },
     getUserReservations() {
-      console.log('email user = ' + this.user?.email)
+      console.log('email user = ' + this.user.email)
       $fetch("/api/account/getUserReservations", {
         method: "POST",
         body: {
-          email: this.user?.email
+          email: this.user.email
         }
       }).then((data) => {
         this.reservation = data as Reservation[]
         console.log(this.reservation)
       })
-    }
+    },
+     formatDate(time: string) {
+      
+    const data = new Date(time)
+    const year = data.toLocaleString("default", { year: "numeric" });
+    const month = data.toLocaleString("default", { month: "2-digit" });
+    const day = data.toLocaleString("default", { day: "2-digit" });
+    
+    return `${day}/${month}/${year}`;
+  } 
   },
   mounted() {
 
-    // this.email = this.user?.email
-    // console.log('email vale'+this.email)
-    this.getUserReviews();
-    this.getUserReservations();
-    console.log('')
-  }
+  this.getUserReviews();
+  this.getUserReservations();
+  console.log('')
+}
 })
 
 </script>
 
 <template >
   <div class="info-user">
-    <img class="profile-img" :src="'img/' + user?.imgProfilo">
+    <img class="profile-img" :src="'img/' + user.imgProfilo">
     <div class="row">
-      <p class="profile-data">Nome: {{ user?.nome }}</p>
-      <p class="profile-data">Cognome: {{ user?.cognome }}</p>
+      <p class="profile-data">Nome: {{ user.nome }}</p>
+      <p class="profile-data">Cognome: {{ user.cognome }}</p>
       <p class="profile-data">Data di Nascita: {{
         " " +
-          new Date(user?.dataNascita)
+           formatDate(user.dataNascita)
       }}</p>
-      <p class="profile-data">Indirizzo email: {{ user?.email }}</p>
-      <p class="profile-data">Ruolo: {{ user?.ruolo }}</p>
+      <p class="profile-data">Indirizzo email: {{ user.email }}</p>
+      <p class="profile-data">Ruolo: {{ user.ruolo }}</p>
     </div>
   </div>
 
-  <div v-if="user?.ruolo == 'gestore'" class="review-history">
+  <div v-if="user.ruolo == 'gestore'" class="review-history">
     <p>Ecco a te gestore la lista delle prenotazioni</p>
     <table>
       <tr>
         <th>Data inizio prenotazione</th>
         <th>Data fine prenotazione</th>
         <th>Immagine stanza</th>
-        <th>Taglia stanza</th>
+        <th>Prezzo a notte</th>
+        <th>Tipologia stanza</th>
+        <th>Nome Cliente</th>
+        <th>Cognome Cliente</th>
+        <th>Data di nascita del Cliente</th>
+        <th>Indirizzo email del Cliente</th>
       </tr>
       <tr v-for="x in reservation">
-        <td>{{ new Date(x.dataInizioPrenotazione) }}</td>
-          <td>{{ new Date(x.dataFinePrenotazione) }}</td>
-        <td><img :src="'img/' + x.imgStanza" ></td>
+        <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
+        <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
+        <td><img :src="'img/' + x.imgStanza"></td>
         <td>{{ x.tagliaStanza }}</td>
+
       </tr>
     </table>
   </div>
@@ -106,10 +118,10 @@ export default defineComponent({
           <th>Voto acooglienza</th>
         </tr>
         <tr v-for="x in review">
-          <td>{{ new Date(x.dataRecensione) }}</td>
-          <td><img :src="'img/stars/' + x.votoPulizia" ></td>
-          <td><img :src="'img/stars/' + x.votoRistorazione" ></td>
-          <td><img :src="'img/stars/' + x.votoAccoglienza" ></td>
+          <td>{{ formatDate(x.dataRecensione) }}</td>
+          <td><img :src="'img/stars/' + x.votoPulizia"></td>
+          <td><img :src="'img/stars/' + x.votoRistorazione"></td>
+          <td><img :src="'img/stars/' + x.votoAccoglienza"></td>
         </tr>
       </table>
     </div>
@@ -120,31 +132,15 @@ export default defineComponent({
           <th>Data inizio prenotazione</th>
           <th>Data fine prenotazione</th>
           <th>Immagine stanza</th>
-          <th>Descrizione</th>
-          <!-- <th>{{container?.prezzoAnotte}}</th> -->
-          <!-- <th>{{ container[0].tagliaStanza }}</th> -->
-          <!-- <th>{{ user?.cognome}}</th> -->
+          <th>Prezzo a notte</th>
+          <th>Tipologia stanza</th>
         </tr>
         <tr v-for="x in reservation">
-          <td>{{ new Date(x.dataInizioPrenotazione) }}</td>
-          <td>{{ new Date(x.dataFinePrenotazione) }}</td>
-          <td><img :src="'img/' + x.imgStanza" ></td>
+          <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
+          <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
+          <td><img :src="'img/' + x.imgStanza"></td>
           <td>{{ x.tagliaStanza }}</td>
         </tr>
-        <!-- <tr>
-         <tr v-for="x in reservation">
-          <td>{{ new Date(x.dataInizioPrenotazione) }}</td>
-          <td>{{ new Date(x.dataFinePrenotazione) }}</td>
-        </tr>
-        <tr>
-          <td>{{ container?.prezzoAnotte }}</td>
-           <td>{{ x.tagliaStanza + x.tipologiaStanza }}</td> 
-        </tr>
-         <tr v-for="y in container">
-          <td>{{ y. }}</td>
-          <td>{{ x.tagliaStanza + x.tipologiaStanza }}</td>
-        </tr> 
-        </tr> -->
       </table>
     </div>
   </div>
@@ -178,7 +174,7 @@ img {
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 50%;
+  width: 100%;
 }
 
 td,
