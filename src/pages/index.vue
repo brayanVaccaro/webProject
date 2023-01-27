@@ -32,7 +32,7 @@ export default defineComponent({
             <img class="logo-img" src="/img/logo_transparent.png">
             <div class="grid-container-head">
 
-                <h1 class="head-element" v-if="!utente">Benvento nel sito dell'hotel Astra</h1>
+                <h1 class="head-element" v-if="!utente">Benvenuto nel sito dell'hotel Astra</h1>
                 <h1 class="head-element" v-if="utente?.ruolo == 'gestore'">Bentornato gestore {{ utente?.nome + " " +
                 utente?.cognome }} nel tuo sito dell'hotel Astra</h1>
                 <h1 class="head-element" v-if="utente?.ruolo == 'cliente'">Bentornato {{
@@ -88,29 +88,36 @@ export default defineComponent({
 
 #index {
     display: grid;
-    margin: 5% 0;
+    // grid-template-rows: 1fr auto;
 
-    // grid-template-rows: auto auto;
+    margin: 2% 0;
+    h1 {
+        font-size: 1.5em;
+    }
+
+    // grid-template-rows: 30% 70%;
     // grid-column: 2, auto;
 
     #row-1 {
         display: flex;
-        flex-direction: row;
-        margin-bottom: 1%;
+        
+        // flex-direction: column;
+        // margin-bottom: 1%;
+        // height: 100%;
         // width: 100%;
 
         img {
             // display: flex;
-            max-width: 15%;
-            // margin: auto;
-            // height: 50%;
+            // max-width: 100%;
+            aspect-ratio: 1/1;
+            // height: 70%;
         }
 
         .grid-container-head {
+            // height: 30%;
             display: flex;
-            width: 100%;
             flex-direction: column;
-            justify-content: center;
+            // justify-content: center;
 
             .head-element {
                 text-align: center;
@@ -123,37 +130,31 @@ export default defineComponent({
 
     #row-2 {
         display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        margin: 1% 0;
-        // align-items: center;
-
-        .story-text {
-            // width: 500px;
-            // display: inline-block;
-            // text-align: center;
-        }
+        // margin: 1% 0;
 
         .history-container {
             display: flex;
             flex-direction: column;
-            width: 45%;
-
-            p {
-                margin: 2% 0% 
+            // width: 45%;
+            p:nth-child(1) {
+                margin: 2%;
+            }
+            p:nth-child(2) {
+                margin: 0% 0% 2% 5%;
             }
         }
 
         .map-container {
             display: flex;
             flex-direction: column;
-            height: 60%;
+            p:nth-child(1) {
+                margin: 2%;
+            }
+            // height: 60%;
 
             // width: 55%;
             // margin-left: 15%;
-            p {
-                margin: 2% 0% 
-            }
+            
         }
 
         .map-container iframe {

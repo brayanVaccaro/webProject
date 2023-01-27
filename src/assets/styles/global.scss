@@ -39,11 +39,121 @@ a {
     font-size: medium;
 }
 
-.footer{
+.footer {
     background-color: gray;
     text-align: center;
     font-size: 18px;
 }
+
+//INDEX PAGE
+
+#index {
+    @include sm {
+        height: auto;
+        background-color: cyan;
+        grid-template-rows: 1fr auto;
+
+    }
+
+    @include md {
+        background-color: purple;
+        grid-template-rows: 1fr auto;
+
+    }
+    
+    @include lg {
+        background-color: green;
+        grid-template-rows: 0.5fr auto;
+
+
+    }
+}
+
+#row-1 {
+    @include sm {
+        flex-direction: column;
+        margin-bottom: 5%;
+        img {
+            max-width: 30%;
+            margin: 0 auto;
+            // outline: auto;
+        }
+        .grid-container-head {
+            p {
+                font-size: small;
+            }
+        }
+    }
+
+    @include md {
+        
+        flex-direction: row;
+        margin-bottom: 0;
+        // justify-content: space-evenly;
+        align-items: center;
+    }
+
+    @include lg {
+        flex-direction: column;
+        margin-bottom: 5%;
+        img {
+            max-width: 25%;
+            margin: 0 auto;
+            // height: 100%;
+
+        }
+        .grid-container-head {
+            // height: 70%;
+            p {
+                font-size: small;
+            }
+        }
+    }
+
+}
+
+#row-2 {
+    @include sm {
+        flex-direction: column;
+        .history-container {
+            
+
+        }
+        .map-container {
+            p {
+                margin: 2% 0%;
+            }
+            
+        }
+    }
+
+    @include md {
+        flex-direction: row;
+        // justify-content: space-evenly;
+        .history-container {
+            width: 55%;
+
+        }
+        .map-container {
+            align-self: center;
+            padding: 5%;
+        }
+
+    }
+
+    @include lg {
+        height: 100%;
+        .history-container {
+            width: 50%;
+        }
+        .map-container {
+            align-self: unset;
+            padding: 0;
+            width: 50%;
+        }
+    }
+}
+
 //LOGIN PAGE
 
 
@@ -63,7 +173,7 @@ a {
         grid-template-rows: auto auto;
         grid-template-columns: 25% auto;
         background-color: cyan;
-       
+
     }
 
     @include lg {
@@ -96,15 +206,16 @@ a {
     h3 {
         text-align: center;
     }
+
     @include sm {
         grid-area: 2 / 1 / span 1 / span 1;
     }
 
     @include md {
-        grid-area: 1 / 2 /  1 / span 2;
-        
+        grid-area: 1 / 2 / 1 / span 2;
+
     }
-    
+
     @include lg {
         grid-area: 1 / 2 / span 1 / 2;
 
@@ -119,7 +230,7 @@ a {
 
     @include md {
         grid-area: 2 / 2 / span 1 / span 2;
-      
+
     }
 
     @include lg {
@@ -130,7 +241,7 @@ a {
 
 //PROFILO
 .info-user {
-    
+
     @include sm {
         display: grid;
         grid-template-columns: 30% auto;
