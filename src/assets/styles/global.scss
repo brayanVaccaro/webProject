@@ -5,8 +5,7 @@
 body {
     background-image: url("img/background-image.png");
     background-size: 900px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 0 2%
 }
 
 
@@ -60,7 +59,7 @@ a {
         grid-template-rows: 1fr auto;
 
     }
-    
+
     @include lg {
         background-color: green;
         grid-template-rows: 0.5fr auto;
@@ -73,11 +72,13 @@ a {
     @include sm {
         flex-direction: column;
         margin-bottom: 5%;
+
         img {
             max-width: 30%;
             margin: 0 auto;
             // outline: auto;
         }
+
         .grid-container-head {
             p {
                 font-size: small;
@@ -86,7 +87,7 @@ a {
     }
 
     @include md {
-        
+
         flex-direction: row;
         margin-bottom: 0;
         // justify-content: space-evenly;
@@ -96,13 +97,16 @@ a {
     @include lg {
         flex-direction: column;
         margin-bottom: 5%;
+
         img {
             max-width: 25%;
             margin: 0 auto;
             // height: 100%;
 
         }
+
         .grid-container-head {
+
             // height: 70%;
             p {
                 font-size: small;
@@ -115,25 +119,26 @@ a {
 #row-2 {
     @include sm {
         flex-direction: column;
-        .history-container {
-            
 
-        }
+        .history-container {}
+
         .map-container {
             p {
                 margin: 2% 0%;
             }
-            
+
         }
     }
 
     @include md {
         flex-direction: row;
+
         // justify-content: space-evenly;
         .history-container {
             width: 55%;
 
         }
+
         .map-container {
             align-self: center;
             padding: 5%;
@@ -143,9 +148,11 @@ a {
 
     @include lg {
         height: 100%;
+
         .history-container {
             width: 50%;
         }
+
         .map-container {
             align-self: unset;
             padding: 0;
@@ -156,6 +163,111 @@ a {
 
 //LOGIN PAGE
 
+//REVIEWS
+.grid-1 {
+    @include sm {
+
+        // grid-template-rows: repeat(1,auto);
+        .review-preview {
+            flex-direction: row;
+            border-bottom: 1px solid red;
+        }
+
+        .element {
+            p {
+                font-size: 1em;
+            }
+
+            .stars {
+                max-width: 30%;
+            }
+        }
+
+
+    }
+
+    @include md {
+        grid-template-columns: repeat(2, auto);
+
+        .review-preview {
+            flex-direction: column;
+            border-bottom: 1px solid blue;
+
+        }
+
+        .element {
+            p {
+                font-size: 1.2em;
+            }
+
+            .stars {
+                max-width: 50%;
+            }
+        }
+
+    }
+
+    @include lg {
+        grid-template-columns: repeat(4, auto);
+
+        .review-preview {
+            border-bottom: 1px solid green;
+
+        }
+        .element {
+            p {
+                font-size: 0.8em;
+            }
+
+            .stars {
+                max-width: 80%;
+            }
+        }
+
+    }
+}
+
+.grid-2 {
+    @include sm {
+        h1 {
+            // grid-area: 1/1 / 1/span 2;
+            margin: 0;
+
+        }
+        .review-insert {
+
+        }
+
+        .info-user {}
+    }
+
+    @include md {
+        h1 {
+            text-align: center;
+        }
+        .review-insert {
+            // justify-content: space-around;
+        }
+        // grid-template-rows: auto auto;
+
+    }
+    @include lg {
+        h1 {
+            text-align: left;
+        }
+        .review-insert {
+            // grid-template-columns: 10% 90%;
+            // justify-content: space-evenly;
+            // background-color: black;
+            .info-user {
+                align-items: center;
+            }
+        }
+
+        // grid-template-rows: auto auto;
+
+    }
+}
 
 
 //ROOMS 
@@ -242,13 +354,13 @@ a {
 //PROFILO
 .info-user {
 
-    @include sm {
-        display: grid;
-        grid-template-columns: 30% auto;
+    // @include sm {
+    //     display: grid;
+    //     grid-template-columns: 30% auto;
 
-    }
+    // }
 
-    @include md {
-        grid-template-columns: 50% auto;
-    }
+    // @include md {
+    //     grid-template-columns: 50% auto;
+    // }
 }

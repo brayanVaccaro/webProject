@@ -14,7 +14,6 @@
     "sass": "^1.57.0"
   },
   "dependencies": {
-    "@fortawesome/vue-fontawesome": "^3.0.2",
     "bcrypt": "^5.1.0",
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^2.3.3"

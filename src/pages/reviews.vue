@@ -27,12 +27,12 @@ export default defineComponent({
         }
     },
     methods: {
-         getReviews() {
-             $fetch("/api/reviews/getReviews").then((data) => { this.review = data as Review[] })
+        getReviews() {
+            $fetch("/api/reviews/getReviews").then((data) => { this.review = data as Review[] })
         },
-        
-        insertReviews(){
-            $fetch("/api/reviews/insertReviews",{
+
+        insertReviews() {
+            $fetch("/api/reviews/insertReviews", {
                 method: "POST",
                 body: {
                     votoPulizia: this.votoPulizia + '.png',
@@ -40,12 +40,21 @@ export default defineComponent({
                     votoAccoglienza: this.votoAccoglienza + '.png',
                     idUser: this.user?.idUtente
                 }
-                
+
             })
-            .then(() => { window.location.href = "/reviews"; })
-            .catch((e) => alert(e))
-        }
-        
+                .then(() => { window.location.href = "/reviews"; })
+                .catch((e) => alert(e))
+        },
+        formatDate(time: string) {
+
+            const data = new Date(time)
+            const year = data.toLocaleString("default", { year: "numeric" });
+            const month = data.toLocaleString("default", { month: "2-digit" });
+            const day = data.toLocaleString("default", { day: "2-digit" });
+
+            return `${day}/${month}/${year}`;
+        },
+
     },
     beforeMount() {
         this.getReviews();
@@ -59,73 +68,134 @@ export default defineComponent({
 
 <template>
 
-    <div class="prova">
+    <div class="grid-1">
+
         <div v-for="x in review" class="review-preview">
-            <div class="info-user">
+            <div class="review-valutation">
+                <div class="element">
+                    <p class="">Pulizia:</p>
+                    <img class="stars" :src="'img/stars/' + x.votoPulizia">
+                </div>
+                <div class="element">
+                    <p class="">Ristorazione:</p>
+                    <img class="stars" :src="'img/stars/' + x.votoRistorazione">
+                </div>
+                <div class="element">
+                    <p class="">Accoglienza:</p>
+                    <img class="stars" :src="'img/stars/' + x.votoAccoglienza">
+                </div>
+
+            </div>
+            <div class="review-profile">
                 <img class="profile-img" :src="'img/' + x.imgProfilo">
+
                 <p class="video-title">
                     {{ x.nome + " " + x.cognome }}
                 </p>
                 <p class="video-stats">
-                    {{ x.dataRecensione.split("T")[0].split("-").reverse().toString().replaceAll(',', '/') }}
+                    {{ formatDate(x.dataRecensione) }}
                 </p>
             </div>
-            <div>
-                <p class="review-valutation">Pulizia:</p>
-                <img class="stars" :src="'img/stars/' + x.votoPulizia"> <br>
-                <p class="review-valutation">Ristorazione:</p>
-                <img class="stars" :src="'img/stars/' + x.votoRistorazione"> <br>
-                <p class="review-valutation">Accoglienza:</p>
-                <img class="stars" :src="'img/stars/' + x.votoAccoglienza"> <br>
-            </div>
+
         </div>
     </div>
 
-    <div v-if="user">
-        <div class="info-user">
-            <img class="profile-img" :src="'img/' + user?.imgProfilo">
-            <p class="profile-name">{{ user?.nome + ' ' + user?.cognome }}</p>
+    <div v-if="user" class="grid-2">
+        <h1>Aiutaci con un feedback!</h1>
+        <div class="review-insert">
+            <div class="info-user">
+                <img class="profile-img" :src="'img/' + user?.imgProfilo">
+                <p class="profile-name">{{ user?.nome + ' ' + user?.cognome }}</p>
+            </div>
+            <div class="review-insertion">
+                <p>Come valuti la nostra pulizia?</p>
+                <select v-model="votoPulizia">
+                    <option v-for="option in scelte" :key="option.value" :value="option.value">
+                        {{ option.value }}
+                    </option>
+                </select>
+                <p>Come valuti la nostra Ristorazione?</p>
+                <select v-model="votoRistorazione">
+                    <option v-for="option in scelte" :key="option.value" :value="option.value">
+                        {{ option.value }}
+                    </option>
+                </select>
+                <p>Come valuti la nostra Accoglienza?</p>
+                <select v-model="votoAccoglienza">
+                    <option v-for="option in scelte" :key="option.value" :value="option.value">
+                        {{ option.value }}
+                    </option>
+                </select>
+                <button @click.prevent="insertReviews()">
+                    Invia
+                </button>
+            </div>
         </div>
-        <div class="review-insertion">
-            <p class="review-question">Come valuti la nostra pulizia?</p>
-            <select v-model="votoPulizia">
-                <option v-for="option in scelte" :key="option.value" :value="option.value">
-                    {{ option.value }}
-                </option>
-            </select>
-            <p class="review-question">Come valuti la nostra Ristorazione?</p>
-            <select v-model="votoRistorazione">
-                <option v-for="option in scelte" :key="option.value" :value="option.value">
-                    {{ option.value }}
-                </option>
-            </select>
-            <p class="review-question">Come valuti la nostra Accoglienza?</p>
-            <select v-model="votoAccoglienza">
-                <option v-for="option in scelte" :key="option.value" :value="option.value">
-                    {{ option.value }}
-                </option>
-            </select>
-        </div>
-        <button @click.prevent="insertReviews()">
-            Invia
-        </button>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.grid-1 {
+    display: grid;
+}
+
+.grid-2 {
+    display: grid;
+.review-insert {
+    display: grid;
+    grid-template-columns: 15% auto;
+    // flex-direction: row;
+}
+    .review-insertion {
+        display: flex;
+        flex-direction: column;
+
+        select {
+            width: 30%;
+        }
+
+        button {
+            align-self: flex-start;
+        }
+    }
+}
+
+.element {
+    display: flex;
+    flex-direction: row;
+
+    p {
+        font-size: 0.9em;
+    }
+}
+
+.review-profile {
+    display: grid;
+    grid-template-columns: auto;
+
+    .video-title {
+        margin-top: 0;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        // margin-bottom: 12px;
+    }
+
+    font-size: 12px;
+    color: rgb(96, 96, 96);
+
+
+}
+
 .review-preview {
     display: flex;
     flex-direction: row;
     margin-bottom: 3%;
 }
 
-.stars {
-    width: 200px;
-}
 
-.review-valutation {
-    display: inline-block;
-}
+
+
 
 p {
     margin: 0;
@@ -135,13 +205,7 @@ p {
 
 
 
-.video-title {
-    margin-top: 0;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    margin-bottom: 12px;
-}
+
 
 
 .profile-img {
@@ -149,11 +213,5 @@ p {
     width: 70px;
     height: 70px;
     object-fit: cover;
-}
-
-.video-author,
-.video-stats {
-    font-size: 12px;
-    color: rgb(96, 96, 96);
 }
 </style>
