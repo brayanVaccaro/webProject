@@ -61,8 +61,8 @@ export default defineComponent({
       }
     },
     async getUserReservations2() {
-
-      for (let i = 0; i < this.idStanza.length; i++) {
+      console.log('qua funziona')
+      for (let i = 0; i < this.idStanza.length;) {
         await $fetch("/api/reservation/getUserRoom", {
           method: "POST",
           body: {
@@ -73,7 +73,11 @@ export default defineComponent({
           console.log('7 reservation con stanze: ')
           console.log(this.reservation)
         })
+
+        this.reservation.forEach(x => console.log('ciao' + x.email))
+        i++;
       }
+
     },
 
 
@@ -82,7 +86,7 @@ export default defineComponent({
     formatDate(time: string) {
 
       const data = new Date(time)
-      const year = data.toLocaleString("default", { year: "numeric" });
+      const year = data.toLocaleString("default", { year: "2-digit" });
       const month = data.toLocaleString("default", { month: "2-digit" });
       const day = data.toLocaleString("default", { day: "2-digit" });
 
@@ -94,7 +98,6 @@ export default defineComponent({
     this.getUserReviews();
     this.getUserReservations1();
     this.getUserReservations2();
-    console.log('')
   }
 })
 
@@ -161,29 +164,30 @@ export default defineComponent({
   <div class="reservation-history">
     <p>Storico delle sue prenotazioni</p>
     <table>
-      <tr>
-        <th>Data inizio prenotazione</th>
-        <th>Data fine prenotazione</th>
-        <th>Immagine stanza</th>
-        <th>Prezzo a notte</th>
-        <th>Tipologia stanza</th>
-      </tr>
-      <tr v-for="x in reservation">
-        <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
-        <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
-        <td><img :src="'img/' + x.imgStanza"></td>
-        <td>{{ x.tagliaStanza }}</td>
-        <td>{{ x.idStanza }}</td>
-      </tr>
+      <thead>
+        <th>Data inizio</th>
+        <th>Data fine</th>
+        <th>Prezzo</th>
+        <th>Descrizione</th>
+        <th>Immagine</th>
+      </thead>
+      <tbody>
+        <tr v-for="x in reservation">
+          <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
+          <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
+          <td>{{ x.prezzoAnotte }}</td>
+          <td>
+            <span>{{ x.tagliaStanza }}</span>
+            <span>{{ x.tipologiaStanza }}</span>
+          </td>
+          <td><img :src="'img/' + x.imgStanza"></td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
 
 <style lang="scss" scoped>
-img {
-  max-width: 10%;
-}
-
 .info {
   display: flex;
 
@@ -204,7 +208,7 @@ img {
 
 .review-history {
   table {
-    display: grid;
+    // display: grid;
     border-collapse: collapse;
 
     thead {
@@ -216,11 +220,59 @@ img {
 
       tr {
         display: flex;
+
+        td {
+          font-size: small;
+
+          // display: flex;
+          img {
+            max-width: 100%;
+          }
+        }
       }
     }
   }
 }
 
+.reservation-history {
+  table {
+    // display: grid;
+
+    thead {
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+    tbody {
+      display: flex;
+
+      tr {
+        display: flex;
+        justify-content: space-between;
+
+        td:last-child {
+          width: 20%;
+        }
+
+        td:nth-child(4) {
+          display: flex;
+          flex-direction: column;
+        }
+
+        td {
+          // display: flex;
+          font-size: small;
+
+          img {
+            max-width: 100%;
+
+          }
+        }
+      }
+    }
+  }
+}
 
 
 // table {

@@ -396,24 +396,78 @@ a {
         background-color: yellowgreen;
 
         table {
-            grid-template-columns: 40% auto;
 
 
             // width: 30%;
             thead {
-                flex-direction: column;
-                text-align: left;
+                flex-direction: row;
+                justify-content: space-between;
 
 
             }
 
             tbody {
+                // display: flex;
+                flex-direction: column;
+
                 tr {
 
-                    flex-direction: column;
-                    justify-content: space-around;
+                    flex-direction: row;
+                    // justify-content: space-between;
 
                     td {
+                        img {
+
+                            max-width: 70%;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    @include md {
+        background-color: cyan;
+
+    }
+
+    @include lg {
+        background-color: chocolate;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+
+}
+
+.reservation-history {
+    @include sm {
+        background-color: blueviolet;
+
+        table {
+            // grid-template-rows: repeat(2,auto);
+
+
+            // width: 30%;
+            thead {
+                flex-direction: row;
+
+            }
+
+            tbody {
+                flex-direction: column;
+
+                tr {
+
+                    flex-direction: row;
+                    // justify-content: space-evenly;
+
+                    td {
+                        // flex-direction: row;
+
                         img {
 
                             max-width: 100%;
