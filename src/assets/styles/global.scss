@@ -175,7 +175,7 @@ a {
 
         .element {
             p {
-                font-size: 1em;
+                font-size: 0.8em;
             }
 
             .stars {
@@ -208,19 +208,21 @@ a {
     }
 
     @include lg {
-        grid-template-columns: repeat(4, auto);
+        grid-template-columns: repeat(3, auto);
 
         .review-preview {
             border-bottom: 1px solid green;
+            // padding-right: 5%;
+            // margin-right: 3%;
 
         }
         .element {
             p {
-                font-size: 0.8em;
+                font-size: 1.2em;
             }
 
             .stars {
-                max-width: 80%;
+                max-width: 60%;
             }
         }
 

@@ -137,6 +137,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .grid-1 {
     display: grid;
+    gap: 1%;
 }
 
 .grid-2 {
@@ -163,6 +164,8 @@ export default defineComponent({
 .element {
     display: flex;
     flex-direction: row;
+    align-items: center;
+
 
     p {
         font-size: 0.9em;
