@@ -27,7 +27,6 @@ export default defineComponent({
   },
   methods: {
     getUserReviews() {
-      return
       console.log('email user = ' + this.user.email)
       console.log('email containier = ' + this.container)
 
