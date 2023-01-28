@@ -7,7 +7,7 @@ console.log('email vale '+ email)
 // const id = idUtente
 const connection = await createConnection()
 const [results] = await connection.execute(
-   `SELECT * FROM prenotazione INNER JOIN utenti ON utenti.idUtente=prenotazione.idUtente WHERE(email=?)`,
+   `SELECT * FROM prenotazione INNER JOIN utenti ON utenti.idUtente=prenotazione.idUtente WHERE(email=?) ORDER BY idStanza ASC`,
    [email]
    )
    
