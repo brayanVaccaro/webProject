@@ -17,11 +17,15 @@ export default defineComponent({
     data() {
         return {
             stanza: [] as Stanza[],
+            idStanza: [] as number[],
+            prezzoAnotte: '' as string,
+            imgStanza: '' as string,
+            tagliaStanza: '' as string,
+            tipologiaStanza: '' as string,
             dataSoggiornoGiusta: ['', ''] as string[],
             selettoreInputData: undefined as any,
             dataInizio: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
             dataFine: '' as string,
-            tagliaStanza: '' as string,
             nomeImgStanza: '' as string,
             container: null as Stanza | null,
             buffer: [] as Stanza[],
@@ -32,12 +36,16 @@ export default defineComponent({
                 { value: 'Tripla' },
                 { value: 'Quadrupla' }
             ],
+            scelte: [
+                { value: 'matrimoniale' },
+                { value: 'suite' },
+                { value: 'vistaMare' },
+            ],
             controlloPrenotazione: false as boolean,
             // controlloContainer: false as boolean
         }
     },
     methods: {
-
         date() {
             this.selettoreInputData[0].setAttribute("min", this.dataInizio)
             this.selettoreInputData[1].setAttribute("min", this.dataInizio)
@@ -147,7 +155,37 @@ export default defineComponent({
             // console.log('dataInizio: ' + durataSoggiorno)
             // return durataSoggiorno
 
-        }
+        },
+        insertRoom() {
+            $fetch("/api/reservation/insertRoom", {
+                method: "POST",
+                body: {
+                    idStanza: this.idStanza,
+                    prezzoAnotte: this.prezzoAnotte,
+                    imgStanza: this.imgStanza,
+                    tagliaStanza: this.tagliaStanza,
+                    tipologiaStanza: this.tipologiaStanza,
+                }
+            })
+                .then((response) => (alert(response.message)))
+                .then(() => window.location.href = "/reservation")
+                .catch((e) => (alert(e)))
+
+        },
+        deleteRoom(idStanza: number){
+            // this.idStanza = idStanza
+            $fetch("/api/reservation/deleteRoom", {
+                method: "POST",
+                body: {
+                    idStanza: idStanza
+                }
+
+            })
+                .then((response) => (alert(response.message)))
+                .then(() => window.location.href = "/reservation")
+                .catch((e) => (alert(e)))
+
+        },
 
     },
 
@@ -194,6 +232,13 @@ export default defineComponent({
                         </select>
                         <button @click="searchRoom()">---></button>
                     </li>
+                    <li v-if="user?.ruolo == 'gestore'">
+                        <button>
+                            <NuxtLink to="addRoom">
+                                Aggiungi stanza
+                            </NuxtLink>
+                        </button>
+                    </li>
                 </ul>
             </aside>
         </div>
@@ -221,7 +266,9 @@ export default defineComponent({
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
                         <td>{{ x.prezzoAnotte }}</td>
                         <td @click.self="getUserRoom(x.idStanza)">SELEZIONA</td>
-
+                        <button @click.prevent="deleteRoom(x.idStanza)">
+                            elimina stanza
+                        </button>
 
 
                     </tr>
