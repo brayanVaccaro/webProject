@@ -443,7 +443,7 @@ a {
 
 }
 
-.reservation-history {
+.reservation-history-cliente {
     @include sm {
         background-color: blueviolet;
 
@@ -481,6 +481,57 @@ a {
 
     @include md {
         background-color: cyan;
+
+    }
+
+    @include lg {
+        background-color: chocolate;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+
+}
+.reservation-history-gestore {
+    @include sm {
+        background-color: blueviolet;
+
+        table {
+            // grid-template-rows: repeat(2,auto);
+
+
+            // width: 30%;
+            thead {
+                
+
+            }
+
+            tbody {
+                
+
+                tr {
+
+                    
+                    // justify-content: space-evenly;
+
+                    td {
+                        // flex-direction: row;
+
+                        img {
+
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    @include md {
+        background-color: darkred;
 
     }
 

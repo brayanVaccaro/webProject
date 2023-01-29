@@ -1,5 +1,6 @@
 <script lang="ts">
 // import { userInfo } from 'os'
+import { use } from 'h3'
 import getUserReservations from '../server/api/account/getUserReservations'
 import { Utente, Review, Reservation, Stanza } from '../types'
 definePageMeta({
@@ -18,7 +19,7 @@ export default defineComponent({
       reservation: [] as Reservation[],
       imgStanza: '' as string,
       idStanza: [] as number[],
-      contatore: 0 as number,
+      controllo: 0 as number,
       votoPulizia: '',
       votoRistorazione: '',
       votoAccoglienza: '',
@@ -29,6 +30,9 @@ export default defineComponent({
     getUserReviews() {
       console.log('email user = ' + this.user.email)
       console.log('email containier = ' + this.container)
+      if (this.user.ruolo == 'gestore') {
+        return
+      }
 
       $fetch("/api/account/getUserReviews", {
         method: "POST",
@@ -42,10 +46,14 @@ export default defineComponent({
     },
     async getUserReservations1() {
       // console.log('1 email user = ' + this.user.email)
+      if (this.user.ruolo == 'gestore') {
+
+      }
       await $fetch("/api/account/getUserReservations", {
         method: "POST",
         body: {
-          email: this.user.email
+          email: this.user.email,
+          controllo: this.controllo
         }
       }).then((data) => {
         this.reservation = data as Reservation[]
@@ -74,13 +82,11 @@ export default defineComponent({
           console.log(this.reservation)
         })
 
-        this.reservation.forEach(x => console.log('ciao' + x.email))
+        // this.reservation.forEach(x => console.log('ciao' + x.email))
         i++;
       }
 
     },
-
-
 
 
     formatDate(time: string) {
@@ -118,31 +124,9 @@ export default defineComponent({
     </div>
   </div>
 
-  <div v-if="user.ruolo == 'gestore'" class="review-history">
-    <p>Ecco a te gestore la lista delle prenotazioni</p>
-    <table>
-      <tr>
-        <th>Data inizio prenotazione</th>
-        <th>Data fine prenotazione</th>
-        <th>Immagine stanza</th>
-        <th>Prezzo a notte</th>
-        <th>Tipologia stanza</th>
-        <th>Nome Cliente</th>
-        <th>Cognome Cliente</th>
-        <th>Data di nascita del Cliente</th>
-        <th>Indirizzo email del Cliente</th>
-      </tr>
-      <tr v-for="x in reservation">
-        <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
-        <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
-        <td><img :src="'img/' + x.imgStanza"></td>
-        <td>{{ x.tagliaStanza }}</td>
 
-      </tr>
-    </table>
-  </div>
 
-  <div v-else class="review-history">
+  <div v-if="user.ruolo == 'cliente'" class="review-history">
     <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
     <table>
       <thead>
@@ -161,7 +145,81 @@ export default defineComponent({
       </tbody>
     </table>
   </div>
-  <div class="reservation-history">
+  <div v-if="user.ruolo == 'gestore'" class="reservation-history-gestore">
+    <p>Ecco a te gestore la lista di tutte le prenotazioni</p>
+    //table per la prenotazione ()
+    <table>
+      <thead id="">
+        <tr class="col">
+          <th>Stanza</th>
+          <div id="inferiore-1">
+            <th>Immagine</th>
+            <th>Prezzo/notte</th>
+            <th>Descrizione</th>
+            <!-- <th>Tipologia</th>
+            <th>Taglia</th> -->
+          </div>
+        </tr>
+        <tr class="col">
+          <th>Cliente</th>
+          <div id="inferiore-2">
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Data di Nascita</th>
+            <th>Email</th>
+
+          </div>
+        </tr>
+        <tr class="col">
+          <th>Info</th>
+          <div id="inferiore-3">
+            <th>Data Inizio</th>
+            <th>Data Fine</th>
+          </div>
+        </tr>
+
+      </thead>
+
+      <tbody>
+        <div id="Stanza">
+          <tr v-for="x in reservation">
+
+            <td><img :src="'img/' + x.imgStanza"></td>
+            <td>{{ x.prezzoAnotte }}</td>
+            <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
+
+          </tr>
+        </div>
+        <div id="Cliente">
+          <tr v-for="x in reservation">
+            <td>{{ x.nome }}</td>
+            <td>{{ x.cognome }}</td>
+            <td>{{ formatDate(x.dataNascita) }}</td>
+            <td>{{ x.email }}</td>
+          </tr>
+        </div>
+        <div id="Info-Prenotazione">
+          <tr v-for="x in reservation">
+            <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
+            <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
+          </tr>
+        </div>
+        <!-- <tr v-for="x in reservation">
+          <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
+          <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
+          <td>{{ x.tagliaStanza }}</td>
+          <td><img :src="'img/' + x.imgStanza"></td>
+        </tr> -->
+      </tbody>
+
+      <!-- <thead>
+        <th>Tipologia stanza</th>
+        
+      </thead> -->
+
+    </table>
+  </div>
+  <div v-else class="reservation-history-cliente">
     <p>Storico delle sue prenotazioni</p>
     <table>
       <thead>
@@ -233,7 +291,7 @@ export default defineComponent({
   }
 }
 
-.reservation-history {
+.reservation-history-cliente {
   table {
     display: grid;
     border-collapse: collapse;
@@ -269,6 +327,115 @@ export default defineComponent({
           img {
             max-width: 100%;
 
+          }
+        }
+      }
+    }
+  }
+}
+
+.reservation-history-gestore {
+  table {
+    display: grid;
+
+    border-collapse: collapse;
+
+    thead {
+      display: flex;
+      // justify-content: space-between;
+
+      .col {
+        display: grid;
+        grid-template-rows: repeat(2, auto); // justify-content: space-between;
+
+        #inferiore-1 {
+          th {
+            // font-size: smaller;
+          }
+        }
+
+      }
+
+
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: row;
+      grid-template-columns: repeat(3, 33.3%);
+      
+      #Stanza {
+        display: grid;
+        width: 37.12%;
+
+        tr {
+          display: flex;
+          // grid-template-columns: repeat(3,auto);
+          justify-content: space-between;
+          align-items: center;
+
+          td:first-child {
+width: 33.3%;
+          }
+
+
+
+          td {
+            text-align: center;
+            font-size: small;
+
+            img {
+              max-width: 100%;
+              margin: auto
+            }
+          }
+        }
+      }
+
+      #Cliente {
+        display: grid;
+        width: 40.04%;
+
+
+        tr {
+          display: flex;
+          // grid-template-columns: repeat(3,auto);
+          justify-content: space-between;
+          align-items: center;
+
+          td {
+            // width: 33.3%;
+          }
+
+
+
+          td {
+            text-align: center;
+            font-size: small;
+          }
+        }
+      }
+
+      #Info-Prenotazione {
+        display: grid;
+        width: 22.4%;
+
+
+        tr {
+          display: flex;
+          // grid-template-columns: repeat(3,auto);
+          justify-content: space-between;
+          align-items: center;
+
+          td {
+            // width: 33.3%;
+          }
+
+
+
+          td {
+            text-align: center;
+            font-size: small;
           }
         }
       }
