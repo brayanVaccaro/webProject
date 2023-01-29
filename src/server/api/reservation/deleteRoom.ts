@@ -11,4 +11,4 @@ export default defineEventHandler(async function(event) {
   )
 
   return { message: "stanza eliminata con successo" }
-});
+})

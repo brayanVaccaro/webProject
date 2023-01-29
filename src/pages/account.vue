@@ -97,7 +97,20 @@ export default defineComponent({
       const day = data.toLocaleString("default", { day: "2-digit" });
 
       return `${day}/${month}/${year}`;
-    }
+    },
+    deleteReservation(idPrenotazione: number){
+            $fetch("/api/account/deleteReservation", {
+                method: "POST",
+                body: {
+                    idPrenotazione: idPrenotazione
+                }
+
+            })
+                .then((response) => (alert(response.message)))
+                .then(() => window.location.href = "/account")
+                .catch((e) => (alert(e)))
+
+        },
   },
   mounted() {
 
@@ -202,7 +215,13 @@ export default defineComponent({
           <tr v-for="x in reservation">
             <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
             <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
+            <td>
+              <button @click.prevent="deleteReservation(x.idPrenotazione)">
+                elimina prenotazione
+              </button>
+            </td>
           </tr>
+          
         </div>
         <!-- <tr v-for="x in reservation">
           <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
@@ -299,8 +318,6 @@ export default defineComponent({
     thead {
       display: grid;
       grid-template-columns: repeat(5, 20%);
-      // justify-content: space-between;
-
     }
 
     tbody {
@@ -342,7 +359,7 @@ export default defineComponent({
 
     thead {
       display: flex;
-      // justify-content: space-between;
+      justify-content:space-evenly;
 
       .col {
         display: grid;
