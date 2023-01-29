@@ -177,8 +177,7 @@ export default defineComponent({
           <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
           <td>{{ x.prezzoAnotte }}</td>
           <td>
-            <span>{{ x.tagliaStanza }}</span>
-            <span>{{ x.tipologiaStanza }}</span>
+            {{ x.tagliaStanza + ' ' + x.tipologiaStanza }}
           </td>
           <td><img :src="'img/' + x.imgStanza"></td>
         </tr>
@@ -236,32 +235,35 @@ export default defineComponent({
 
 .reservation-history {
   table {
-    // display: grid;
+    display: grid;
+    border-collapse: collapse;
 
     thead {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(5, 20%);
+      // justify-content: space-between;
 
     }
 
     tbody {
-      display: flex;
+      display: grid;
+      // grid-template-columns: repeat(5,25%);
 
       tr {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(5, 20%);
+        // justify-content: space-between;
+        border: 1px solid red;
+        align-items: center;
 
         td:last-child {
-          width: 20%;
+          // width: 20%;
         }
 
-        td:nth-child(4) {
-          display: flex;
-          flex-direction: column;
-        }
+
 
         td {
-          // display: flex;
+          text-align: center;
           font-size: small;
 
           img {
