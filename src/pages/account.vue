@@ -41,13 +41,14 @@ export default defineComponent({
         }
       }).then((data) => {
         this.review = data as Review[]
+        console.log('review vale')
         console.log(this.review)
       })
     },
     async getUserReservations1() {
       // console.log('1 email user = ' + this.user.email)
-      if (this.user.ruolo == 'gestore') {
-
+      if (this.user.ruolo == 'cliente') {
+        this.controllo = 1
       }
       await $fetch("/api/account/getUserReservations", {
         method: "POST",
