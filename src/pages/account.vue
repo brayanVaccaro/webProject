@@ -139,7 +139,7 @@ export default defineComponent({
   </div>
 
 
-
+<!-- se sono cliente vedo le mie recensioni -->
   <div v-if="user.ruolo == 'cliente'" class="review-history">
     <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
     <table>
@@ -159,12 +159,12 @@ export default defineComponent({
       </tbody>
     </table>
   </div>
-
-  <div v-if="user.ruolo == 'gestore'" class="reservation-history-cliente">
+<!-- se sono gestore vedo tutte le prenotazioni -->
+  <div v-if="user.ruolo == 'gestore'" class="reservation-history-gestore">
     <p>Ecco a te gestore la lista di tutte le prenotazioni</p>
     <table>
       <thead>
-        <th>Eliminazione</th>
+        <th>Elimina</th>
         <th>Data Inizio</th>
         <th>Data Fine</th>
         <th>Email</th>
@@ -265,7 +265,7 @@ export default defineComponent({
 
     thead {
       display: grid;
-      grid-template-columns: repeat(5, 20%);
+      grid-template-columns: repeat(5,auto);
     }
 
     tbody {
@@ -299,130 +299,44 @@ export default defineComponent({
   }
 }
 
-.reservation-history-gestore {
+.reservation-history-gestore{
   table {
     display: grid;
-
     border-collapse: collapse;
 
     thead {
-      display: flex;
-      justify-content:space-evenly;
-
-      .col {
-        display: grid;
-        grid-template-rows: repeat(2, auto); // justify-content: space-between;
-
-        #inferiore-1 {
-          th {
-            // font-size: smaller;
-          }
-        }
-
-      }
-
-
+      display: grid;
+      grid-template-columns: repeat(5,auto);
     }
 
     tbody {
-      display: flex;
-      flex-direction: row;
-      grid-template-columns: repeat(3, 33.3%);
-      
-      #Stanza {
+      display: grid;
+      // grid-template-columns: repeat(5,25%);
+
+      tr {
         display: grid;
-        width: 37.12%;
+        grid-template-columns: repeat(5, 20%);
+        // justify-content: space-between;
+        border: 1px solid red;
+        align-items: center;
 
-        tr {
-          display: flex;
-          // grid-template-columns: repeat(3,auto);
-          justify-content: space-between;
-          align-items: center;
-
-          td:first-child {
-width: 33.3%;
-          }
-
-
-
-          td {
-            text-align: center;
-            font-size: small;
-
-            img {
-              max-width: 100%;
-              margin: auto
-            }
-          }
+        td:last-child {
+          // width: 20%;
         }
-      }
-
-      #Cliente {
-        display: grid;
-        width: 40.04%;
-
-
-        tr {
-          display: flex;
-          // grid-template-columns: repeat(3,auto);
-          justify-content: space-between;
-          align-items: center;
-
-          td {
-            // width: 33.3%;
-          }
 
 
 
-          td {
-            text-align: center;
-            font-size: small;
-          }
-        }
-      }
+        td {
+          text-align: center;
+          font-size: small;
 
-      #Info-Prenotazione {
-        display: grid;
-        width: 22.4%;
+          img {
+            max-width: 100%;
 
-
-        tr {
-          display: flex;
-          // grid-template-columns: repeat(3,auto);
-          justify-content: space-between;
-          align-items: center;
-
-          td {
-            // width: 33.3%;
-          }
-
-
-
-          td {
-            text-align: center;
-            font-size: small;
           }
         }
       }
     }
   }
 }
-
-
-// table {
-//   font-family: arial, sans-serif;
-//   border-collapse: collapse;
-//   // width: 100%;
-// }
-
-// td,
-// th {
-//   border: 1px solid #dddddd;
-//   text-align: left;
-//   padding: 8px;
-// }
-
-// tr:nth-child(even) {
-//   background-color: #dddddd;
-// }
 </style>

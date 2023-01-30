@@ -19,7 +19,7 @@ export default defineComponent({
       this.utente = user
     },
     async logout() {
-      await $fetch("/api/auth/logout").then((response) => alert(response.message)).then(() => window.location.href = "/") 
+      await $fetch("/api/auth/logout").then((response) => alert(response.message)).then(() => window.location.href = "/")
       this.getUtente()
     }
   },
@@ -30,50 +30,108 @@ export default defineComponent({
 </script>
 
 <template>
+
   <Head>
     <Title>Astra</Title>
   </Head>
-    <nav id="nav">
-        <button class="nav-buttons">
-            <NuxtLink class="nuxt-link" to="/">Home</NuxtLink>
-        </button>
+ 
+  <nav id="nav">
+    <ul>
+      <li class="nav-buttons">
+        <NuxtLink class="nuxt-link" to="/">Home</NuxtLink>
+      </li>
 
-        <button class="nav-buttons" v-if="!utente">
-            <NuxtLink class="nuxt-link" to="/login">Login</NuxtLink>
-        </button>
-        <button class="nav-buttons" v-else>
-            <NuxtLink class="nuxt-link" to="/" @click.prevent = "logout">Logout</NuxtLink>
-        </button> 
+      <li class="nav-buttons" v-if="utente">
+        <NuxtLink class="nuxt-link" to="/reservation">Prenotazione</NuxtLink>
+      </li>
 
-        <button class="nav-buttons" v-if="utente">
-            <NuxtLink class="nuxt-link" to="/reservation">Effettua una Prenotazione</NuxtLink>
-        </button>
+      <li class="nav-buttons">
+        <NuxtLink class="nuxt-link" to="/reviews">Recensioni</NuxtLink>
+      </li>
 
-        <button class="nav-buttons" >
-            <NuxtLink class="nuxt-link" to="/reviews">Cosa pensano di noi</NuxtLink>
-        </button>
-        <button class="nav-buttons" v-if="utente">
-            <NuxtLink class="nuxt-link" to="/account">Profilo</NuxtLink>
-        </button>
-      </nav>
-    <div class="background-image">
-    </div>
-    <main id="centerPage">
-        <slot></slot>
-    </main>
-    <footer class="footer">Contatti: astraHotel@gmail.com	+393888958648</footer>
+      <li class="nav-buttons" v-if="utente?.ruolo == 'gestore'">
+        <NuxtLink class="nuxt-link" to="/account">Gestisci</NuxtLink>
+      </li>
+
+      <li class="nav-buttons" v-else v-if="utente">
+        <NuxtLink class="nuxt-link" to="/account">Profilo</NuxtLink>
+      </li>
+    </ul>
+    <ul>
+      <li class="nav-buttons" v-if="!utente">
+        <NuxtLink class="nuxt-link" to="/login">Login</NuxtLink>
+      </li>
+
+      <li class="nav-buttons" v-else>
+        <NuxtLink class="nuxt-link" to="/" @click.prevent="logout">Logout</NuxtLink>
+      </li>
+    </ul>
+  </nav>
+
+
+  <main id="centerPage">
+    <slot></slot>
+  </main>
+  <footer class="footer">Contatti: astraHotel@gmail.com +393888958648</footer>
 </template>
 
 
 <style lang="scss">
 @import '../assets/styles/global.scss';
-.nav-buttons{
-  max-width: 180px ;
-  font-weight: bold;
-  border: solid gray;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 11px;
-}
 
+// nav {
+//   margin: 0 5%;
+
+//   ul {
+//     list-style: none;
+
+//     li {
+//       display: inline-block;
+//       width: 45%;
+//       margin: 10px 0 0;
+//       text-align: center;
+//       background-color: gray;
+
+//       &:nth-child(odd) {
+//         margin-right: 10%;
+//       }
+
+//       a {
+//         display: inline-block;
+//         width: 100%;
+//         height: 100%;
+//         padding: 5px 0;
+//         color: white;
+//         // font-family: $font-normal;
+//         text-decoration: none;
+//       }
+
+//       &:hover a {
+//         color: red;
+//       }
+//     }
+//   }
+// }
+nav {
+  display: grid;
+  border: 1px solid darkblue;
+  // background-color: white;
+  // grid-template-rows: auto auto;
+
+  ul {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+      padding: 1%;
+      background-color: whitesmoke;
+      box-shadow: 50px;
+    }
+  }
+}
 </style>

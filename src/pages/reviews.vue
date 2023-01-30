@@ -55,13 +55,13 @@ export default defineComponent({
 
             return `${day}/${month}/${year}`;
         },
-        reviewsAnswer(idRecensione: number, rispostaRecensione: string){
+        reviewsAnswer(idRecensione: number, rispostaRecensione: string) {
             console.log(this.rispostaRecensione)
             $fetch("/api/reviews/reviewsAnswer", {
                 method: "POST",
                 body: {
                     rispostaRecensione: rispostaRecensione,
-                  idRecensione: idRecensione,
+                    idRecensione: idRecensione,
                 }
             })
                 .then((response) => (alert(response.message)))
@@ -85,19 +85,36 @@ export default defineComponent({
     <div class="grid-1">
 
         <div v-for="x in review" class="review-preview">
-            <div class="review-valutation">
-                <div class="element">
-                    <p class="">Pulizia:</p>
-                    <img class="stars" :src="'img/stars/' + x.votoPulizia">
+            <div>
+                <div class="review-valutation">
+                    <div class="element">
+                        <p class="">Pulizia:</p>
+                        <img class="stars" :src="'img/stars/' + x.votoPulizia">
+                    </div>
+                    <div class="element">
+                        <p class="">Ristorazione:</p>
+                        <img class="stars" :src="'img/stars/' + x.votoRistorazione">
+                    </div>
+                    <div class="element">
+                        <p class="">Accoglienza:</p>
+                        <img class="stars" :src="'img/stars/' + x.votoAccoglienza">
+                    </div>
+
+
                 </div>
-                <div class="element">
-                    <p class="">Ristorazione:</p>
-                    <img class="stars" :src="'img/stars/' + x.votoRistorazione">
+                <div class="send-answer" v-if="user?.ruolo == 'gestore' && x.rispostaRecensione == ''">
+                    <input v-model="rispostaRecensione" type="text">
+                    <button @click="reviewsAnswer(x.idRecensione, rispostaRecensione)">
+                        Rispondi
+                    </button>
                 </div>
-                <div class="element">
-                    <p class="">Accoglienza:</p>
-                    <img class="stars" :src="'img/stars/' + x.votoAccoglienza">
+                <div class="get-answer" v-else-if="x.rispostaRecensione != ''">
+                    <h3>Riposta del gestore </h3>
+                    <p>
+                        {{ x.rispostaRecensione }}
+                    </p>
                 </div>
+                
             </div>
             <div class="review-profile">
                 <img class="profile-img" :src="'img/' + x.imgProfilo">
@@ -108,16 +125,9 @@ export default defineComponent({
                 <p class="video-stats">
                     {{ formatDate(x.dataRecensione) }}
                 </p>
-                <h3 v-if="x.rispostaRecensione != ''">Riposta del gestore </h3>
-                <p>
-                    {{ x.rispostaRecensione }}
-                </p>
-
-                <input v-if="user?.ruolo == 'gestore' && x.rispostaRecensione == '' " v-model="rispostaRecensione" type="text" >
-                <button v-if= "user?.ruolo == 'gestore' && x.rispostaRecensione == ''" @click="reviewsAnswer(x.idRecensione, rispostaRecensione)">
-                    Rispondi 
-                </button>
             </div>
+
+
         </div>
     </div>
 
@@ -158,17 +168,54 @@ export default defineComponent({
 <style lang="scss" scoped>
 .grid-1 {
     display: grid;
-    gap: 1%;
+    .review-preview {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // margin-bottom: 3%;
+
+    .get-answer {
+        display: flex;
+        h3 {
+            margin: 0;
+            background-color: aquamarine;
+            font-size: smaller;
+        }
+
+        p {
+            font-size: smaller;
+            // width: 50%
+        }
+    }
+
+    .review-valutation {
+
+        .element {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            p {
+                font-size: 0.9em;
+            }
+
+        }
+
+
+    }
+}
 }
 
 .grid-2 {
     display: grid;
-.review-insert {
-    display: grid;
-    grid-template-columns: auto 100%;
 
-    // flex-direction: row;
-}
+    .review-insert {
+        display: grid;
+        grid-template-columns: auto 100%;
+
+        // flex-direction: row;
+    }
+
     .review-insertion {
         display: flex;
         flex-direction: column;
@@ -183,16 +230,7 @@ export default defineComponent({
     }
 }
 
-.element {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
 
-
-    p {
-        font-size: 0.9em;
-    }
-}
 
 .review-profile {
     display: grid;
@@ -212,11 +250,7 @@ export default defineComponent({
 
 }
 
-.review-preview {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 3%;
-}
+
 
 
 

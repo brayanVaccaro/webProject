@@ -112,10 +112,16 @@ export default defineComponent({
                     }
                 }).then((data) => {
                     this.buffer = data as Stanza[]
-                    console.log('2 lunghezza buffer e buffer  ' + this.buffer.length + this.buffer[0])
+                    console.log('2 lunghezza buffer')
+                    console.log(this.buffer.length)
+                    console.log(' e buffer  ' )
+                    console.log(this.buffer[0])
                     this.container = this.buffer[0]
                     this.nomeImgStanza = this.container.imgStanza
-                    console.log('3 user vale ' + this.user + 'container vale ' + this.container)
+                    console.log('3 user vale ')
+                    console.log(this.user)
+                    console.log('container vale ')
+                    console.log(this.container)
                 })
 
                 //rendo visibile il container della foto ingrandita
@@ -140,7 +146,7 @@ export default defineComponent({
             })
                 .then((data) => {
                     this.stanzaScelta = data as Stanza[]
-                    console.log('dentro la fetch'+ this.stanzaScelta)
+                    console.log('dentro la fetch' + this.stanzaScelta)
 
                 })
 
@@ -166,7 +172,7 @@ export default defineComponent({
                 .catch((e) => (alert(e)))
 
         },
-        deleteRoom(idStanza: number){
+        deleteRoom(idStanza: number) {
             $fetch("/api/reservation/deleteRoom", {
                 method: "POST",
                 body: {
@@ -200,7 +206,7 @@ export default defineComponent({
     <div class="grid-container-main main">
         <div class="imgZoomContainer" style="display: none;">
             <input type="checkbox" id="closeZoomContainer">
-            <label for="closeZoomContainer" @click="zoomContainer(0,false)">x</label>
+            <label for="closeZoomContainer" @click="zoomContainer(0, false)">x</label>
             <img :src="'img/' + nomeImgStanza" @click="">
         </div>
 
@@ -237,13 +243,12 @@ export default defineComponent({
         </div>
         <div class="grid-item-table table">
 
-            <h3>Elenco stanze nel periodo {{ dataSoggiornoGiusta[0]+ ' - ' + dataSoggiornoGiusta[1] }}</h3>
+            <h3>Elenco stanze nel periodo {{ new Date(dataInizio).toLocaleDateString() + ' - ' + new Date(dataFine).toLocaleDateString()  }}</h3>
             <table class="">
                 <thead class="grid-item-thead">
                     <td>Immagine</td>
                     <td>Descrizione</td>
-                    <td>prezzo a notte</td>
-                    <td></td>
+                    <td>Prezzo a Notte</td>
 
                 </thead>
                 <tbody class="grid-item-tbody">
@@ -257,9 +262,9 @@ export default defineComponent({
                         </td>
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
                         <td>{{ x.prezzoAnotte }}</td>
-                        <td @click.self="getUserRoom(x.idStanza)">SELEZIONA</td>
+                        <td v-if="user?.ruolo=='cliente'" @click.self="getUserRoom(x.idStanza)">SELEZIONA</td>
                         <button v-if="user?.ruolo == 'gestore'" @click.prevent="deleteRoom(x.idStanza)">
-                            elimina stanza
+                            Rimuovi Stanza
                         </button>
 
 
@@ -287,8 +292,8 @@ export default defineComponent({
                             </td>
 
                             <td>{{ x.prezzoAnotte }}</td>
-
-                            <button v-if="controlloPrenotazione" @click="insertReservation(x.idStanza)">Prenota</button>
+                            <button v-if="user?.ruolo == 'cliente' && controlloPrenotazione"
+                                @click="insertReservation(x.idStanza)">Prenota</button>
 
                         </tr>
                     </tbody>
@@ -420,9 +425,4 @@ li {
     }
 }
 
-
-
-// SEZIONE RIEPILOGO PRENOTAZIONE
-
-.grid-item-section {}
 </style>
