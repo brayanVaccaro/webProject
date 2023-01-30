@@ -1,5 +1,5 @@
 <script lang="ts">
-// import { userInfo } from 'os'
+
 import { Recensione, Utente, Review } from '../types'
 
 export default defineComponent({
@@ -17,6 +17,7 @@ export default defineComponent({
             votoPulizia: '',
             votoRistorazione: '',
             votoAccoglienza: '',
+            rispostaRecensione: '' as string,
             scelte: [
                 { value: '5stellina' },
                 { value: '4stellina' },
@@ -54,7 +55,20 @@ export default defineComponent({
 
             return `${day}/${month}/${year}`;
         },
+        reviewsAnswer(idRecensione: number, rispostaRecensione: string){
+            console.log(this.rispostaRecensione)
+            $fetch("/api/reviews/reviewsAnswer", {
+                method: "POST",
+                body: {
+                    rispostaRecensione: rispostaRecensione,
+                  idRecensione: idRecensione,
+                }
+            })
+                .then((response) => (alert(response.message)))
+                .then(() => window.location.href = "/reviews")
+                .catch((e) => (alert(e)))
 
+        }
     },
     beforeMount() {
         this.getReviews();
@@ -84,7 +98,6 @@ export default defineComponent({
                     <p class="">Accoglienza:</p>
                     <img class="stars" :src="'img/stars/' + x.votoAccoglienza">
                 </div>
-
             </div>
             <div class="review-profile">
                 <img class="profile-img" :src="'img/' + x.imgProfilo">
@@ -95,16 +108,24 @@ export default defineComponent({
                 <p class="video-stats">
                     {{ formatDate(x.dataRecensione) }}
                 </p>
-            </div>
+                <h3 v-if="x.rispostaRecensione != ''">Riposta del gestore </h3>
+                <p>
+                    {{ x.rispostaRecensione }}
+                </p>
 
+                <input v-if="user?.ruolo == 'gestore' && x.rispostaRecensione == '' " v-model="rispostaRecensione" type="text" >
+                <button v-if= "user?.ruolo == 'gestore' && x.rispostaRecensione == ''" @click="reviewsAnswer(x.idRecensione, rispostaRecensione)">
+                    Rispondi 
+                </button>
+            </div>
         </div>
     </div>
 
-    <div v-if="user" class="grid-2">
+    <div v-if="user?.ruolo == 'cliente'" class="grid-2">
         <h1>Aiutaci con un feedback!</h1>
         <div class="review-insert">
             <div class="info-user">
-                <img class="profile-img" :src="'img/' + user?.imgProfilo">
+                <img class="profile-img" :src="'img/' + user.imgProfilo">
                 <p class="profile-name">{{ user?.nome + ' ' + user?.cognome }}</p>
             </div>
             <div class="review-insertion">

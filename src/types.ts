@@ -66,7 +66,8 @@ export interface Review{
     dataRecensione: string,
     votoPulizia: string,
     votoRistorazione: string,
-    votoAccoglienza: string
+    votoAccoglienza: string,
+    rispostaRecensione: string,
 }
 
 export  interface NomeStanza{

@@ -130,7 +130,6 @@ export default defineComponent({
         },
 
         getUserRoom(idStanza: number) {
-            // this.idStanza = idStanza
             console.log(' prima idstanza vale' + idStanza)
             $fetch("/api/reservation/getUserRoom", {
                 method: "POST",
@@ -145,16 +144,11 @@ export default defineComponent({
 
                 })
 
-            // this.stanzaScelta[0].
             this.controlloPrenotazione = true
             console.log('dopo idStanza vale' + idStanza)
         },
         durataSoggiorno() {
             const durataSoggiorno = this.dataInizio.charCodeAt(0) - this.dataInizio.charCodeAt(2)
-            // console.log('dataInizio: ' + this.dataInizio)
-            // console.log('dataInizio: ' + durataSoggiorno)
-            // return durataSoggiorno
-
         },
         insertRoom() {
             $fetch("/api/reservation/insertRoom", {
@@ -173,7 +167,6 @@ export default defineComponent({
 
         },
         deleteRoom(idStanza: number){
-            // this.idStanza = idStanza
             $fetch("/api/reservation/deleteRoom", {
                 method: "POST",
                 body: {
@@ -258,7 +251,6 @@ export default defineComponent({
 
                     <tr v-for="x in stanza" class="grid-item-tr">
                         <td>
-                            <p>{{ x.idStanza }}</p>
                             <img :src="'img/' + x.imgStanza" @click="">
 
                             <label for="imageZoom" @click.self="zoomContainer(x.idStanza, true)">Ingrandisci</label>
@@ -266,7 +258,7 @@ export default defineComponent({
                         <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
                         <td>{{ x.prezzoAnotte }}</td>
                         <td @click.self="getUserRoom(x.idStanza)">SELEZIONA</td>
-                        <button @click.prevent="deleteRoom(x.idStanza)">
+                        <button v-if="user?.ruolo == 'gestore'" @click.prevent="deleteRoom(x.idStanza)">
                             elimina stanza
                         </button>
 
@@ -283,8 +275,7 @@ export default defineComponent({
                     <thead class="grid-item-thead">
                         <tr>
                             <td>Stanza scelta</td>
-                            <td>Durata Pernottamento</td>
-                            <td>Prezzo Totale</td>
+                            <td>Prezzo a notte</td>
                         </tr>
                     </thead>
                     <tbody class="grid-item-tbody">
@@ -298,9 +289,6 @@ export default defineComponent({
                             <td>{{ x.prezzoAnotte }}</td>
 
                             <button v-if="controlloPrenotazione" @click="insertReservation(x.idStanza)">Prenota</button>
-
-                            <p>{{ x.idStanza }}</p>
-
 
                         </tr>
                     </tbody>
