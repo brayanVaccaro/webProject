@@ -144,7 +144,8 @@ export default defineComponent({
     display: grid;
 .review-insert {
     display: grid;
-    grid-template-columns: 15% auto;
+    grid-template-columns: auto 100%;
+
     // flex-direction: row;
 }
     .review-insertion {

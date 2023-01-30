@@ -238,17 +238,22 @@ a {
 
         }
 
-        .review-insert {}
+        .review-insert {
+            // grid-template-columns: 25% auto;
+            
+        }
 
         .info-user {}
     }
 
     @include md {
         h1 {
-            text-align: center;
+            // text-align: center;
         }
 
         .review-insert {
+            // grid-template-columns: 15% auto;
+
             // justify-content: space-around;
         }
 
@@ -262,6 +267,7 @@ a {
         }
 
         .review-insert {
+
 
             // grid-template-columns: 10% 90%;
             // justify-content: space-evenly;
