@@ -35,19 +35,19 @@ a {
 #index {
     @include sm {
         height: auto;
-        background-color: cyan;
+        // background-color: cyan;
         grid-template-rows: 1fr auto;
 
     }
 
     @include md {
-        background-color: purple;
+        // background-color: purple;
         grid-template-rows: 1fr auto;
 
     }
 
     @include lg {
-        background-color: green;
+        // background-color: green;
         grid-template-rows: 0.5fr auto;
 
 
@@ -504,15 +504,16 @@ a {
 
 }
 
-.info-user {
-
-    // @include sm {
-    //     display: grid;
-    //     grid-template-columns: 30% auto;
-
-    // }
-
-    // @include md {
-    //     grid-template-columns: 50% auto;
-    // }
-}
+    p {
+        color: hsl(0, 50%, 25%);
+        background-color: white;
+    }
+    .link {
+        text-decoration: none;
+        color: hsl(232, 50%, 25%);
+        background-color: white;
+    }
+    .link:hover,
+    :focus {
+        text-decoration: underline;
+    }

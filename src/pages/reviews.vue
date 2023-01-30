@@ -89,15 +89,15 @@ export default defineComponent({
                 <div class="review-valutation">
                     <div class="element">
                         <p class="">Pulizia:</p>
-                        <img class="stars" :src="'img/stars/' + x.votoPulizia">
+                        <img class="stars" alt="vote" :src="'img/stars/' + x.votoPulizia">
                     </div>
                     <div class="element">
                         <p class="">Ristorazione:</p>
-                        <img class="stars" :src="'img/stars/' + x.votoRistorazione">
+                        <img class="stars" alt="vote" :src="'img/stars/' + x.votoRistorazione">
                     </div>
                     <div class="element">
                         <p class="">Accoglienza:</p>
-                        <img class="stars" :src="'img/stars/' + x.votoAccoglienza">
+                        <img class="stars" alt="vote" :src="'img/stars/' + x.votoAccoglienza">
                     </div>
 
 
@@ -117,7 +117,7 @@ export default defineComponent({
                 
             </div>
             <div class="review-profile">
-                <img class="profile-img" :src="'img/' + x.imgProfilo">
+                <img class="profile-img" alt="profile" :src="'img/' + x.imgProfilo">
 
                 <p class="video-title">
                     {{ x.nome + " " + x.cognome }}
@@ -135,7 +135,7 @@ export default defineComponent({
         <h1>Aiutaci con un feedback!</h1>
         <div class="review-insert">
             <div class="info-user">
-                <img class="profile-img" :src="'img/' + user.imgProfilo">
+                <img class="profile-img" alt="profile" :src="'img/' + user.imgProfilo">
                 <p class="profile-name">{{ user?.nome + ' ' + user?.cognome }}</p>
             </div>
             <div class="review-insertion">
@@ -242,9 +242,9 @@ export default defineComponent({
 
     .video-title {
         margin-top: 0;
-        font-size: 14px;
+        font-size: 150%;
         font-weight: 500;
-        line-height: 20px;
+        line-height: 1.5;
         // margin-bottom: 12px;
     }
 
@@ -263,6 +263,7 @@ export default defineComponent({
 p {
     margin: 0;
     padding: 0;
+    line-height: 1.5;
 }
 
 

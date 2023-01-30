@@ -78,46 +78,9 @@ export default defineComponent({
 
 <style lang="scss">
 @import '../assets/styles/global.scss';
-
-// nav {
-//   margin: 0 5%;
-
-//   ul {
-//     list-style: none;
-
-//     li {
-//       display: inline-block;
-//       width: 45%;
-//       margin: 10px 0 0;
-//       text-align: center;
-//       background-color: gray;
-
-//       &:nth-child(odd) {
-//         margin-right: 10%;
-//       }
-
-//       a {
-//         display: inline-block;
-//         width: 100%;
-//         height: 100%;
-//         padding: 5px 0;
-//         color: white;
-//         // font-family: $font-normal;
-//         text-decoration: none;
-//       }
-
-//       &:hover a {
-//         color: red;
-//       }
-//     }
-//   }
-// }
 nav {
   display: grid;
   border: 1px solid darkblue;
-  // background-color: white;
-  // grid-template-rows: auto auto;
-
   ul {
     display: flex;
     justify-content: space-evenly;
@@ -134,4 +97,5 @@ nav {
     }
   }
 }
+
 </style>

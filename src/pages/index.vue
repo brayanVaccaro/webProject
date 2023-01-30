@@ -1,3 +1,4 @@
+
 <script lang="ts">
 import { Utente } from "~/types"
 
@@ -28,7 +29,7 @@ export default defineComponent({
     <div id="index">
         <div id="row-1">
 
-            <img class="logo-img" src="/img/logo_transparent.png">
+            <img class="logo-img" alt="logo-astra" src="/img/logo_transparent.png">
             <div class="grid-container-head">
 
                 <h1 class="head-element" v-if="!utente">Benvenuto nel sito dell'hotel Astra</h1>
@@ -43,9 +44,9 @@ export default defineComponent({
                 <p class="head-element" v-else>Per vedere le nostre stanze disponibili e passare il miglior tempo delle
                     tue
                     vacanze
-                    premi qui<a href="\reservation" style="display:contents;"> Prenotazioni</a> <br>
-                    Se invece hai già eseguito una prenotazione e vuoi controllare i dati premi qua<a href="\account "
-                        style="display:contents;"> Profilo</a></p>
+                    premi qui<a class="link" href="\reservation" > Prenotazioni</a> <br>
+                    Se invece hai già eseguito una prenotazione e vuoi controllare i dati premi qua<a class="link" href="\account "
+                        > Profilo</a></p>
             </div>
 
         </div>
@@ -68,7 +69,7 @@ export default defineComponent({
             </div>
             <div class="map-container">
                 <p>Dove ci troviamo?</p>
-                <iframe width="100%" height="100%" scrolling="no" marginheight="0" marginwidth="0"
+                <iframe width="100%" height="100%" scrolling="no" marginheight="0" marginwidth="0" title="Mappa del Hotel"
                     src="https://maps.google.com/maps?width=100%25&amp;height=100%&amp;hl=en&amp;q=gallipolli,%20via%20xx%20settembre%20numero%2015+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
                 </iframe>
             </div>
@@ -136,12 +137,37 @@ export default defineComponent({
 
     }
 
+    p {
+        color: hsl(0, 50%, 25%);
+        background-color: white;
+    }
+    .nuxt-link {
+        text-decoration: none;
+        color: hsl(232, 50%, 25%);
+        background-color: white;
+      }
+    .nuxt-link:hover,
+    .nuxt-link:focus {
+        text-decoration: underline;
+    }
+    
 
+    p {
+        line-height: 1.5;
+        color: hsl(0, 50%, 25%);
+        background-color: white;
 
-
-
-
-
+    }
+    .link {
+        text-decoration: none;
+        color: hsl(232, 50%, 25%);
+        background-color: white;
+        display:contents;
+    }
+    .link:hover,
+    .link:focus {
+        text-decoration: underline;
+    }
 
 }
 </style> 
