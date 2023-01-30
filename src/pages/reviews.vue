@@ -131,7 +131,7 @@ export default defineComponent({
         </div>
     </div>
 
-    <div v-if="user?.ruolo == 'cliente'" class="grid-2">
+    <div class="grid-2" v-if="user?.ruolo == 'cliente'" >
         <h1>Aiutaci con un feedback!</h1>
         <div class="review-insert">
             <div class="info-user">
@@ -208,6 +208,10 @@ export default defineComponent({
 
 .grid-2 {
     display: grid;
+    h1 {
+        margin: 0;
+        text-align: left;
+    }
 
     .review-insert {
         display: grid;

@@ -106,7 +106,6 @@ a {
     @include sm {
         flex-direction: column;
 
-        .history-container {}
 
         .map-container {
             p {
@@ -218,51 +217,18 @@ a {
 
 .grid-2 {
     @include sm {
-        h1 {
-            // grid-area: 1/1 / 1/span 2;
-            margin: 0;
+      
 
-        }
+        
 
-        .review-insert {
-            // grid-template-columns: 25% auto;
-            
-        }
-
-        .info-user {}
     }
 
     @include md {
-        h1 {
-            // text-align: center;
-        }
-
-        .review-insert {
-            // grid-template-columns: 15% auto;
-
-            // justify-content: space-around;
-        }
-
-        // grid-template-rows: auto auto;
-
+        
     }
 
     @include lg {
-        h1 {
-            text-align: left;
-        }
-
-        .review-insert {
-
-
-            // grid-template-columns: 10% 90%;
-            // justify-content: space-evenly;
-            // background-color: black;
-            .info-user {}
-        }
-
-        // grid-template-rows: auto auto;
-
+       
     }
 }
 

@@ -309,9 +309,7 @@ export default defineComponent({
     display: none;
 }
 
-b {
-    // display: none;
-}
+
 
 img {
     max-width: 100%;
@@ -360,7 +358,6 @@ li {
     display: grid;
 }
 
-.grid-item-aside {}
 
 .grid-item-aside-ul {
     display: flex;

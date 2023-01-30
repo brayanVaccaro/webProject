@@ -1,7 +1,5 @@
 <script lang="ts">
-// import { userInfo } from 'os'
-import { use } from 'h3'
-import getUserReservations from '../server/api/account/getUserReservations'
+
 import { Utente, Review, Reservation, Stanza } from '../types'
 definePageMeta({
   middleware: ["require-login"]
@@ -9,7 +7,6 @@ definePageMeta({
 export default defineComponent({
   setup() {
     return {
-      container: inject("container") as Stanza | null,
       user: inject("user") as Utente,
     }
   },
@@ -17,19 +14,13 @@ export default defineComponent({
     return {
       review: [] as Review[],
       reservation: [] as Reservation[],
-      imgStanza: '' as string,
       idStanza: [] as number[],
       controllo: 0 as number,
-      votoPulizia: '',
-      votoRistorazione: '',
-      votoAccoglienza: '',
-      email: '' as string | undefined
     }
   },
   methods: {
     getUserReviews() {
       console.log('email user = ' + this.user.email)
-      console.log('email containier = ' + this.container)
       if (this.user.ruolo == 'gestore') {
         return
       }
@@ -279,9 +270,7 @@ export default defineComponent({
         border: 1px solid red;
         align-items: center;
 
-        td:last-child {
-          // width: 20%;
-        }
+      
 
 
 
@@ -319,12 +308,6 @@ export default defineComponent({
         // justify-content: space-between;
         border: 1px solid red;
         align-items: center;
-
-        td:last-child {
-          // width: 20%;
-        }
-
-
 
         td {
           text-align: center;
