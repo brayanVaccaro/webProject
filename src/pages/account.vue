@@ -107,7 +107,7 @@ export default defineComponent({
 
             })
                 .then((response) => (alert(response.message)))
-                .then(() => window.location.href = "/account")
+                .then(() => window.location.href = "/")
                 .catch((e) => (alert(e)))
 
         },
@@ -158,93 +158,40 @@ export default defineComponent({
       </tbody>
     </table>
   </div>
-  <div v-if="user.ruolo == 'gestore'" class="reservation-history-gestore">
+
+  <div v-if="user.ruolo == 'gestore'" class="reservation-history-cliente">
     <p>Ecco a te gestore la lista di tutte le prenotazioni</p>
-    //table per la prenotazione ()
     <table>
-      <thead id="">
-        <tr class="col">
-          <th>Stanza</th>
-          <div id="inferiore-1">
-            <th>Immagine</th>
-            <th>Prezzo/notte</th>
-            <th>Descrizione</th>
-            <!-- <th>Tipologia</th>
-            <th>Taglia</th> -->
-          </div>
-        </tr>
-        <tr class="col">
-          <th>Cliente</th>
-          <div id="inferiore-2">
-            <th>Nome</th>
-            <th>Cognome</th>
-            <th>Data di Nascita</th>
-            <th>Email</th>
-
-          </div>
-        </tr>
-        <tr class="col">
-          <th>Info</th>
-          <div id="inferiore-3">
-            <th>Data Inizio</th>
-            <th>Data Fine</th>
-          </div>
-        </tr>
-
+      <thead>
+        <th>Eliminazione</th>
+        <th>Data Inizio</th>
+        <th>Data Fine</th>
+        <th>Email</th>
+        <th>Immagine</th>
       </thead>
-
       <tbody>
-        <div id="Stanza">
-          <tr v-for="x in reservation">
-
-            <td><img :src="'img/' + x.imgStanza"></td>
-            <td>{{ x.prezzoAnotte }}</td>
-            <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
-
-          </tr>
-        </div>
-        <div id="Cliente">
-          <tr v-for="x in reservation">
-            <td>{{ x.nome }}</td>
-            <td>{{ x.cognome }}</td>
-            <td>{{ formatDate(x.dataNascita) }}</td>
-            <td>{{ x.email }}</td>
-          </tr>
-        </div>
-        <div id="Info-Prenotazione">
-          <tr v-for="x in reservation">
-            <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
-            <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
-            <td>
-              <button @click.prevent="deleteReservation(x.idPrenotazione)">
-                elimina prenotazione
-              </button>
-            </td>
-          </tr>
-          
-        </div>
-        <!-- <tr v-for="x in reservation">
+        <tr v-for="x in reservation">
+          <td>
+            <button @click.prevent="deleteReservation(x.idPrenotazione)">
+              Elmina prenotazione
+            </button>
+          </td>
           <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
           <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
-          <td>{{ x.tagliaStanza }}</td>
+          <td>{{ x.email }}</td>
           <td><img :src="'img/' + x.imgStanza"></td>
-        </tr> -->
+        </tr>
       </tbody>
-
-      <!-- <thead>
-        <th>Tipologia stanza</th>
-        
-      </thead> -->
-
     </table>
   </div>
+
   <div v-else class="reservation-history-cliente">
     <p>Storico delle sue prenotazioni</p>
     <table>
       <thead>
         <th>Data inizio</th>
         <th>Data fine</th>
-        <th>Prezzo</th>
+        <th>Prezzo a notte</th>
         <th>Descrizione</th>
         <th>Immagine</th>
       </thead>

@@ -2,7 +2,6 @@
 import { Utente } from "~/types"
 
 export default defineComponent({
-    // Fornisce l'oggetto utente a tutti i componenti dell'applicativo
 
     data() {
         return {
@@ -89,36 +88,20 @@ export default defineComponent({
 }
 #index {
     display: grid;
-    // grid-template-rows: 1fr auto;
-
     margin: 2% 0;
     h1 {
         font-size: 1.5em;
     }
 
-    // grid-template-rows: 30% 70%;
-    // grid-column: 2, auto;
 
     #row-1 {
         display: flex;
-        
-        // flex-direction: column;
-        // margin-bottom: 1%;
-        // height: 100%;
-        // width: 100%;
-
         img {
-            // display: flex;
-            // max-width: 100%;
             aspect-ratio: 1/1;
-            // height: 70%;
         }
-
         .grid-container-head {
-            // height: 30%;
             display: flex;
             flex-direction: column;
-            // justify-content: center;
 
             .head-element {
                 text-align: center;
@@ -131,12 +114,10 @@ export default defineComponent({
 
     #row-2 {
         display: flex;
-        // margin: 1% 0;
 
         .history-container {
             display: flex;
             flex-direction: column;
-            // width: 45%;
             p:nth-child(1) {
                 margin: 2%;
             }
@@ -150,18 +131,7 @@ export default defineComponent({
             flex-direction: column;
             p:nth-child(1) {
                 margin: 2%;
-            }
-            // height: 60%;
-
-            // width: 55%;
-            // margin-left: 15%;
-            
-        }
-
-        .map-container iframe {
-            // width: auto;
-            // display: grid;
-
+            }            
         }
 
     }
@@ -173,12 +143,5 @@ export default defineComponent({
 
 
 
-}
-
-
-
-
-.grid-container-main {
-    // display: grid;
 }
 </style> 
