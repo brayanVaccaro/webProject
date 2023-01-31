@@ -82,7 +82,9 @@ export default defineComponent({
             <button>Registrati</button>
           </li>
           <p>Già registrato?
-            <label for="chk" id="moveMenu">Fai il login</label>
+            <label for="chk" class="moveMenu">
+              <h3> Fai il login</h3>
+            </label>
           </p>
         </form>
 
@@ -106,7 +108,9 @@ export default defineComponent({
             </li>
           </ul>
           <p>Non ancora registrato?
-            <label for="chk" id="moveMenu">Registrati</label>
+            <label for="chk" class="moveMenu">
+              <h3>Registrati</h3>
+            </label>
           </p>
         </form>
       </div>
@@ -182,8 +186,13 @@ label {
   transition: .5s ease-in-out;
 }
 
+#signup,
+#login {
+  // overflow: auto;
+}
+
 #signUp>label:nth-child(1) {
-  color: black;
+  // color: yellow;
   // transform: scale(.7);
   padding-top: 3%;
   justify-content: center;
@@ -192,7 +201,7 @@ label {
 }
 
 #login>label:nth-child(1) {
-  color: black;
+  // color: black;
   // transform: scale(.7);
   padding-top: 3%;
   justify-content: center;
@@ -237,6 +246,7 @@ p {
   font-size: 1em;
   text-align: right;
   padding: 0 5%;
+  line-height: 1.5;
 
 }
 
@@ -244,14 +254,14 @@ p {
   height: 850px;
   background: #eee;
   border-radius: 60% / 7%;
-  transform: translateY(30%);
+  transform: translateY(28%);
   transition: .6s ease-in-out;
   // overflow: hidden;
 }
 
 //regolo l'altezza del login quando da registrati voglio andare su login
 #chk:checked~.login {
-  transform: translateY(-55%);
+  transform: translateY(-57%);
 }
 
 
@@ -270,9 +280,14 @@ p {
 
 }
 
-#moveMenu {
+.moveMenu {
   justify-content: right;
   color: black;
+
+  h3 {
+    margin: 0;
+  }
+
   // padding: 0 5%;
 }
 

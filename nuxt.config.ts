@@ -5,4 +5,12 @@ export default defineNuxtConfig({
     // css:[
     //     "assets/styles/global.scss"
     // ]
+    // app: {
+    //     head: {
+    //       charset: 'utf-16',
+    //       title: 'PROVA',
+    //       lang: 'en'
+          
+    //     }
+    //   }
 })

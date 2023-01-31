@@ -1,6 +1,11 @@
 <script lang="ts">
 import { Utente } from "~/types"
-
+useHead({
+  htmlAttrs: {
+    lang: 'it'
+  },
+  title: 'Astra' 
+})
 export default defineComponent({
   // Fornisce l'oggetto utente a tutti i componenti dell'applicativo
   provide() {
@@ -31,9 +36,10 @@ export default defineComponent({
 
 <template>
 
-  <Head>
+  <!-- <Head lang="ita">
     <Title>Astra</Title>
-  </Head>
+    
+  </Head> -->
  
   <nav id="nav">
     <ul>
