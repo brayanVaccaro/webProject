@@ -23,9 +23,10 @@ export default defineComponent({
             imgStanza: "" as string,
             tagliaStanza: "" as string,
             tipologiaStanza: "" as string,
-            dataSoggiornoGiusta: ["", ""] as string[],
-            selettoreInputData: undefined as any,
-            dataInizio: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
+            // dataSoggiornoGiusta: ["", ""] as string[],
+            selettoreInputDataInizio: undefined as any,
+            selettoreInputDataFine: undefined as any,
+            dataOdierna: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
             dataFine: "" as string,
             nomeImgStanza: "" as string,
             container: null as Stanza | null,
@@ -43,64 +44,82 @@ export default defineComponent({
                 { value: "vistaMare" },
             ],
             controlloPrenotazione: false as boolean,
-            controlloUtente: false as boolean,
+            controlloUtente: false as boolean, //false sono gestore
+            step: 0 as number
             // controlloContainer: false as boolean
         };
     },
     methods: {
         date() {
-            this.selettoreInputData = document.querySelectorAll(".grid-item-aside-ul > li > input");
 
-            this.selettoreInputData[0].setAttribute("min", this.dataInizio);
-            this.selettoreInputData[1].setAttribute("min", this.dataInizio);
+            this.selettoreInputDataInizio.setAttribute("min", this.dataOdierna);
+            this.selettoreInputDataFine.setAttribute("min", this.dataOdierna);
         },
-        getAllRooms(controlloUtente: boolean) {
+        async getAllRooms(controlloUtente: boolean) {
+
+            console.log('0 sono dentro getAllRooms')
+            console.log(' 1 prima del change controlloUtente vale ')
+            console.log(this.controlloUtente)
+
             //sono gestore e mi interessa vedere tutte le stanze
-            console.log('sono dentro getAllRooms')
-            $fetch("/api/reservation/searchRoom", {
+            this.controlloUtente = controlloUtente
+            // console.log('2 dopo del change controlloUtente vale ')
+            // console.log(this.controlloUtente)
+
+
+            console.log(' 2 prima dello switch step vale ')
+            console.log(this.step)
+
+            console.log(' 3 prima dello switch controlloUtente vale ')
+            console.log(this.controlloUtente)
+
+            switch (this.controlloUtente) {
+                case false:
+                    this.step = 1
+                    console.log('3.1 sono gestore')
+                    break;
+                case true:
+                    // conso
+                    if (this.dataFine == '' || this.dataOdierna == '' || this.tagliaStanza == '') {
+                        console.log('3.2 errore, dati vuoti, sono cliente')
+                        return
+                    }
+                    else {
+                        this.step = 1
+                        console.log('3.3 errore step vale' + this.step + 'sono cliente')
+
+                    }
+
+                    break;
+            }
+            console.log('4 dopo lo switch step vale ')
+            console.log(this.step)
+            console.log('5 dopo dello switch controlloUtente vale ')
+            console.log(this.controlloUtente)
+
+            await $fetch("/api/reservation/searchRoom", {
                 method: "POST",
                 body: {
-                    controlloUtente: controlloUtente,
+                    controlloUtente: this.controlloUtente,
                     tagliaStanza: this.tagliaStanza,
-                    dataInizio: this.dataInizio,
+                    dataInizio: this.dataOdierna,
                     dataFine: this.dataFine,
                 }
             })
                 .then((data) => {
                     this.stanza = data as Stanza[];
+                    console.log('stanza vale ')
                     console.log(this.stanza);
                 })
                 .catch((e) => alert(e));
         },
-        searchRoom() {
-            if (this.dataInizio == "" || this.dataFine == "") {
-                return;
-            }
-            else {
-                this.dataSoggiornoGiusta[0] = this.dataInizio.split("-").reverse().toString().replaceAll(",", "/");
-                this.dataSoggiornoGiusta[1] = this.dataFine.split("-").reverse().toString().replaceAll(",", "/");
-            }
-            ;
-            // $fetch("/api/reservation/searchRoom", {
-            //     method: "POST",
-            //     body: {
-            //         tagliaStanza: this.tagliaStanza,
-            //         dataInizio: this.dataInizio,
-            //         dataFine: this.dataFine,
-            //     }
-            // })
-            //     .then((data) => {
-            //         this.stanza = data as Stanza[];
-            //         console.log(this.stanza);
-            //     })
-            //     .catch((e) => alert(e));
-        },
+
         insertReservation(idStanza: number) {
             $fetch("/api/reservation/insertReservation", {
                 method: "POST",
                 body: {
                     dataFine: this.dataFine,
-                    dataInizio: this.dataInizio,
+                    dataInizio: this.dataOdierna,
                     idStanza: idStanza,
                     idUtente: this.user?.idUtente
                 }
@@ -143,8 +162,10 @@ export default defineComponent({
                 imgZoomContainer?.setAttribute("style", "display: none");
             }
         },
+        //prendo la stanza quando l'utente clicca su seleziona
         getUserRoom(idStanza: number) {
             console.log(" prima idstanza vale" + idStanza);
+            this.step = 2;
             $fetch("/api/reservation/getUserRoom", {
                 method: "POST",
                 body: {
@@ -188,19 +209,30 @@ export default defineComponent({
                 .catch((e) => (alert(e)));
         },
     },
+
     mounted() {
         // this.imgZoomContainer = document.querySelector("div.imgZoomContainer")
         // this.console();
+        this.selettoreInputDataInizio = document.querySelector("#dataInizio");
+        this.selettoreInputDataFine = document.querySelector("#dataFine");
+        // document.querySelector("#dataFine")
+        console.log('selettore input vale')
+        console.log(this.selettoreInputDataInizio)
+        console.log(this.selettoreInputDataFine)
         if (this.user?.ruolo == 'cliente') {
 
             this.date();
             this.getAllRooms(true)
         }
-        else {
+        else if (this.user?.ruolo == 'gestore') {
+
             this.getAllRooms(false)
+            console.log(this.user)
+            // this.step = 1
 
         }
     },
+    // beforeRouteUpdate
     components: { AddRoom }
 })
 </script>
@@ -214,44 +246,33 @@ export default defineComponent({
 
         <div class="grid-item-aside aside">
             <aside>
-                <ul class="grid-item-aside-ul">
-                    <div v-if="user?.ruolo == 'cliente'">
-                        <li>Data inizio soggiorno:
-                            <input v-model="dataInizio" type="date" id="dataInizio" @change="date()">
-                        </li>
-                        <li>Data fine soggiorno:
-                            <input v-model="dataFine" type="date" id="dataFine" @change="date()">
-                        </li>
-                        <li>
-                            <label for="tipologiaStanza"> Tipologia Stanza
-                                <select id="tipologiaStanza" v-model="tagliaStanza">
-                                    <option v-for="option in options" :key="option.value" :value="option.value">{{
-                                        option.value
-                                    }}</option>
-
-                                    <!-- <option selected disabled hidden :value="options[2].value" >{{ options[2].value }}</option> -->
-
-
-                                </select>
-                            </label>
-                            <button @click="searchRoom()">---></button>
-                        </li>
-                    </div>
-                    <li v-if="user?.ruolo == 'gestore'">
-                        <AddRoom></AddRoom>
-                        <button>
-                            <NuxtLink to="addRoom">
-                                Aggiungi stanza
-                            </NuxtLink>
-                        </button>
+                <ul v-if="user?.ruolo == 'cliente'" class="grid-item-aside-ul">
+                    <li>Data inizio soggiorno:
+                        <input v-model="dataOdierna" type="date" id="dataInizio" @change="date()">
                     </li>
+                    <li>Data fine soggiorno:
+                        <input v-model="dataFine" type="date" id="dataFine" @change="date()">
+                    </li>
+                    <li>Tipologia stanza
+                        <select id="tipologiaStanza" v-model="tagliaStanza">
+                            <option v-for="option in options" :key="option.value" :value="option.value">{{
+                                option.value
+                            }}</option>
+                        </select>
+                    </li>
+                    <button @click="getAllRooms(true)">CERCA</button>
+
                 </ul>
+
+                <AddRoom v-else>
+
+                </AddRoom>
             </aside>
         </div>
-        <div class="grid-item-table table">
+        <div v-show="step == 1" class="grid-item-table table">
 
             <h3 v-if="user?.ruolo == 'cliente'">Elenco stanze nel periodo {{
-                new Date(dataInizio).toLocaleDateString() + ' - ' + new
+                new Date(dataOdierna).toLocaleDateString() + ' - ' + new
                     Date(dataFine).toLocaleDateString()
             }}</h3>
             <h3 v-else>
@@ -260,9 +281,11 @@ export default defineComponent({
             <table class="">
                 <thead class="grid-item-thead">
                     <tr>
-                        <td>Immagine</td>
-                        <td>Descrizione</td>
-                        <td>Prezzo a Notte</td>
+                        <th>Immagine</th>
+                        <th>Descrizione</th>
+                        <th>Prezzo</th>
+                        <th v-if="user?.ruolo == 'cliente'">Aggiungi</th>
+                        <th v-else>Elimina stanza</th>
 
                     </tr>
                 </thead>
@@ -273,42 +296,43 @@ export default defineComponent({
                         <td>
                             <img :src="'img/' + x.imgStanza" @click="" alt="imgBedrrom">
 
-                            <label for="imageZoom" @click.self="zoomContainer(x.idStanza, true)">Ingrandisci</label>
+                            <label for="imageZoom" @click.self="zoomContainer(x.idStanza, true)">zoomIn</label>
                         </td>
-                        <td>{{ x.tagliaStanza + ' ' + x.tipologiaStanza   }}</td>
+                        <td>{{ x.tagliaStanza + ' ' + x.tipologiaStanza }}</td>
                         <td>{{ x.prezzoAnotte }}</td>
-                        <td v-if="user?.ruolo == 'cliente'" @click.self="getUserRoom(x.idStanza)">SELEZIONA</td>
-                        <td><button v-if="user?.ruolo == 'gestore'" @click.prevent="deleteRoom(x.idStanza)">
-                                Rimuovi Stanza
-                            </button></td>
+                        <td v-if="user?.ruolo == 'cliente'" @click.self="getUserRoom(x.idStanza)">&#10133</td>
+                        <td v-if="user?.ruolo == 'gestore'">
+                            <button @click.prevent="deleteRoom(x.idStanza)">
+                                &#10060
+                            </button>
+                        </td>
 
 
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div class="grid-item-section section">
+        <div v-show="step == 2" class="grid-item-section section">
             <section v-if="user?.ruolo == 'cliente'">
                 <h3>Riepilogo Prenotazione</h3>
 
                 <table>
                     <thead class="grid-item-thead">
                         <tr>
-                            <td>Stanza scelta</td>
-                            <td>Prezzo a notte</td>
+                            <th>Stanza</th>
+                            <th>Prezzo Totale</th>
+                            <th>Conferma</th>
                         </tr>
                     </thead>
                     <tbody class="grid-item-tbody">
 
                         <tr v-for="x in stanzaScelta" class="grid-item-tr" @click="">
-                            <td>{{ x.tipologiaStanza + ' ' + x.tagliaStanza }}</td>
-                            <td>
-                                {{ durataSoggiorno() }}
-                            </td>
-
+                            <td>{{ x.tagliaStanza + ' ' + x.tipologiaStanza }}</td>
                             <td>{{ x.prezzoAnotte }}</td>
-                            <button v-if="user?.ruolo == 'cliente' && controlloPrenotazione"
-                                @click="insertReservation(x.idStanza)">Prenota</button>
+                            <td>
+                                <button v-if="user?.ruolo == 'cliente' && controlloPrenotazione"
+                                    @click="insertReservation(x.idStanza)">Prenota</button>
+                            </td>
 
                         </tr>
                     </tbody>
@@ -328,10 +352,10 @@ export default defineComponent({
 
 img {
     max-width: 100%;
-    height: auto;
+    // height: auto;
     border: 1px solid black;
-    border-radius: 10px;
-    aspect-ratio: auto;
+    // border-radius: 10px;
+    // aspect-ratio: auto;
 }
 
 .imgZoomContainer {
@@ -364,46 +388,73 @@ img {
 
 
 
-li {
-    list-style: none;
-    margin: 5% 0%;
-}
+
 
 .grid-container-main {
     display: grid;
+    
+
 }
 
 
-.grid-item-aside-ul {
-    display: flex;
-    flex-direction: column;
-    padding: 5% 10% 0%;
+.grid-item-aside {
+    ul {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+
+        li {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            list-style: none;
+            margin: 5% 0%;
+
+            input,
+            select {
+                // width: 40%;
+            }
+        }
+
+        button {
+            align-self: center;
+            width: 40%;
+        }
+
+        // padding: 5% 10% 0%;
+    }
 }
 
 //ELENCO STANZE
-.grid-item-table,
-.grid-item-section {
-    .grid-item-thead {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
+.grid-item-table {
+
+    thead {
+        tr {
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+            justify-content: space-evenly;
+        }
     }
 
-    .grid-item-tbody {
-        display: flex;
-        flex-direction: column;
+    tbody {
+        display: grid;
 
-        // gap: 30px;
         .grid-item-tr {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
+            display: grid;
+            grid-template-columns: repeat(4, 25%);
+            // flex-direction: row;
+            // justify-content: space-evenly;
+            align-items: center;
 
 
             // align-items: flex-end;
             td {
-                width: 33.3%;
+                // width: 33.3%;
                 text-align: center;
+                // overflow-x: scroll;
+                overflow-wrap: break-word;
+                // hyphens: manual;
 
 
                 // background-color: black;
@@ -411,29 +462,89 @@ li {
                     display: none;
                 }
             }
+        }
+    }
 
-            td:nth-child(4) {
-                // display: none;
-            }
+    .grid-item-tr:hover {
+
+        td:nth-child(4) {
+            display: block;
+            color: red;
+        }
+    }
+
+    .grid-item-tr td:nth-child(1):hover {
+        // background-color: black;
+        border: 2px solid red;
+        cursor: zoom-in;
+
+        label {
+            display: block;
+            cursor: zoom-in;
         }
 
-        .grid-item-tr:hover {
+    }
+}
 
-            td:nth-child(4) {
-                display: block;
-                color: red;
-            }
+
+.grid-item-section {
+    table {
+        display: grid;
+        width: max-content;
+    }
+
+    thead {
+
+        tr {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            justify-content: space-evenly;
+        }
+    }
+
+    tbody {
+        // display: grid;
+
+        tr {
+            display: grid;
+            grid-template-columns: repeat(3, 33.3%);
         }
 
-        .grid-item-tr td:nth-child(1):hover {
+
+        align-items: center;
+
+
+        // align-items: flex-end;
+        td {
+            // width: 33.3%;
+            text-align: center;
+
+
             // background-color: black;
-            border: 2px solid red;
-
             label {
-                display: block;
+                display: none;
             }
-
         }
+    }
+
+    .grid-item-tr:hover {
+
+        td:nth-child(4) {
+            display: block;
+            color: red;
+        }
+    }
+
+    .grid-item-tr td:nth-child(1):hover {
+        // background-color: black;
+        border: 2px solid red;
+        cursor: zoom-in;
+
+        label {
+            display: block;
+            cursor: zoom-in;
+        }
+
     }
 }
 </style>

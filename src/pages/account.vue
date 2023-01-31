@@ -90,19 +90,19 @@ export default defineComponent({
 
       return `${day}/${month}/${year}`;
     },
-    deleteReservation(idPrenotazione: number){
-            $fetch("/api/account/deleteReservation", {
-                method: "POST",
-                body: {
-                    idPrenotazione: idPrenotazione
-                }
+    deleteReservation(idPrenotazione: number) {
+      $fetch("/api/account/deleteReservation", {
+        method: "POST",
+        body: {
+          idPrenotazione: idPrenotazione
+        }
 
-            })
-                .then((response) => (alert(response.message)))
-                .then(() => window.location.href = "/")
-                .catch((e) => (alert(e)))
+      })
+        .then((response) => (alert(response.message)))
+        .then(() => window.location.href = "/")
+        .catch((e) => (alert(e)))
 
-        },
+    },
   },
   mounted() {
 
@@ -130,15 +130,17 @@ export default defineComponent({
   </div>
 
 
-<!-- se sono cliente vedo le mie recensioni -->
+  <!-- se sono cliente vedo le mie recensioni -->
   <div v-if="user.ruolo == 'cliente'" class="review-history">
     <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
     <table>
       <thead>
-        <th>Data</th>
-        <th>Pulizia</th>
-        <th>Ristorazione</th>
-        <th>Accoglienza</th>
+        <tr>
+          <th>Data</th>
+          <th>Pulizia</th>
+          <th>Ristorazione</th>
+          <th>Accoglienza</th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="x in review">
@@ -150,16 +152,18 @@ export default defineComponent({
       </tbody>
     </table>
   </div>
-<!-- se sono gestore vedo tutte le prenotazioni -->
+  <!-- se sono gestore vedo tutte le prenotazioni -->
   <div v-if="user.ruolo == 'gestore'" class="reservation-history-gestore">
     <p>Ecco a te gestore la lista di tutte le prenotazioni</p>
     <table>
       <thead>
-        <th>Elimina</th>
-        <th>Data Inizio</th>
-        <th>Data Fine</th>
-        <th>Email</th>
-        <th>Immagine</th>
+        <tr>
+          <th>Elimina</th>
+          <th>Data Inizio</th>
+          <th>Data Fine</th>
+          <th>Email</th>
+          <th>Immagine</th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="x in reservation">
@@ -181,11 +185,13 @@ export default defineComponent({
     <p>Storico delle sue prenotazioni</p>
     <table>
       <thead>
-        <th>Data inizio</th>
-        <th>Data fine</th>
-        <th>Prezzo a notte</th>
-        <th>Descrizione</th>
-        <th>Immagine</th>
+        <tr>
+          <th>Data inizio</th>
+          <th>Data fine</th>
+          <th>Prezzo a notte</th>
+          <th>Descrizione</th>
+          <th>Immagine</th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="x in reservation">
@@ -223,31 +229,78 @@ export default defineComponent({
 
 .review-history {
   table {
-    // display: grid;
+    display: grid;
     border-collapse: collapse;
 
     thead {
-      display: flex;
+      tr {
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+      }
     }
 
     tbody {
-      display: flex;
+      // display: grid;
+      // grid-template-columns: repeat(5,25%);
 
       tr {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+        // justify-content: space-between;
+        border: 1px solid blue;
+        align-items: center;
+
+
+
+
 
         td {
+          text-align: center;
           font-size: small;
+          overflow-x: scroll;
+          overflow-wrap: break-word;
 
-          // display: flex;
+          // word-wrap: break-word;
+          // white-space: break-spaces;
           img {
             max-width: 100%;
+
           }
         }
       }
     }
   }
 }
+//  {
+//   table {
+//     // display: grid;
+//     border-collapse: collapse;
+
+//     thead {
+//       tr {
+
+//         display: flex;
+//       }
+//     }
+
+//     tbody {
+//       display: flex;
+
+//       tr {
+//         display: flex;
+
+//         td {
+//           font-size: small;
+
+//           // display: flex;
+//           img {
+//             max-width: 100%;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 .reservation-history-cliente {
   table {
@@ -255,29 +308,35 @@ export default defineComponent({
     border-collapse: collapse;
 
     thead {
-      display: grid;
-      grid-template-columns: repeat(5,auto);
+      tr {
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+      }
     }
 
     tbody {
-      display: grid;
+      // display: grid;
       // grid-template-columns: repeat(5,25%);
 
       tr {
         display: grid;
-        grid-template-columns: repeat(5, 20%);
+        grid-template-columns: repeat(5, auto);
         // justify-content: space-between;
         border: 1px solid red;
         align-items: center;
 
-      
+
 
 
 
         td {
           text-align: center;
           font-size: small;
+          overflow-x: scroll;
+          overflow-wrap: break-word;
 
+          // word-wrap: break-word;
+          // white-space: break-spaces;
           img {
             max-width: 100%;
 
@@ -288,14 +347,14 @@ export default defineComponent({
   }
 }
 
-.reservation-history-gestore{
+.reservation-history-gestore {
   table {
     display: grid;
     border-collapse: collapse;
 
     thead {
       display: grid;
-      grid-template-columns: repeat(5,auto);
+      grid-template-columns: repeat(5, auto);
     }
 
     tbody {

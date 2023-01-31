@@ -34,19 +34,19 @@ export default defineComponent({
 
                 <h1 class="head-element" v-if="!utente">Benvenuto nel sito dell'hotel Astra</h1>
                 <h1 class="head-element" v-if="utente?.ruolo == 'gestore'">Bentornato gestore {{ utente?.nome + " " +
-                utente?.cognome }} nel tuo sito dell'hotel Astra</h1>
+                utente?.cognome }}</h1>
                 <h1 class="head-element" v-if="utente?.ruolo == 'cliente'">Bentornato {{
                     utente.ruolo + " " + utente?.nome + "" + utente?.cognome
-                }} nel sito dell'hotel Astra</h1>
+                }}</h1>
                 <p class="head-element" v-if="!utente">
                     Prenota con noi e passa il miglior tempo della tua estate qui a Gallipoli, la città del divertimento
                 </p>
                 <p class="head-element" v-else>Per vedere le nostre stanze disponibili e passare il miglior tempo delle
                     tue
                     vacanze
-                    premi qui<a class="link" href="\reservation" > Prenotazioni</a> <br>
-                    Se invece hai già eseguito una prenotazione e vuoi controllare i dati premi qua<a class="link" href="\account "
-                        > Profilo</a></p>
+                    premi qui<a class="link" href="\reservation"> <br> Prenotazioni</a> <br>
+                    Se invece hai già eseguito una prenotazione e vuoi controllare i tuoi dati personali premi qui <br><a class="link"
+                        href="\account "> Profilo</a></p>
             </div>
 
         </div>
@@ -69,7 +69,8 @@ export default defineComponent({
             </div>
             <div class="map-container">
                 <p>Dove ci troviamo?</p>
-                <iframe width="100%" height="100%" scrolling="no" marginheight="0" marginwidth="0" title="Mappa del Hotel"
+                <iframe width="100%" height="100%" scrolling="no" marginheight="0" marginwidth="0"
+                    title="Mappa del Hotel"
                     src="https://maps.google.com/maps?width=100%25&amp;height=100%&amp;hl=en&amp;q=gallipolli,%20via%20xx%20settembre%20numero%2015+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
                 </iframe>
             </div>
@@ -79,17 +80,11 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-#contenutoStanza {
-    display: flex;
-    justify-content: center;
-}
 
-.logo-img{
-    width: 10%;
-}
+
 #index {
-    display: grid;
     margin: 2% 0;
+
     h1 {
         font-size: 1.5em;
     }
@@ -97,9 +92,11 @@ export default defineComponent({
 
     #row-1 {
         display: flex;
+
         img {
-            aspect-ratio: 1/1;
+            // aspect-ratio: 1/1;
         }
+
         .grid-container-head {
             display: flex;
             flex-direction: column;
@@ -119,9 +116,11 @@ export default defineComponent({
         .history-container {
             display: flex;
             flex-direction: column;
+
             p:nth-child(1) {
                 margin: 2%;
             }
+
             p:nth-child(2) {
                 margin: 0% 0% 2% 5%;
             }
@@ -130,9 +129,10 @@ export default defineComponent({
         .map-container {
             display: flex;
             flex-direction: column;
+
             p:nth-child(1) {
                 margin: 2%;
-            }            
+            }
         }
 
     }
@@ -141,16 +141,18 @@ export default defineComponent({
         color: hsl(0, 50%, 25%);
         background-color: white;
     }
+
     .nuxt-link {
         text-decoration: none;
         color: hsl(232, 50%, 25%);
         background-color: white;
-      }
+    }
+
     .nuxt-link:hover,
     .nuxt-link:focus {
         text-decoration: underline;
     }
-    
+
 
     p {
         line-height: 1.5;
@@ -158,12 +160,14 @@ export default defineComponent({
         background-color: white;
 
     }
+
     .link {
         text-decoration: none;
         color: hsl(232, 50%, 25%);
         background-color: white;
-        display:contents;
+        display: contents;
     }
+
     .link:hover,
     .link:focus {
         text-decoration: underline;

@@ -8,7 +8,9 @@ body {
     padding: 0 2%
 }
 
-
+p {
+    line-height: 1.5;
+}
 
 #centerPage {
     background-color: white;
@@ -154,7 +156,8 @@ a {
 
         // grid-template-rows: repeat(1,auto);
         .review-preview {
-            flex-direction: row;
+            grid-template-columns: auto auto;
+
             border-bottom: 1px solid red;
         }
 
@@ -164,7 +167,7 @@ a {
             }
 
             .stars {
-                max-width: 30%;
+                max-width: 50%;
             }
         }
 
@@ -186,14 +189,14 @@ a {
             }
 
             .stars {
-                max-width: 50%;
+                max-width: 70%;
             }
         }
 
     }
 
     @include lg {
-        grid-template-columns: repeat(3, auto);
+        // grid-template-columns: repeat(3, auto);
 
         .review-preview {
             border-bottom: 1px solid green;
@@ -208,7 +211,7 @@ a {
             }
 
             .stars {
-                max-width: 60%;
+                max-width: 100%;
             }
         }
 
@@ -217,19 +220,29 @@ a {
 
 .grid-2 {
     @include sm {
-      
+        h3 {
+            text-align: center;
+            margin: 2%;
 
-        
-
+        }
+        .review-insert {
+            justify-content: center;
+        }
     }
 
     @include md {
+        h3 {
+            text-align: left;
+            margin: 1%;
+
+        }
+        .review-insert {
+            justify-content: flex-start;
+        }
         
     }
 
-    @include lg {
-       
-    }
+    @include lg {}
 }
 
 
@@ -238,81 +251,66 @@ a {
 .main {
 
     @include sm {
-        grid-template-rows: 1fr 2fr 1fr;
-        grid-template-columns: repeat(1, auto);
+        // flex-direction: column;
+        justify-items: center;
+        grid-template-rows: repeat(2,auto);
+
         background-color: deeppink;
 
+
+
+        .aside {
+            // background-color: black;
+        }
+
+        .table, .section {
+            h3 {
+                text-align: center;
+                margin: 4%;
+            }
+        }
+
     }
 
     @include md {
-        grid-template-rows: auto auto;
-        grid-template-columns: 25% auto;
-        background-color: cyan;
-
-    }
-
-    @include lg {
-        grid-template-rows: 100%;
-        grid-template-columns: 1fr 1fr 1fr;
         background-color: chocolate;
+        align-items: center;
+        // justify-content: center;
+        .aside {
+            // grid-area: 1/1 / span 1 /1;
+            // width: 30%;
+            justify-self: center;
+            // align-self: flex-start;
+        }
+        .section, .table {
+            display: grid;
+            // grid-area: 2/1 / span 2/1;
+            justify-items: center;
+            h3 {
+                margin: 3%;
+            }
+        }
+        // grid-template-rows: 100%;
+        // grid-template-columns: 1fr 1fr 1fr;
     }
-}
-
-.aside {
-    @include sm {
-        grid-area: 1 / 1 / span 1 / span 1;
-
-    }
-
-    @include md {
-        grid-area: 1 / 1 / span 2 / span 1;
-
-    }
-
     @include lg {
-        grid-area: 1 / 1 / span 1 / span 1;
+        justify-items: unset;
+        // grid-template-rows: unset;
+        grid-template-columns: 30% auto;
+        background-color: cyan;
+        .aside {
+            margin: 2%;
+        }
+        .table {
+            margin: 2%;
+            justify-items: unset;
 
-    }
-
-}
-
-.table {
-
-    h3 {
-        text-align: center;
-    }
-
-    @include sm {
-        grid-area: 2 / 1 / span 1 / span 1;
-    }
-
-    @include md {
-        grid-area: 1 / 2 / 1 / span 2;
-
-    }
-
-    @include lg {
-        grid-area: 1 / 2 / span 1 / 2;
+        }
 
     }
 }
 
-.section {
-    @include sm {
-        grid-area: 3 / 1 / span 1 / span 1;
 
-    }
-
-    @include md {
-        grid-area: 2 / 2 / span 1 / span 2;
-
-    }
-
-    @include lg {
-        grid-area: 1 / 3 / span 1 / span 1;
-    }
-
-}
 
 //PROFILO
 .info {
@@ -410,17 +408,14 @@ a {
 
 
             // width: 30%;
-            thead {
-                
-
-            }
+            thead {}
 
             tbody {
-                
+
 
                 tr {
 
-                    
+
                     // justify-content: space-evenly;
 
                     td {
@@ -452,6 +447,7 @@ a {
 
 
 }
+
 .reservation-history-gestore {
     @include sm {
         background-color: blueviolet;
@@ -461,17 +457,14 @@ a {
 
 
             // width: 30%;
-            thead {
-                
-
-            }
+            thead {}
 
             tbody {
-                
+
 
                 tr {
 
-                    
+
                     // justify-content: space-evenly;
 
                     td {
@@ -504,16 +497,18 @@ a {
 
 }
 
-    p {
-        color: hsl(0, 50%, 25%);
-        // background-color: white;
-    }
-    .link {
-        text-decoration: none;
-        color: hsl(232, 50%, 25%);
-        background-color: white;
-    }
-    .link:hover,
-    :focus {
-        text-decoration: underline;
-    }
+p {
+    color: hsl(0, 50%, 25%);
+    // background-color: white;
+}
+
+.link {
+    text-decoration: none;
+    color: hsl(232, 50%, 25%);
+    background-color: white;
+}
+
+.link:hover,
+:focus {
+    text-decoration: underline;
+}

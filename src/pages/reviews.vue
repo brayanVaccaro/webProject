@@ -114,7 +114,7 @@ export default defineComponent({
                         {{ x.rispostaRecensione }}
                     </p>
                 </div>
-                
+
             </div>
             <div class="review-profile">
                 <img class="profile-img" alt="profile" :src="'img/' + x.imgProfilo">
@@ -131,10 +131,10 @@ export default defineComponent({
         </div>
     </div>
 
-    <div class="grid-2" v-if="user?.ruolo == 'cliente'" >
-        <h1>Aiutaci con un feedback!</h1>
+    <div class="grid-2" v-if="user?.ruolo == 'cliente'">
+        <h3>Aiutaci con un feedback!</h3>
         <div class="review-insert">
-            <div class="info-user">
+            <div class="review-profile">
                 <img class="profile-img" alt="profile" :src="'img/' + user.imgProfilo">
                 <p class="profile-name">{{ user?.nome + ' ' + user?.cognome }}</p>
             </div>
@@ -168,91 +168,109 @@ export default defineComponent({
 <style lang="scss" scoped>
 .grid-1 {
     display: grid;
+
+
+    // gap: 2%;
     .review-preview {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    // margin-bottom: 3%;
+        display: grid;
+        grid-template-columns: 50% auto;
+        margin: 1%;
+        flex-direction: row;
+        justify-content: space-evenly;
+        // border: 0.5px solid red;
+        border-collapse: separate;
+        // margin-bottom: 3%;
 
-    .get-answer {
-        display: flex;
-        h3 {
-            margin: 0;
-            background-color: aquamarine;
-            font-size: smaller;
-        }
-
-        p {
-            font-size: smaller;
-            // width: 50%
-        }
-    }
-
-    .review-valutation {
-
-        .element {
+        .get-answer {
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
 
-            p {
-                font-size: 0.9em;
+            h3 {
+                margin: 0;
+                background-color: aquamarine;
+                font-size: smaller;
             }
 
+            p {
+                font-size: smaller;
+                // width: 50%
+            }
         }
+
+        .review-valutation {
+
+            .element {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                p {
+                    font-size: 0.9em;
+                }
+
+            }
+
+
+        }
+    }
+
+    .review-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // grid-template-columns: auto;
+
+        .video-title {
+            margin-top: 0;
+            font-size: 150%;
+            font-weight: 500;
+            line-height: 1.5;
+            // margin-bottom: 12px;
+        }
+
+        font-size: 12px;
+        color: rgb(96, 96, 96);
 
 
     }
-}
 }
 
 .grid-2 {
-    display: grid;
-    h1 {
-        margin: 0;
-        text-align: left;
+    // display: grid;
+
+    h3 {
+        // text-align: left;
     }
 
     .review-insert {
-        display: grid;
-        grid-template-columns: auto 100%;
+        display: flex;
 
-        // flex-direction: row;
+
+        .review-insertion {
+            display: flex;
+            flex-direction: column;
+            padding-left: 2%;
+
+            select {
+                width: 30%;
+            }
+
+            button {
+                align-self: flex-start;
+            }
+        }
     }
 
-    .review-insertion {
+    .review-profile {
         display: flex;
         flex-direction: column;
-
-        select {
-            width: 30%;
-        }
-
-        button {
-            align-self: flex-start;
-        }
+        align-items: center;
     }
 }
 
 
 
-.review-profile {
-    display: grid;
-    grid-template-columns: auto;
 
-    .video-title {
-        margin-top: 0;
-        font-size: 150%;
-        font-weight: 500;
-        line-height: 1.5;
-        // margin-bottom: 12px;
-    }
-
-    font-size: 12px;
-    color: rgb(96, 96, 96);
-
-
-}
 
 
 

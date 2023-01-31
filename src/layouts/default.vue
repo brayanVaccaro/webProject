@@ -47,9 +47,14 @@ export default defineComponent({
         <NuxtLink class="nuxt-link" to="/">Home</NuxtLink>
       </li>
 
-      <li class="nav-buttons" v-if="utente">
+      <li class="nav-buttons" v-if="utente?.ruolo == 'gestore'">
+        <NuxtLink class="nuxt-link" to="/reservation">Stanze</NuxtLink>
+      </li>
+
+      <li class="nav-buttons" v-else v-if="utente">
         <NuxtLink class="nuxt-link" to="/reservation">Prenotazione</NuxtLink>
       </li>
+      
 
       <li class="nav-buttons">
         <NuxtLink class="nuxt-link" to="/reviews">Recensioni</NuxtLink>
