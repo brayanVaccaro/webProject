@@ -60,23 +60,23 @@ export default defineComponent({
           <ul>
             <li>
               <label for="register-name">Nome:</label>
-              <input type="text" id="register-name" name="register-name" v-model="registerName" />
+              <input required type="text" id="register-name" name="register-name" v-model="registerName" />
             </li>
             <li>
               <label for="register-surname">Cognome:</label>
-              <input type="text" id="register-surname" name="register-surname" v-model="registerSurname" />
+              <input required type="text" id="register-surname" name="register-surname" v-model="registerSurname" />
             </li>
             <li>
               <label for="register-dateBirth">Data di Nascita:</label>
-              <input type="date" id="register-dateBirth" name="register-dateBirth" v-model="registerDateBirth">
+              <input required type="date" id="register-dateBirth" name="register-dateBirth" v-model="registerDateBirth">
             </li>
             <li>
               <label for="register-email">Email</label>
-              <input type="text" id="register-email" name="register-email" required v-model="registerEmail">
+              <input required type="text" id="register-email" name="register-email" v-model="registerEmail">
             </li>
             <li>
               <label for="register-password">Password:</label>
-              <input type="password" id="register-password" name="register-password" v-model="registerPassword" />
+              <input required type="password" id="register-password" name="register-password" v-model="registerPassword" />
             </li>
           </ul>
           <li>
@@ -98,11 +98,11 @@ export default defineComponent({
           <ul>
             <li>
               <label for="login-email">Email:</label>
-              <input type="text" id="login-email" name="login-username" v-model="loginEmail" />
+              <input required  type="text" id="login-email" name="login-username" v-model="loginEmail" />
             </li>
             <li>
               <label for="login-password">Password:</label>
-              <input type="password" id="login-password" name="login-password" v-model="loginPassword" />
+              <input required type="password" id="login-password" name="login-password" v-model="loginPassword" />
             </li>
             <li>
               <button>Accedi</button>
@@ -184,9 +184,6 @@ label {
   transition: .5s ease-in-out;
 }
 
-#signup,
-#login {
-}
 
 #signUp>label:nth-child(1) {
   padding-top: 3%;

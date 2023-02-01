@@ -36,17 +36,21 @@ export default defineComponent({
                 <h1 class="head-element" v-if="utente?.ruolo == 'gestore'">Bentornato gestore {{ utente?.nome + " " +
                 utente?.cognome }}</h1>
                 <h1 class="head-element" v-if="utente?.ruolo == 'cliente'">Bentornato {{
-                    utente.ruolo + " " + utente?.nome + "" + utente?.cognome
+                    utente.ruolo + " " + utente?.nome + " " + utente?.cognome
                 }}</h1>
-                <p class="head-element" v-if="!utente">
+                <p class="head-element" v-if="(!utente)">
                     Prenota con noi e passa il miglior tempo della tua estate qui a Gallipoli, la città del divertimento
                 </p>
-                <p class="head-element" v-else>Per vedere le nostre stanze disponibili e passare il miglior tempo delle
-                    tue
-                    vacanze
-                    premi qui<a class="link" href="\reservation"> <br> Prenotazioni</a> <br>
-                    Se invece hai già eseguito una prenotazione e vuoi controllare i tuoi dati personali premi qui <br><a class="link"
-                        href="\account "> Profilo</a></p>
+                <p class="head-element" v-if="utente?.ruolo == 'cliente'">Per vedere le nostre stanze
+                    disponibili e passare il miglior tempo delle
+                    tue vacanze premi qui:<a class="link" href="\reservation"> <br> Prenotazioni</a> <br>
+                    Se invece hai già eseguito una prenotazione e vuoi controllare i tuoi dati personali premi qui:
+                    <br><a class="link" href="\account "> Profilo</a>
+                </p>
+                <p v-else-if="utente?.ruolo == 'gestore'" class="head-element">Per gestire le stanze premi qui:<a class="link"
+                        href="\reservation"><br>Stanze</a><br>
+                    Per gestire le prenotazioni premi qui:<br><a class="link" href="\account ">Profilo</a>
+                </p>
             </div>
 
         </div>
@@ -80,8 +84,6 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-
-
 #index {
 
     h1 {
@@ -91,7 +93,7 @@ export default defineComponent({
 
     #row-1 {
         display: flex;
-        
+
         .grid-container-head {
             display: flex;
             flex-direction: column;

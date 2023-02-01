@@ -3,12 +3,8 @@ import { createConnection } from "~~/src/server/utils/db";
 export default defineEventHandler(async function (event) {
 
    const { email, controllo } = await readBody(event)
-   console.log('email vale ' + email)
-   console.log('controllo vale ' + controllo)
-   // const id = idUtente
-
-   // let controllo = 0  
-   // const id = idUtente
+   
+   
    const connection = await createConnection()
    switch (controllo) {
       case 0: //prendo le reservation di tutti gli utenti
@@ -24,7 +20,4 @@ export default defineEventHandler(async function (event) {
          )
          return results2
    }
-
-
-   // console.log('prenotazioni by email ' + results)
 })

@@ -56,7 +56,6 @@ export default defineComponent({
             return `${day}/${month}/${year}`;
         },
         reviewsAnswer(idRecensione: number, rispostaRecensione: string) {
-            console.log(this.rispostaRecensione)
             $fetch("/api/reviews/reviewsAnswer", {
                 method: "POST",
                 body: {
@@ -231,6 +230,8 @@ export default defineComponent({
 
     .review-insert {
         display: flex;
+        justify-content: center;
+
 
 
         .review-insertion {

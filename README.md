@@ -10,7 +10,7 @@
 <h3 align="center">Astra</h3>
 
   <p align="center">
-    Il sito dell'hotel Astra che si trova a Gallipoli, dove si può prenotare stanze e scrivere recensioni e controllare il proprio profilo e vedere tutte le recensioni scritte e tutte le prenotazioni eseguite
+    Il sito dell'hotel Astra che si trova a Gallipoli, dove si possono prenotare stanze, scrivere recensioni e controllare il proprio profilo e vedere tutte le recensioni scritte e tutte le prenotazioni eseguite
     <br />
     <a href="https://github.com/brayanVaccaro/webProject"><strong>Documento: »</strong></a>
     <br />
@@ -153,6 +153,8 @@ Caratteristiche opzionali:
 - [ ] Calcolare il prezzo totale in base ai giorni
 - [x] Risposta del gestore al cliente
 - [x] Recensioni con le stelle al posto del testo
+
+Per mancanza di tempo, alcune caratteristiche opzionali non sono state implementate. Vedremo di implementarle successivamente
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 

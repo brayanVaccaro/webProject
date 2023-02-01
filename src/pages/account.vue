@@ -22,7 +22,6 @@ export default defineComponent({
   },
   methods: {
     getUserReviews() {
-      console.log('email user = ' + this.user?.email)
       if (this.user?.ruolo == 'gestore') {
         return
       }
@@ -34,12 +33,9 @@ export default defineComponent({
         }
       }).then((data) => {
         this.review = data as Review[]
-        console.log('review vale')
-        console.log(this.review)
       })
     },
     async getUserReservations1() {
-      // console.log('1 email user = ' + this.user.email)
       if (this.user?.ruolo == 'cliente') {
         this.controllo = 1
       }
@@ -51,11 +47,6 @@ export default defineComponent({
         }
       }).then((data) => {
         this.reservation = data as Reservation[]
-        console.log('3 reservation.lenght vale: : ' + this.reservation.length)
-        console.log('2 idStanza vale: ' + this.reservation[0].idStanza)
-        console.log('2 idStanza vale: ')
-        console.log(this.reservation)
-        console.log(this.reservation[2])
       })
 
       for (let i = 0; i < this.reservation.length; i++) {
@@ -63,7 +54,6 @@ export default defineComponent({
       }
     },
     async getUserReservations2() {
-      console.log('qua funziona')
       for (let i = 0; i < this.idStanza.length;) {
         await $fetch("/api/reservation/getUserRoom", {
           method: "POST",
@@ -71,17 +61,12 @@ export default defineComponent({
             id: this.idStanza[i]
           }
         }).then(() => {
-          // this.reservation[].prezzoAnotte
-          console.log('7 reservation con stanze: ')
-          console.log(this.reservation)
         })
 
-        // this.reservation.forEach(x => console.log('ciao' + x.email))
         i++;
       }
 
     },
-
 
     formatDate(time: string) {
       const data = new Date(time)
@@ -248,13 +233,10 @@ export default defineComponent({
     }
 
     tbody {
-      // display: grid;
-      // grid-template-columns: repeat(5,25%);
 
       tr {
         display: grid;
         grid-template-columns: repeat(4, 25%);
-        // justify-content: space-between;
         border: 1px solid blue;
         align-items: center;
 
@@ -265,7 +247,6 @@ export default defineComponent({
         td {
           text-align: center;
           font-size: small;
-          // overflow-x: scroll;
           overflow-wrap: break-word;
 
           img {
@@ -298,7 +279,6 @@ export default defineComponent({
       tr {
         display: grid;
         grid-template-columns: repeat(5, 20%);
-        // justify-content: space-between;
         border: 1px solid red;
         align-items: center;
 
@@ -309,11 +289,8 @@ export default defineComponent({
         td {
           text-align: center;
           font-size: small;
-          // overflow-x: scroll;
           overflow-wrap: break-word;
 
-          // word-wrap: break-word;
-          // white-space: break-spaces;
           img {
             max-width: 100%;
 
@@ -339,12 +316,10 @@ export default defineComponent({
 
     tbody {
       display: grid;
-      // grid-template-columns: repeat(5,25%);
 
       tr {
         display: grid;
         grid-template-columns: repeat(5, 20%);
-        // justify-content: space-between;
         border: 1px solid red;
         align-items: center;
 

@@ -1,11 +1,7 @@
 import { createConnection } from "~/server/utils/db";
-//devo collegarmi al database e prendere solo le stanze che rispettano le condizioni poste dall'utente
+
 export default defineEventHandler(async function (event) {
     const { tagliaStanza, dataInizio, dataFine, controlloUtente } = await readBody(event)
-    console.log('searchRoom taglia stanza vale ' + tagliaStanza)
-    console.log('searchRoom data inizio vale ' + dataInizio)
-    console.log('searchRoom data fine vale ' + dataFine)
-    console.log('searchRoom controlloUtente vale ' + controlloUtente)
 
     const connection = await createConnection()
 

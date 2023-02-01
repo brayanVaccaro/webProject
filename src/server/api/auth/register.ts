@@ -5,12 +5,10 @@ import { createConnection } from "~/server/utils/db"
 export default defineEventHandler(async function(event) {
   // Blocca la richiesta se l'utente ha già effettuato il login
   const utente = decodificaUtente(event)
-  console.log('utente' + utente)
   requireLogout(utente)
 
   // Estrae username e password dal body della richiesta
   const { name, surname, email, dateBirth, password,} = await readBody(event)
-  console.log('dati utente' + name, surname, email, dateBirth, password )
 
   // Verifica che l'email sia disponibile
   const connection = await createConnection()
@@ -24,7 +22,6 @@ export default defineEventHandler(async function(event) {
 
   // Crea l'hash della password per non salvarla in chiaro
   const passwordHash = await bcrypt.hash(password, 10)
-  console.log('psw hash'+passwordHash)
 
   // Inserisce l'utente nel database
   await connection.execute(

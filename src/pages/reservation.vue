@@ -331,8 +331,6 @@ export default defineComponent({
     display: none;
 }
 
-
-
 img {
     max-width: 100%;
     border: 1px solid black;

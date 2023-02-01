@@ -1,7 +1,6 @@
 @import 'mixins';
 @import 'variables';
 
-
 body {
     background-image: url("img/background-image.png");
     background-size: 900px;
@@ -9,6 +8,7 @@ body {
 }
 
 p {
+    color: hsl(0, 50%, 25%);
     line-height: 1.5;
 }
 
@@ -37,19 +37,16 @@ a {
 #index {
     @include sm {
         height: auto;
-        // background-color: cyan;
         grid-template-rows: 1fr auto;
 
     }
 
     @include md {
-        // background-color: purple;
         grid-template-rows: 1fr auto;
 
     }
 
     @include lg {
-        // background-color: green;
         grid-template-rows: 0.5fr auto;
 
 
@@ -64,7 +61,6 @@ a {
         img {
             max-width: 30%;
             margin: 0 auto;
-            // outline: auto;
         }
 
         .grid-container-head {
@@ -78,7 +74,6 @@ a {
 
         flex-direction: row;
         margin-bottom: 0;
-        // justify-content: space-evenly;
         align-items: center;
     }
 
@@ -89,13 +84,11 @@ a {
         img {
             max-width: 25%;
             margin: 0 auto;
-            // height: 100%;
 
         }
 
         .grid-container-head {
 
-            // height: 70%;
             p {
                 font-size: small;
             }
@@ -120,7 +113,6 @@ a {
     @include md {
         flex-direction: row;
 
-        // justify-content: space-evenly;
         .history-container {
             width: 55%;
 
@@ -150,7 +142,11 @@ a {
 
 //LOGIN PAGE
 
+
+
+
 //REVIEWS
+
 .grid-1 {
     @include sm {
 
@@ -177,6 +173,7 @@ a {
         grid-template-columns: repeat(2, auto);
 
         .review-preview {
+            
             flex-direction: column;
             border-bottom: 1px solid blue;
 
@@ -195,12 +192,9 @@ a {
     }
 
     @include lg {
-        // grid-template-columns: repeat(3, auto);
 
         .review-preview {
             border-bottom: 1px solid green;
-            // padding-right: 5%;
-            // margin-right: 3%;
 
         }
 
@@ -225,21 +219,15 @@ a {
 
         }
 
-        .review-insert {
-            justify-content: center;
-        }
     }
 
     @include md {
         h3 {
-            text-align: left;
+            text-align: center;
             margin: 1%;
 
         }
 
-        .review-insert {
-            justify-content: flex-start;
-        }
 
     }
 
@@ -247,16 +235,17 @@ a {
 }
 
 
+
+
+
 //RESERVATION
 
 .main {
 
     @include sm {
-        // flex-direction: column;
         justify-items: center;
         grid-template-rows: repeat(2, auto);
 
-        // background-color: deeppink;
 
 
 
@@ -272,19 +261,13 @@ a {
     }
 
     @include md {
-        // background-color: chocolate;
         align-items: center;
 
-        // justify-content: center;
         .aside {
-            // grid-area: 1/1 / span 1 /1;
-            // width: 30%;
             justify-self: center;
-            // align-self: flex-start;
         }
 
         .table {
-            // grid-area: 2/1 / span 2/1;
             justify-items: center;
 
             h3 {
@@ -294,7 +277,6 @@ a {
 
         .section {
             display: grid;
-            // grid-area: 2/1 / span 2/1;
 
             h3 {
 
@@ -302,15 +284,11 @@ a {
             }
         }
 
-        // grid-template-rows: 100%;
-        // grid-template-columns: 1fr 1fr 1fr;
     }
 
     @include lg {
         justify-items: unset;
-        // grid-template-rows: unset;
         grid-template-columns: 30% auto;
-        // background-color: cyan;
 
         .table {
             margin: 2%;
@@ -335,7 +313,6 @@ a {
 .info {
     @include sm {
         flex-direction: column;
-        // background-color: deeppink;
 
         img {
             align-self: center;
@@ -356,24 +333,20 @@ a {
     }
 
     @include md {
-        // background-color: cyan;
 
     }
 
     @include lg {
-        // background-color: chocolate;
     }
 
 }
 
 .review-history {
     @include sm {
-        // background-color: yellowgreen;
 
         table {
 
 
-            // width: 30%;
             thead {
                 flex-direction: row;
                 justify-content: space-between;
@@ -382,13 +355,11 @@ a {
             }
 
             tbody {
-                // display: flex;
                 flex-direction: column;
 
                 tr {
 
                     flex-direction: row;
-                    // justify-content: space-between;
 
                     td {
                         img {
@@ -403,12 +374,10 @@ a {
     }
 
     @include md {
-        // background-color: cyan;
 
     }
 
     @include lg {
-        // background-color: chocolate;
     }
 
     p {
@@ -420,10 +389,8 @@ a {
 
 .reservation-history-cliente {
     @include sm {
-        // background-color: blueviolet;
 
         table {
-            // grid-template-rows: repeat(2,auto);
 
             thead{
                 word-break: break-all;
@@ -433,10 +400,8 @@ a {
                 tr {
 
 
-                    // justify-content: space-evenly;
 
                     td {
-                        // flex-direction: row;
 
                         img {
 
@@ -450,12 +415,10 @@ a {
     }
 
     @include md {
-        // background-color: cyan;
 
     }
 
     @include lg {
-        // background-color: chocolate;
     }
 
     p {
@@ -467,13 +430,10 @@ a {
 
 .reservation-history-gestore {
     @include sm {
-        // background-color: blueviolet;
 
         table {
-            // grid-template-rows: repeat(2,auto);
 
 
-            // width: 30%;
             thead {
                 word-break: break-all;
             }
@@ -484,10 +444,8 @@ a {
                 tr {
 
 
-                    // justify-content: space-evenly;
 
                     td {
-                        // flex-direction: row;
 
                         img {
 
@@ -501,12 +459,10 @@ a {
     }
 
     @include md {
-        // background-color: darkred;
 
     }
 
     @include lg {
-        // background-color: chocolate;
     }
 
     p {
@@ -516,10 +472,7 @@ a {
 
 }
 
-p {
-    color: hsl(0, 50%, 25%);
-    // background-color: white;
-}
+
 
 .link {
     text-decoration: none;
