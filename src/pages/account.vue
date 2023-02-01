@@ -291,7 +291,7 @@ export default defineComponent({
     thead {
       tr {
         display: grid;
-        grid-template-columns: repeat(5, 20%);
+        grid-template-columns: repeat(5, auto);
       }
     }
 
