@@ -86,7 +86,7 @@ Senza eseguire la registrazione è possibile visualizzare la pagina Home e la pa
 Dopo aver Eseguito il login è possibile notare dei piccoli cambiamenti nella pagina di Home, ed è possibile andare nella pagina Prenotazione per eseguire una prenotazione.
 <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site.png" alt="Menu" height="500">
+    <img src="src/public/img/site.png" alt="Menu">
   </a>
 </div>
 Selezionando la data dell'inizio del soggiorno, la data di fine del soggiorno e la tipologia stanza vengono visualizzate le stanze disponibili
