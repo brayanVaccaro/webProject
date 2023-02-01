@@ -263,13 +263,44 @@ export default defineComponent({
                     <button @click="getAllRooms(true)">CERCA</button>
 
                 </ul>
+                <div v-else>
+                    <h2>Aggiungi una nuova stanza</h2>
+                    <p>
+                        Prezzo a notte
+                    </p>
+                    <input type="text" v-model="prezzoAnotte" />
+                    <p>
+                        Immagine della stanza
+                    </p>
+                    <input type="file" />
+                    <p>
+                        Taglia della stanza
+                    </p>
+                    <select v-model="tagliaStanza">
+                        <option v-for="option in options" :key="option.value" :value="option.value">
+                            {{ option.value }}
+                        </option>
+                    </select>
+                    <p>
+                        Tipologia della stanza
+                    </p>
+                    <select style="display: block;" v-model="tipologiaStanza">
+                        <option v-for="option in scelte" :key="option.value" :value="option.value">
+                            {{ option.value }}
+                        </option>
+                    </select>
 
-                <AddRoom v-else>
+                    <button @click.prevent="insertRoom()">
+                        inserisci stanza
+                    </button>
+                </div>
 
-                </AddRoom>
+                <!-- <AddRoom v-else>
+
+                </AddRoom> -->
             </aside>
         </div>
-        <div v-show="step == 1" class="grid-item-table table">
+        <div v-show="(step == 1) || (step == 2)" class="grid-item-table table">
 
             <h3 v-if="user?.ruolo == 'cliente'">Elenco stanze nel periodo {{
                 new Date(dataOdierna).toLocaleDateString() + ' - ' + new
@@ -313,8 +344,8 @@ export default defineComponent({
             </table>
         </div>
         <div v-show="step == 2" class="grid-item-section section">
+            <h3>Riepilogo</h3>
             <section v-if="user?.ruolo == 'cliente'">
-                <h3>Riepilogo Prenotazione</h3>
 
                 <table>
                     <thead class="grid-item-thead">
@@ -392,12 +423,14 @@ img {
 
 .grid-container-main {
     display: grid;
-    
+
 
 }
 
 
 .grid-item-aside {
+    display: grid;
+
     ul {
         display: flex;
         flex-direction: column;
@@ -428,33 +461,98 @@ img {
 
 //ELENCO STANZE
 .grid-item-table {
+    display: grid;
 
-    thead {
-        tr {
-            display: grid;
-            grid-template-columns: repeat(4, auto);
-            justify-content: space-evenly;
+    table {
+
+        thead {
+            tr {
+                display: grid;
+                grid-template-columns: repeat(4, 25%);
+                justify-content: space-evenly;
+            }
+        }
+
+        tbody {
+            // display: grid;
+
+            tr {
+                display: grid;
+                grid-template-columns: repeat(4, 25%);
+                align-items: center;
+
+
+
+                td {
+                    text-align: center;
+                    overflow-wrap: break-word;
+
+                    label {
+                        display: none;
+                    }
+                }
+
+                td:nth-child(4) {
+                    cursor: pointer;
+                }
+            }
+
+
+        }
+
+        td:nth-child(1):hover {
+            // cursor: zoom-in;
+
+            label {
+                display: block;
+                cursor: zoom-in;
+            }
+
         }
     }
+}
 
-    tbody {
+.grid-item-section {
+    display: grid;
+
+    table {
         display: grid;
+        grid-template-columns: repeat(2, auto);
+        justify-content: center;
 
-        .grid-item-tr {
+
+        thead {
+
+            tr {
+                display: flex;
+                flex-direction: column;
+                // align-items: flex-start;
+                grid-template-rows: repeat(3, auto);
+                justify-content: space-evenly;
+
+            }
+        }
+
+        tbody {
             display: grid;
-            grid-template-columns: repeat(4, 25%);
-            // flex-direction: row;
-            // justify-content: space-evenly;
+            // grid-template-columns: ;
+
+            tr {
+                display: flex;
+                flex-direction: column;
+                grid-template-columns: repeat(3, 33.3%);
+            }
+
+
             align-items: center;
 
 
             // align-items: flex-end;
             td {
                 // width: 33.3%;
-                text-align: center;
-                // overflow-x: scroll;
-                overflow-wrap: break-word;
-                // hyphens: manual;
+                // align-items: flex-end;
+
+                text-align: right;
 
 
                 // background-color: black;
@@ -463,88 +561,26 @@ img {
                 }
             }
         }
-    }
 
-    .grid-item-tr:hover {
+        .grid-item-tr:hover {
 
-        td:nth-child(4) {
-            display: block;
-            color: red;
-        }
-    }
-
-    .grid-item-tr td:nth-child(1):hover {
-        // background-color: black;
-        border: 2px solid red;
-        cursor: zoom-in;
-
-        label {
-            display: block;
-            cursor: zoom-in;
-        }
-
-    }
-}
-
-
-.grid-item-section {
-    table {
-        display: grid;
-        width: max-content;
-    }
-
-    thead {
-
-        tr {
-            display: grid;
-            grid-template-columns: repeat(3, auto);
-            justify-content: space-evenly;
-        }
-    }
-
-    tbody {
-        // display: grid;
-
-        tr {
-            display: grid;
-            grid-template-columns: repeat(3, 33.3%);
-        }
-
-
-        align-items: center;
-
-
-        // align-items: flex-end;
-        td {
-            // width: 33.3%;
-            text-align: center;
-
-
-            // background-color: black;
-            label {
-                display: none;
+            td:nth-child(4) {
+                display: block;
+                color: red;
             }
         }
-    }
 
-    .grid-item-tr:hover {
-
-        td:nth-child(4) {
-            display: block;
-            color: red;
-        }
-    }
-
-    .grid-item-tr td:nth-child(1):hover {
-        // background-color: black;
-        border: 2px solid red;
-        cursor: zoom-in;
-
-        label {
-            display: block;
+        .grid-item-tr td:nth-child(1):hover {
+            // background-color: black;
+            border: 2px solid red;
             cursor: zoom-in;
-        }
 
+            label {
+                display: block;
+                cursor: zoom-in;
+            }
+
+        }
     }
 }
 </style>

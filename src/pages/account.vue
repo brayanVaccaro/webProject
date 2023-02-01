@@ -2,13 +2,16 @@
 
 import { Utente, Review, Reservation, Stanza } from '../types'
 definePageMeta({
-  middleware: ["require-login"]
+  middleware: ["require-login"],
+
 })
 export default defineComponent({
   setup() {
     return {
+      
       user: inject("user") as Utente,
     }
+    
   },
   data() {
     return {
@@ -116,6 +119,7 @@ export default defineComponent({
 
 <template >
   <div class="info">
+    <h3>Info Utente</h3>
     <img class="profile-img" :src="'img/' + user.imgProfilo">
     <div class="row">
       <p class="profile-data">Nome: {{ user.nome }}</p>
@@ -132,7 +136,7 @@ export default defineComponent({
 
   <!-- se sono cliente vedo le mie recensioni -->
   <div v-if="user.ruolo == 'cliente'" class="review-history">
-    <p>Storico recensione inserite da lei (Grazie per il suo feedback)</p>
+    <h3>Storico recensione inserite da lei (Grazie per il suo feedback)</h3>
     <table>
       <thead>
         <tr>
@@ -154,7 +158,7 @@ export default defineComponent({
   </div>
   <!-- se sono gestore vedo tutte le prenotazioni -->
   <div v-if="user.ruolo == 'gestore'" class="reservation-history-gestore">
-    <p>Ecco a te gestore la lista di tutte le prenotazioni</p>
+    <h3>Ecco a te gestore la lista di tutte le prenotazioni</h3>
     <table>
       <thead>
         <tr>
@@ -169,7 +173,7 @@ export default defineComponent({
         <tr v-for="x in reservation">
           <td>
             <button @click.prevent="deleteReservation(x.idPrenotazione)">
-              Elmina prenotazione
+              Elimina prenotazione
             </button>
           </td>
           <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
@@ -182,7 +186,7 @@ export default defineComponent({
   </div>
 
   <div v-else class="reservation-history-cliente">
-    <p>Storico delle sue prenotazioni</p>
+    <h3>Storico delle sue prenotazioni</h3>
     <table>
       <thead>
         <tr>
@@ -210,6 +214,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .info {
+  h3 {
+    text-align: center;
+  }
   display: flex;
 
   border: solid 1px rgb(200, 200, 200);
@@ -228,6 +235,9 @@ export default defineComponent({
 }
 
 .review-history {
+  h3 {
+    text-align: center;
+  }
   table {
     display: grid;
     border-collapse: collapse;
@@ -257,11 +267,9 @@ export default defineComponent({
         td {
           text-align: center;
           font-size: small;
-          overflow-x: scroll;
+          // overflow-x: scroll;
           overflow-wrap: break-word;
 
-          // word-wrap: break-word;
-          // white-space: break-spaces;
           img {
             max-width: 100%;
 
@@ -271,38 +279,11 @@ export default defineComponent({
     }
   }
 }
-//  {
-//   table {
-//     // display: grid;
-//     border-collapse: collapse;
-
-//     thead {
-//       tr {
-
-//         display: flex;
-//       }
-//     }
-
-//     tbody {
-//       display: flex;
-
-//       tr {
-//         display: flex;
-
-//         td {
-//           font-size: small;
-
-//           // display: flex;
-//           img {
-//             max-width: 100%;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }
-
 .reservation-history-cliente {
+
+  h3 {
+    text-align: center;
+  }
   table {
     display: grid;
     border-collapse: collapse;
@@ -310,17 +291,15 @@ export default defineComponent({
     thead {
       tr {
         display: grid;
-        grid-template-columns: repeat(5, auto);
+        grid-template-columns: repeat(5, 20%);
       }
     }
 
     tbody {
-      // display: grid;
-      // grid-template-columns: repeat(5,25%);
 
       tr {
         display: grid;
-        grid-template-columns: repeat(5, auto);
+        grid-template-columns: repeat(5, 20%);
         // justify-content: space-between;
         border: 1px solid red;
         align-items: center;
@@ -332,7 +311,7 @@ export default defineComponent({
         td {
           text-align: center;
           font-size: small;
-          overflow-x: scroll;
+          // overflow-x: scroll;
           overflow-wrap: break-word;
 
           // word-wrap: break-word;
@@ -353,8 +332,11 @@ export default defineComponent({
     border-collapse: collapse;
 
     thead {
-      display: grid;
-      grid-template-columns: repeat(5, auto);
+      tr {
+
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+      }
     }
 
     tbody {
