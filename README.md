@@ -86,13 +86,13 @@ Senza effettuare l'autenticazione è possibile visualizzare esclusivamente, e se
 Ad autenticazione effettuata il nav cambia il proprio contenuto
 <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site.png" alt="Menu">
+    <img src="src/public/img/site.png" alt="Menu" height="500">
   </a>
 </div>
 Inserendo i dati nella pagina Prenotazioni vengono visualizzate le stanze disponibili
 <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-1.png" alt="Menu">
+    <img src="src/public/img/site-1.png" alt="Menu" height="500">
   </a>
 </div>
 Premendo su prenota viene visualizzato il riepilogo della stanza scelta e premendo Conferma Prenotazione viene eseguita la prenotazione  
@@ -100,13 +100,13 @@ Premendo su prenota viene visualizzato il riepilogo della stanza scelta e premen
 Andando nella pagina Recensioni è possibile eseguire una recensione ora che si è loggati (scegliendo la quantità di stelle che si vuole dare alla pulizia, ristorazione e accoglienza).
 <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-2.png" alt="Menu">
+    <img src="src/public/img/site-2.png" alt="Menu" height="500">
   </a>
 </div>
  E infine andando nella pagina Profilo è posssibile visualizzare i dati inseriti durante la registrazione, lo storico delle proprie recensioni e prenotazioni effettuate dal cliente.
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-3.png" alt="Menu">
+    <img src="src/public/img/site-3.png" alt="Menu" height="500">
   </a>
 </div>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -115,19 +115,19 @@ Andando nella pagina Recensioni è possibile eseguire una recensione ora che si 
 Rispetto alla versione cliente la pagina Home non cambia molto, passando invece alla pagina Stanze si ha l'elenco delle stanze disponibili nel DataBase, ed è possibile, premendo il taso X, eliminarle. Sulla sinistra è possibile aggiungere una nuova stanza.
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-4.png" alt="Menu">
+    <img src="src/public/img/site-4.png" alt="Menu" height="500">
   </a>
 </div>
 Nella pagina Recensioni invece è possibile oltre a visualizzare le recensioni, rispondere.
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-5.png" alt="Menu">
+    <img src="src/public/img/site-5.png" alt="Menu" height="500">
   </a>
 </div>
 Infine nella pagina Gestisci è possibile oltre a visualizzare i dati del gestore visualizzare tutte le prenotazioni eseguite dai clienti
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-6.png" alt="Menu">
+    <img src="src/public/img/site-6.png" alt="Menu" height="500">
   </a>
 </div>
 
