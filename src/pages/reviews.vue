@@ -99,8 +99,6 @@ export default defineComponent({
                         <p class="">Accoglienza:</p>
                         <img class="stars" alt="vote" :src="'img/stars/' + x.votoAccoglienza">
                     </div>
-
-
                 </div>
                 <div class="send-answer" v-if="user?.ruolo == 'gestore' && x.rispostaRecensione == ''">
                     <input v-model="rispostaRecensione" type="text">
@@ -126,8 +124,6 @@ export default defineComponent({
                     {{ formatDate(x.dataRecensione) }}
                 </p>
             </div>
-
-
         </div>
     </div>
 
@@ -170,16 +166,14 @@ export default defineComponent({
     display: grid;
 
 
-    // gap: 2%;
     .review-preview {
         display: grid;
+        grid-template-rows: auto auto;
         grid-template-columns: 50% auto;
         margin: 1%;
         flex-direction: row;
         justify-content: space-evenly;
-        // border: 0.5px solid red;
         border-collapse: separate;
-        // margin-bottom: 3%;
 
         .get-answer {
             display: flex;
@@ -193,7 +187,6 @@ export default defineComponent({
 
             p {
                 font-size: smaller;
-                // width: 50%
             }
         }
 
@@ -218,14 +211,12 @@ export default defineComponent({
         display: flex;
         flex-direction: column;
         align-items: center;
-        // grid-template-columns: auto;
 
         .video-title {
             margin-top: 0;
             font-size: 150%;
             font-weight: 500;
             line-height: 1.5;
-            // margin-bottom: 12px;
         }
 
         font-size: 12px;
@@ -236,11 +227,7 @@ export default defineComponent({
 }
 
 .grid-2 {
-    // display: grid;
-
-    h3 {
-        // text-align: left;
-    }
+    
 
     .review-insert {
         display: flex;

@@ -36,10 +36,6 @@ export default defineComponent({
 
 <template>
 
-  <!-- <Head lang="ita">
-    <Title>Astra</Title>
-    
-  </Head> -->
  
   <nav id="nav">
     <ul>
@@ -92,6 +88,7 @@ export default defineComponent({
 nav {
   display: grid;
   border: 1px solid darkblue;
+  margin-bottom: 2%;
   ul {
     display: flex;
     justify-content: space-evenly;
@@ -107,6 +104,10 @@ nav {
       box-shadow: 50px;
     }
   }
+}
+
+footer {
+  margin-top: 2%;
 }
 
 </style>

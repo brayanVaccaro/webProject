@@ -23,7 +23,6 @@ export default defineComponent({
             imgStanza: "" as string,
             tagliaStanza: "" as string,
             tipologiaStanza: "" as string,
-            // dataSoggiornoGiusta: ["", ""] as string[],
             selettoreInputDataInizio: undefined as any,
             selettoreInputDataFine: undefined as any,
             dataOdierna: new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0] as string,
@@ -44,9 +43,11 @@ export default defineComponent({
                 { value: "vistaMare" },
             ],
             controlloPrenotazione: false as boolean,
-            controlloUtente: false as boolean, //false sono gestore
+            //false sono gestore
+            controlloUtente: false as boolean,
+
+
             step: 0 as number
-            // controlloContainer: false as boolean
         };
     },
     methods: {
@@ -57,45 +58,28 @@ export default defineComponent({
         },
         async getAllRooms(controlloUtente: boolean) {
 
-            console.log('0 sono dentro getAllRooms')
-            console.log(' 1 prima del change controlloUtente vale ')
-            console.log(this.controlloUtente)
 
             //sono gestore e mi interessa vedere tutte le stanze
             this.controlloUtente = controlloUtente
-            // console.log('2 dopo del change controlloUtente vale ')
-            // console.log(this.controlloUtente)
 
 
-            console.log(' 2 prima dello switch step vale ')
-            console.log(this.step)
 
-            console.log(' 3 prima dello switch controlloUtente vale ')
-            console.log(this.controlloUtente)
 
             switch (this.controlloUtente) {
                 case false:
                     this.step = 1
-                    console.log('3.1 sono gestore')
                     break;
                 case true:
-                    // conso
                     if (this.dataFine == '' || this.dataOdierna == '' || this.tagliaStanza == '') {
-                        console.log('3.2 errore, dati vuoti, sono cliente')
                         return
                     }
                     else {
                         this.step = 1
-                        console.log('3.3 errore step vale' + this.step + 'sono cliente')
 
                     }
 
                     break;
             }
-            console.log('4 dopo lo switch step vale ')
-            console.log(this.step)
-            console.log('5 dopo dello switch controlloUtente vale ')
-            console.log(this.controlloUtente)
 
             await $fetch("/api/reservation/searchRoom", {
                 method: "POST",
@@ -108,8 +92,6 @@ export default defineComponent({
             })
                 .then((data) => {
                     this.stanza = data as Stanza[];
-                    console.log('stanza vale ')
-                    console.log(this.stanza);
                 })
                 .catch((e) => alert(e));
         },
@@ -129,8 +111,6 @@ export default defineComponent({
                 .catch((e) => (alert(e)));
         },
         zoomContainer(idStanza: number, controlloContainer: boolean) {
-            // this.idStanza = idStanza
-            console.log(" 1 id VALE " + idStanza);
             // query per prendere il nome del file
             const imgZoomContainer = document.querySelector("div.imgZoomContainer");
             const imgTag = document.querySelector("div.imgZoomContainer img");
@@ -142,20 +122,9 @@ export default defineComponent({
                     }
                 }).then((data) => {
                     this.buffer = data as Stanza[];
-                    console.log("2 lunghezza buffer");
-                    console.log(this.buffer.length);
-                    console.log(" e buffer  ");
-                    console.log(this.buffer[0]);
-                    this.container = this.buffer[0];
-                    this.nomeImgStanza = this.container.imgStanza;
-                    console.log("3 user vale ");
-                    console.log(this.user);
-                    console.log("container vale ");
-                    console.log(this.container);
+
                 });
-                //rendo visibile il container della foto ingrandita
                 imgZoomContainer?.setAttribute("style", "display: block");
-                //imposto la giusta src al tag img
                 imgTag?.setAttribute("src", "img/" + this.container?.imgStanza);
             }
             else {
@@ -164,7 +133,6 @@ export default defineComponent({
         },
         //prendo la stanza quando l'utente clicca su seleziona
         getUserRoom(idStanza: number) {
-            console.log(" prima idstanza vale" + idStanza);
             this.step = 2;
             $fetch("/api/reservation/getUserRoom", {
                 method: "POST",
@@ -174,14 +142,10 @@ export default defineComponent({
             })
                 .then((data) => {
                     this.stanzaScelta = data as Stanza[];
-                    console.log("dentro la fetch" + this.stanzaScelta);
                 });
             this.controlloPrenotazione = true;
-            console.log("dopo idStanza vale" + idStanza);
         },
-        durataSoggiorno() {
-            const durataSoggiorno = this.dataInizio.charCodeAt(0) - this.dataInizio.charCodeAt(2);
-        },
+
         insertRoom() {
             $fetch("/api/reservation/insertRoom", {
                 method: "POST",
@@ -211,14 +175,8 @@ export default defineComponent({
     },
 
     mounted() {
-        // this.imgZoomContainer = document.querySelector("div.imgZoomContainer")
-        // this.console();
         this.selettoreInputDataInizio = document.querySelector("#dataInizio");
         this.selettoreInputDataFine = document.querySelector("#dataFine");
-        // document.querySelector("#dataFine")
-        console.log('selettore input vale')
-        console.log(this.selettoreInputDataInizio)
-        console.log(this.selettoreInputDataFine)
         if (this.user?.ruolo == 'cliente') {
 
             this.date();
@@ -227,13 +185,9 @@ export default defineComponent({
         else if (this.user?.ruolo == 'gestore') {
 
             this.getAllRooms(false)
-            console.log(this.user)
-            // this.step = 1
 
         }
     },
-    // beforeRouteUpdate
-    components: { AddRoom }
 })
 </script>
 <template>
@@ -383,10 +337,7 @@ export default defineComponent({
 
 img {
     max-width: 100%;
-    // height: auto;
     border: 1px solid black;
-    // border-radius: 10px;
-    // aspect-ratio: auto;
 }
 
 .imgZoomContainer {
@@ -443,11 +394,6 @@ img {
             justify-content: space-between;
             list-style: none;
             margin: 5% 0%;
-
-            input,
-            select {
-                // width: 40%;
-            }
         }
 
         button {
@@ -455,11 +401,9 @@ img {
             width: 40%;
         }
 
-        // padding: 5% 10% 0%;
     }
 }
 
-//ELENCO STANZE
 .grid-item-table {
     display: grid;
 
@@ -474,7 +418,6 @@ img {
         }
 
         tbody {
-            // display: grid;
 
             tr {
                 display: grid;
@@ -501,7 +444,6 @@ img {
         }
 
         td:nth-child(1):hover {
-            // cursor: zoom-in;
 
             label {
                 display: block;
@@ -526,7 +468,6 @@ img {
             tr {
                 display: flex;
                 flex-direction: column;
-                // align-items: flex-start;
                 grid-template-rows: repeat(3, auto);
                 justify-content: space-evenly;
 
@@ -535,7 +476,6 @@ img {
 
         tbody {
             display: grid;
-            // grid-template-columns: ;
 
             tr {
                 display: flex;
@@ -547,15 +487,11 @@ img {
             align-items: center;
 
 
-            // align-items: flex-end;
             td {
-                // width: 33.3%;
-                // align-items: flex-end;
 
                 text-align: right;
 
 
-                // background-color: black;
                 label {
                     display: none;
                 }
@@ -571,7 +507,6 @@ img {
         }
 
         .grid-item-tr td:nth-child(1):hover {
-            // background-color: black;
             border: 2px solid red;
             cursor: zoom-in;
 
