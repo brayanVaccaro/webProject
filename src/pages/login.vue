@@ -1,7 +1,7 @@
 <script lang="ts">
-/ Applica a questa pagina il middleware creato in ~/middleware/require-logout
-/ Vedi:
-/ - https://nuxt.com/docs/api/utils/define-page-meta
+// / Applica a questa pagina il middleware creato in ~/middleware/require-logout
+// / Vedi:
+// / - https://nuxt.com/docs/api/utils/define-page-meta
 definePageMeta({
   middleware: ["require-logout"]
 })
