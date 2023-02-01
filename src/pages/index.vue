@@ -83,7 +83,6 @@ export default defineComponent({
 
 
 #index {
-    margin: 2% 0;
 
     h1 {
         font-size: 1.5em;
@@ -92,11 +91,7 @@ export default defineComponent({
 
     #row-1 {
         display: flex;
-
-        img {
-            // aspect-ratio: 1/1;
-        }
-
+        
         .grid-container-head {
             display: flex;
             flex-direction: column;

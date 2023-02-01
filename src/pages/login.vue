@@ -1,7 +1,7 @@
 <script lang="ts">
-// Applica a questa pagina il middleware creato in ~/middleware/require-logout
-// Vedi:
-// - https://nuxt.com/docs/api/utils/define-page-meta
+/ Applica a questa pagina il middleware creato in ~/middleware/require-logout
+/ Vedi:
+/ - https://nuxt.com/docs/api/utils/define-page-meta
 definePageMeta({
   middleware: ["require-logout"]
 })
@@ -42,6 +42,7 @@ export default defineComponent({
         }
 
       })
+        .then((response) => { alert(response.message) })
         .then(() => { window.location.href = "/"; })
         .catch((e) => alert(e))
     }
@@ -125,7 +126,7 @@ export default defineComponent({
   }
 
   50% {
-    // background-color: purple;
+    background-color: purple;
   }
 
   100% {
@@ -148,10 +149,8 @@ section {
 .enter {
   width: 550px;
   height: 850px;
-  // height: 30%;
   background: white;
   overflow: hidden;
-  // background: 
   border-radius: 10px;
   box-shadow: 5px 20px 50px #000;
 
@@ -168,7 +167,6 @@ ul {
 }
 
 li {
-  // padding-left: 25%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -188,12 +186,9 @@ label {
 
 #signup,
 #login {
-  // overflow: auto;
 }
 
 #signUp>label:nth-child(1) {
-  // color: yellow;
-  // transform: scale(.7);
   padding-top: 3%;
   justify-content: center;
   font-size: 2em;
@@ -201,8 +196,6 @@ label {
 }
 
 #login>label:nth-child(1) {
-  // color: black;
-  // transform: scale(.7);
   padding-top: 3%;
   justify-content: center;
   font-size: 1em;
@@ -214,7 +207,6 @@ input {
   height: 0px;
   background: #e0dede;
   padding: 10px;
-  // border: none;
   outline: none;
   border-radius: 5px;
 }
@@ -228,7 +220,6 @@ button {
   color: #fff;
   background: #573b8a;
   font-size: 1em;
-  // font-weight: bold;
   margin-top: 10px;
   outline: none;
   border: none;
@@ -256,7 +247,6 @@ p {
   border-radius: 60% / 7%;
   transform: translateY(28%);
   transition: .6s ease-in-out;
-  // overflow: hidden;
 }
 
 //regolo l'altezza del login quando da registrati voglio andare su login
@@ -288,8 +278,6 @@ p {
     margin: 0;
   }
 
-  // padding: 0 5%;
 }
 
-// #centerPage > section > div > div.signup > form > label:nth-child(4)
 </style>
