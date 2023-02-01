@@ -1,6 +1,5 @@
 <script lang="ts">
-
-import { Utente, Review, Reservation, Stanza } from '../types'
+import { Utente, Review, Reservation} from '../types'
 definePageMeta({
   middleware: ["require-login"],
 
@@ -8,13 +7,13 @@ definePageMeta({
 export default defineComponent({
   setup() {
     return {
-      
-      user: inject("user") as Utente,
+      user: inject("user") as Utente | null,
     }
     
   },
   data() {
     return {
+      utente: [] as Utente[],
       review: [] as Review[],
       reservation: [] as Reservation[],
       idStanza: [] as number[],
@@ -23,15 +22,15 @@ export default defineComponent({
   },
   methods: {
     getUserReviews() {
-      console.log('email user = ' + this.user.email)
-      if (this.user.ruolo == 'gestore') {
+      console.log('email user = ' + this.user?.email)
+      if (this.user?.ruolo == 'gestore') {
         return
       }
 
       $fetch("/api/account/getUserReviews", {
         method: "POST",
         body: {
-          email: this.user.email
+          email: this.user?.email
         }
       }).then((data) => {
         this.review = data as Review[]
@@ -41,13 +40,13 @@ export default defineComponent({
     },
     async getUserReservations1() {
       // console.log('1 email user = ' + this.user.email)
-      if (this.user.ruolo == 'cliente') {
+      if (this.user?.ruolo == 'cliente') {
         this.controllo = 1
       }
       await $fetch("/api/account/getUserReservations", {
         method: "POST",
         body: {
-          email: this.user.email,
+          email: this.user?.email,
           controllo: this.controllo
         }
       }).then((data) => {
@@ -85,9 +84,8 @@ export default defineComponent({
 
 
     formatDate(time: string) {
-
       const data = new Date(time)
-      const year = data.toLocaleString("default", { year: "2-digit" });
+      const year = data.toLocaleString("default", { year: "numeric" });
       const month = data.toLocaleString("default", { month: "2-digit" });
       const day = data.toLocaleString("default", { day: "2-digit" });
 
@@ -120,22 +118,22 @@ export default defineComponent({
 <template >
   <div class="info">
     <h3>Info Utente</h3>
-    <img alt="profile" class="profile-img" :src="'img/' + user.imgProfilo">
+    <img alt="profile" class="profile-img" :src="'img/' + user?.imgProfilo">
     <div class="row">
-      <p class="profile-data">Nome: {{ user.nome }}</p>
-      <p class="profile-data">Cognome: {{ user.cognome }}</p>
+      <p class="profile-data">Nome: {{ user?.nome }}</p>
+      <p class="profile-data">Cognome: {{ user?.cognome }}</p>
       <p class="profile-data">Data di Nascita: {{
         " " +
-          formatDate(user.dataNascita)
+          formatDate(user?.dataNascita)
       }}</p>
-      <p class="profile-data">Indirizzo email: {{ user.email }}</p>
-      <p class="profile-data">Ruolo: {{ user.ruolo }}</p>
+      <p class="profile-data">Indirizzo email: {{ user?.email }}</p>
+      <p class="profile-data">Ruolo: {{ user?.ruolo }}</p>
     </div>
   </div>
 
 
   <!-- se sono cliente vedo le mie recensioni -->
-  <div v-if="user.ruolo == 'cliente'" class="review-history">
+  <div v-if="user?.ruolo == 'cliente'" class="review-history">
     <h3>Storico recensione inserite da lei (Grazie per il suo feedback)</h3>
     <table>
       <thead>
@@ -157,7 +155,7 @@ export default defineComponent({
     </table>
   </div>
   <!-- se sono gestore vedo tutte le prenotazioni -->
-  <div v-if="user.ruolo == 'gestore'" class="reservation-history-gestore">
+  <div v-if="user?.ruolo == 'gestore'" class="reservation-history-gestore">
     <h3>Ecco a te gestore la lista di tutte le prenotazioni</h3>
     <table>
       <thead>

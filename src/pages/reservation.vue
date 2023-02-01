@@ -1,6 +1,5 @@
 <script lang="ts">
 import { Stanza, Utente } from '../types'
-import AddRoom from './addRoom.vue'
 definePageMeta({
     middleware: ["require-login"]
 })
@@ -269,7 +268,7 @@ export default defineComponent({
                         <th>Immagine</th>
                         <th>Descrizione</th>
                         <th>Prezzo</th>
-                        <th v-if="user?.ruolo == 'cliente'">Aggiungi</th>
+                        <th v-if="user?.ruolo == 'cliente'">Prenota</th>
                         <th v-else>Elimina stanza</th>
 
                     </tr>
@@ -305,8 +304,7 @@ export default defineComponent({
                     <thead class="grid-item-thead">
                         <tr>
                             <th>Stanza</th>
-                            <th>Prezzo Totale</th>
-                            <th>Conferma</th>
+                            <th>Prezzo a notte</th>
                         </tr>
                     </thead>
                     <tbody class="grid-item-tbody">
@@ -316,7 +314,7 @@ export default defineComponent({
                             <td>{{ x.prezzoAnotte }}</td>
                             <td>
                                 <button v-if="user?.ruolo == 'cliente' && controlloPrenotazione"
-                                    @click="insertReservation(x.idStanza)">Prenota</button>
+                                    @click="insertReservation(x.idStanza)">Conferma prenotazione</button>
                             </td>
 
                         </tr>

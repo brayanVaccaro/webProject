@@ -378,8 +378,7 @@ a {
             thead {
                 flex-direction: row;
                 justify-content: space-between;
-
-
+                word-break: break-all;
             }
 
             tbody {
@@ -426,8 +425,10 @@ a {
         table {
             // grid-template-rows: repeat(2,auto);
 
+            thead{
+                word-break: break-all;
+            }
             tbody {
-
 
                 tr {
 
@@ -473,7 +474,9 @@ a {
 
 
             // width: 30%;
-            thead {}
+            thead {
+                word-break: break-all;
+            }
 
             tbody {
 
