@@ -89,10 +89,11 @@ nav {
   display: grid;
   border: 1px solid darkblue;
   margin-bottom: 2%;
+  padding: 1%;
+
   ul {
     display: flex;
     justify-content: space-evenly;
-    padding: 0;
     margin: 0;
 
     li {
@@ -102,6 +103,8 @@ nav {
       padding: 1%;
       background-color: whitesmoke;
       box-shadow: 50px;
+      background-color: #eee;;
+
     }
   }
 }

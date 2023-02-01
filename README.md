@@ -10,7 +10,7 @@
 <h3 align="center">Astra</h3>
 
   <p align="center">
-    Il sito dell'hotel Astra che si trova a Gallipoli, dove si possono prenotare stanze, scrivere recensioni e controllare il proprio profilo e vedere tutte le recensioni scritte e tutte le prenotazioni eseguite
+    Sul sito dell'hotel Astra, che si trova a Gallipoli, si possono prenotare stanze, scrivere recensioni e visualizzare quelle degli altri utenti, controllare il proprio profilo (visualizzare tutte le recensioni scritte e tutte le prenotazioni effettuate)
     <br />
     <a href="https://github.com/brayanVaccaro/webProject"><strong>Documento: »</strong></a>
     <br />
@@ -54,7 +54,7 @@
   </a>
   <p align="center">
 </div>
-L'obbiettivo del progetto è quello di implementare una applicazione web in grado di scambiare dati con un DataBase in un server dando la possibilità di insere e visualizzando prenotazioni di stanze, e inserendo e visualizzando recensioni scritti dai clienti
+L'obbiettivo del progetto è quello di implementare una applicazione web in grado di scambiare dati con un DataBase dando la possibilità di inserire e visualizzare prenotazioni di stanze e inserire e visualizzare recensioni scritte dai clienti
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -62,7 +62,7 @@ L'obbiettivo del progetto è quello di implementare una applicazione web in grad
 
 
 <!-- PER INIZIARE -->
-### installazione
+### Installazione
 
 1. Clone the repo
    ```
@@ -81,53 +81,53 @@ L'obbiettivo del progetto è quello di implementare una applicazione web in grad
 
 <!-- ESEMPI DI UTILIZZO -->
 ### Utenti Cliente
-Per utilizzare il servizio eseguire il login, se invece non si ha un'utente eseguire la registrazione.
-Senza eseguire la registrazione è possibile visualizzare la pagina Home e la pagina Recensioni, ma non è possibile inserirne una e la pagina di Login
-Dopo aver Eseguito il login è possibile notare dei piccoli cambiamenti nella pagina di Home, ed è possibile andare nella pagina Prenotazione per eseguire una prenotazione.
+Per utilizzare il servizio è necessario eseguire il login con le proprie credenziali o, se non le si hanno, eseguire la registrazione.
+Senza effettuare l'autenticazione è possibile visualizzare esclusivamente, e senza possibilità di modifica (inserire una recensione), la pagina Home, la pagina Recensioni e la pagina di Login.
+Ad autenticazione effettuata il nav cambia il proprio contenuto
 <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site.png" alt="Menu" height="500">
+    <img src="src/public/img/site.png" alt="Menu">
   </a>
 </div>
-Selezionando la data dell'inizio del soggiorno, la data di fine del soggiorno e la tipologia stanza vengono visualizzate le stanze disponibili
+Inserendo i dati nella pagina Prenotazioni vengono visualizzate le stanze disponibili
 <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-1.png" alt="Menu" height="500">
+    <img src="src/public/img/site-1.png" alt="Menu">
   </a>
 </div>
 Premendo su prenota viene visualizzato il riepilogo della stanza scelta e premendo Conferma Prenotazione viene eseguita la prenotazione  
 
-Andando nella pagina Recensioni è anche possibile eseguire una recensione ora che si è loggati (scegliendo la quantità di stelle che si vuole dare alla pulizia, ristorazione e accoglienza).
+Andando nella pagina Recensioni è possibile eseguire una recensione ora che si è loggati (scegliendo la quantità di stelle che si vuole dare alla pulizia, ristorazione e accoglienza).
 <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-2.png" alt="Menu" height="500">
+    <img src="src/public/img/site-2.png" alt="Menu">
   </a>
 </div>
- E infine andando nella pagina Profilo è posssibile visualizzare i dati inseriti durante la registrazione, lo storico delle recensioni e delle prenotazioni eseguite dal cliente.
+ E infine andando nella pagina Profilo è posssibile visualizzare i dati inseriti durante la registrazione, lo storico delle proprie recensioni e prenotazioni effettuate dal cliente.
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-3.png" alt="Menu" height="500">
+    <img src="src/public/img/site-3.png" alt="Menu">
   </a>
 </div>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Utenti Gestore
-Rispetto alla versione cliente la pagina Home non cambia molto, passando invece alla pagine Stanze si ha l'elenco delle stanze disponibili nel dataBase, ed è possibile attraverso il taso X di eliminarle e dall'interfaccia sulla sinistra è possibile aggiungere una nuova stanza.
+Rispetto alla versione cliente la pagina Home non cambia molto, passando invece alla pagina Stanze si ha l'elenco delle stanze disponibili nel DataBase, ed è possibile, premendo il taso X, eliminarle. Sulla sinistra è possibile aggiungere una nuova stanza.
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-4.png" alt="Menu" height="500">
+    <img src="src/public/img/site-4.png" alt="Menu">
   </a>
 </div>
-Nella pagina Recensione invece è possibile oltre a visualizzare le recensioni, rispondere.
+Nella pagina Recensioni invece è possibile oltre a visualizzare le recensioni, rispondere.
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-5.png" alt="Menu" height="500">
+    <img src="src/public/img/site-5.png" alt="Menu">
   </a>
 </div>
-Infine nella pagina Gestisci è possibile è possibile oltre a visualizzare i dati del gestore visualizzare tutte le prenotazioni eseguite dai cliente
+Infine nella pagina Gestisci è possibile oltre a visualizzare i dati del gestore visualizzare tutte le prenotazioni eseguite dai clienti
  <div align="center">
   <a href="https://github.com/brayanVaccaro/webProject">
-    <img src="src/public/img/site-6.png" alt="Menu" height="500">
+    <img src="src/public/img/site-6.png" alt="Menu">
   </a>
 </div>
 

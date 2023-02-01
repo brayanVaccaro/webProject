@@ -120,19 +120,19 @@ export default defineComponent({
 </template>
 
 <style lang="scss" scoped>
-@keyframes backgroundAnimation {
-  0% {
-    background-color: red;
-  }
+// @keyframes backgroundAnimation {
+//   0% {
+//     background-color: red;
+//   }
 
-  50% {
-    background-color: purple;
-  }
+//   50% {
+//     background-color: purple;
+//   }
 
-  100% {
-    background-color: blue;
-  }
-}
+//   100% {
+//     background-color: blue;
+//   }
+// }
 
 .animatedElement {
   animation: backgroundAnimation 10s linear infinite;
@@ -152,7 +152,7 @@ section {
   background: white;
   overflow: hidden;
   border-radius: 10px;
-  box-shadow: 5px 20px 50px #000;
+  box-shadow: 5px 10px 50px rgba(0,0,0,0.8);
 
 }
 
@@ -262,7 +262,6 @@ p {
 }
 
 #chk:checked~.login {
-  background-color: red;
   transition: .6 ease-in-out;
 
 }
