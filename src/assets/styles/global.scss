@@ -154,7 +154,6 @@ a {
 .grid-1 {
     @include sm {
 
-        // grid-template-rows: repeat(1,auto);
         .review-preview {
             grid-template-columns: auto auto;
 
@@ -379,6 +378,7 @@ a {
                 flex-direction: row;
                 justify-content: space-between;
                 word-break: break-all;
+
             }
 
             tbody {
