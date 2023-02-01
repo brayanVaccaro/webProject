@@ -120,7 +120,7 @@ export default defineComponent({
 <template >
   <div class="info">
     <h3>Info Utente</h3>
-    <img class="profile-img" :src="'img/' + user.imgProfilo">
+    <img alt="profile" class="profile-img" :src="'img/' + user.imgProfilo">
     <div class="row">
       <p class="profile-data">Nome: {{ user.nome }}</p>
       <p class="profile-data">Cognome: {{ user.cognome }}</p>
@@ -149,9 +149,9 @@ export default defineComponent({
       <tbody>
         <tr v-for="x in review">
           <td>{{ formatDate(x.dataRecensione) }}</td>
-          <td><img :src="'img/stars/' + x.votoPulizia"></td>
-          <td><img :src="'img/stars/' + x.votoRistorazione"></td>
-          <td><img :src="'img/stars/' + x.votoAccoglienza"></td>
+          <td><img alt="stars" :src="'img/stars/' + x.votoPulizia"></td>
+          <td><img alt="stars" :src="'img/stars/' + x.votoRistorazione"></td>
+          <td><img alt="stars" :src="'img/stars/' + x.votoAccoglienza"></td>
         </tr>
       </tbody>
     </table>
@@ -179,7 +179,7 @@ export default defineComponent({
           <td>{{ formatDate(x.dataInizioPrenotazione) }}</td>
           <td>{{ formatDate(x.dataFinePrenotazione) }}</td>
           <td>{{ x.email }}</td>
-          <td><img :src="'img/' + x.imgStanza"></td>
+          <td><img alt="room" :src="'img/' + x.imgStanza"></td>
         </tr>
       </tbody>
     </table>
@@ -205,7 +205,7 @@ export default defineComponent({
           <td>
             {{ x.tagliaStanza + ' ' + x.tipologiaStanza }}
           </td>
-          <td><img :src="'img/' + x.imgStanza"></td>
+          <td><img alt="room" :src="'img/' + x.imgStanza"></td>
         </tr>
       </tbody>
     </table>
