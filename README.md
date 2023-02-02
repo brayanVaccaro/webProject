@@ -159,16 +159,15 @@ Per mancanza di tempo, alcune caratteristiche opzionali non sono state implement
 
 
 <!-- LICENSE -->
-## License
+## Licenza
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Vedere `LICENSE` per ulteriori informazioni.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- CONTACT -->
-## Contact
+## Contatti
 
 Marawan Emad - marawan.emadragab@studio.unibo.it <br />
 
