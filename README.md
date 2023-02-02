@@ -147,7 +147,7 @@ Caratteristiche obbligatorie:
 
 
 Caratteristiche opzionali:
-- [x] login / logout tipo icona
+- [ ] login / logout tipo icona
 - [ ] Calendario con colori che indicano la disponibilità o meno delle stanze 
 - [ ] Calcolare il periodo di prenotazione totale 
 - [ ] Calcolare il prezzo totale in base ai giorni
