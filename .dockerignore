@@ -1,0 +1,26 @@
+# ignore node_modules directories
+
+node_modules
+
+# ignore log
+
+\*.log
+
+# ignore editor configuration files
+
+.editorconfig
+.eslintrc.js
+.prettierrc
+.vscode
+sql
+\*.yaml
+
+# ignore system version control configuration files
+
+.git
+.gitignore
+
+# ignore operative system configuration files 
+
+.DS_Store
+Thumbs.db
