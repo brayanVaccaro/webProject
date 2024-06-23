@@ -148,7 +148,7 @@ section {
 
 .enter {
   width: 550px;
-  height: 850px;
+  height: 700px;
   background: white;
   overflow: hidden;
   border-radius: 10px;
@@ -242,13 +242,13 @@ p {
   height: 850px;
   background: #eee;
   border-radius: 60% / 7%;
-  transform: translateY(28%);
+  transform: translateY(22%);
   transition: .6s ease-in-out;
 }
 
 //regolo l'altezza del login quando da registrati voglio andare su login
 #chk:checked~.login {
-  transform: translateY(-57%);
+  transform: translateY(-46%);
 }
 
 
