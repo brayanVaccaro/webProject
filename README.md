@@ -69,12 +69,13 @@ L'obbiettivo del progetto è quello di implementare una applicazione web in grad
    ```
    git clone https://github.com/brayanVaccaro/webProject.git
    ```
-2. Fill .envtemplate with your custom variables. Rename it in .env
+2. creare il db tramite sqlCreation.sql
 3. build it:
    ```
    npm i
    npm run dev
    ```
+4. andare su updates.txt per ulteriori info
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
