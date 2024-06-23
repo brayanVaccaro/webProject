@@ -1,0 +1,7 @@
+per accedere come cliente usare:
+username: cliente@due
+password: prova
+
+per accedere come gestore usare:
+username: gestore@uno
+password: prova

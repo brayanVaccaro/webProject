@@ -128,8 +128,9 @@ INSERT INTO `utenti` (`idUtente`, `imgProfilo`, `nome`, `cognome`, `dataNascita`
 (3, 'profile-2.jpg', 'Cliente', 'Uno', '2023-01-05', 'cliente@uno', '$2b$10$I6ik4Bu5CQy/a6uNhq6HaORkRzOTYv7du3hCpE3eUqtzmBkmOZYSG', 'cliente'),
 (5, 'profile-1.jpg', 'Marawan', 'Emad', '2002-04-09', 'marawan@emad', '$2b$10$ap2rHUSFHyCXfLCMHeWL2egF/CAI8mcHKvQNb4bHioOOZEhspbUda', 'gestore'),
 (6, 'profile-3.jpg', 'Brayan', 'Vaccaro', '2000-05-28', 'brayan@vaccaro', '$2b$10$j0b6QDj5tm/owQCSoqzlCuMMooNjwse9/yWboxlFn0.iHjvP6pRp.', 'gestore'),
-(7, 'profile-4.jpg', 'Cliente', 'Due', '2022-06-09', 'cliente@due', '$2b$10$k/rMMZwfce5LrYua21c5G.KhIu8O.UMao7CVeAOqOggxNs1VjBPUu', 'cliente'),
-(8, 'profile-5.jpg', 'Cliente ', 'Tre', '2016-06-15', 'cliente@tre', '$2b$10$r8nahCePJ8wNX2IriO.Kx.EdXBx/c5oRHag.lT7Ru3OyeRoLWpsa6', 'cliente');
+(7, 'profile-4.jpg', 'Cliente', 'Due', '2022-06-09', 'cliente@due', '$2b$10$vCCE6Py6BqnliKuWA.BM3.5NCJ7iFZrur52aooOkPYSPOGGsHvsI.', 'cliente'),
+(8, 'profile-5.jpg', 'Cliente ', 'Tre', '2016-06-15', 'cliente@tre', '$2b$10$r8nahCePJ8wNX2IriO.Kx.EdXBx/c5oRHag.lT7Ru3OyeRoLWpsa6', 'cliente'),
+(9, 'profile-3.jpg', 'Gestore', 'Uno', '2000-05-28', 'gestore@uno', '$2b$10$vCCE6Py6BqnliKuWA.BM3.5NCJ7iFZrur52aooOkPYSPOGGsHvsI.', 'gestore');
 
 --
 -- Indici per le tabelle scaricate
