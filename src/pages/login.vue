@@ -20,15 +20,19 @@ export default defineComponent({
   },
   methods: {
     onLoginSubmit() {
-      $fetch("/api/auth/login", {
+      let formData = new FormData();
+      formData.append("email", this.loginEmail);
+      formData.append("password", this.loginPassword);
+      
+      $fetch("/api/auth/php/login.php", {
         method: "POST",
-        body: {
-          email: this.loginEmail,
-          password: this.loginPassword,
-        }
+        body: formData
       })
-        .then(() => window.location.href = "/")
-        .catch((e) => alert(e))
+        .then((response) => {
+          alert(response.message)
+          window.location.href = "/"
+        })
+        .catch((e) => alert(e.message))
     },
     onRegisterSubmit() {
       $fetch("/api/auth/register", {

@@ -4,10 +4,11 @@
 // Vedi:
 // - https://nuxt.com/docs/guide/directory-structure/middleware
 
-export default defineNuxtRouteMiddleware(async function() {
-    const utente = await $fetch("/api/auth/profilo")
-    if (utente) {
-      return navigateTo("/")
-    }
-  })
-  
+export default defineNuxtRouteMiddleware(async function () {
+  const utente = await $fetch("/api/auth/php/profilo.php");
+  if (utente.user) {
+    alert(utente.message);
+    return navigateTo("/");
+  }
+});
+

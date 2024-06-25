@@ -20,12 +20,16 @@ export default defineComponent({
   },
   methods: {
     async getUtente() {
-      const user = await $fetch("/api/auth/profilo")
-      this.utente = user
+      const utente = await $fetch("/api/auth/php/profilo.php")
+      this.utente = utente.user
     },
     async logout() {
-      await $fetch("/api/auth/logout").then((response) => alert(response.message)).then(() => window.location.href = "/")
-      this.getUtente()
+      await $fetch<any>("/api/auth/php/logout.php").then((response) => {
+        console.log(response);
+        alert(response.message)
+      }).then(() => 
+        window.location.href = "/"
+      )
     }
   },
   mounted() {

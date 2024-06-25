@@ -11,8 +11,8 @@ export default defineComponent({
     },
     methods: {
         async getUtente() {
-            const utente = await $fetch("/api/auth/profilo")
-            this.utente = utente
+            const utente = await $fetch("/api/auth/php/profilo.php")
+            this.utente = utente.user
         },
         async logout() {
             await $fetch("/api/auth/logout")
