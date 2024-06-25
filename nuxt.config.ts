@@ -3,6 +3,12 @@ export default defineNuxtConfig({
     srcDir: "src",
     nitro: {
         compressPublicAssets: true,
+        devProxy: {
+          "/api": {
+            target: "http://localhost/webProject/src/server/api",
+            changeOrigin: true,
+          },
+        },
       },
       runtimeConfig: {
         databaseName: process.env.DB_HOSTNAME,
